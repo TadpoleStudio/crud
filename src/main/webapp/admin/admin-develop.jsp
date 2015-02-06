@@ -18,7 +18,7 @@
 	<s:include value="/jsps/common/brand.jsp" />
 	<s:include value="/jsps/common/menu.jsp" />
 	<section class="mainbg">
-		<div class="container" id="statisticsModelContainer">
+		<div class="container" id="developModelContainer">
 			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
@@ -29,7 +29,47 @@
 						<h2 class="right"></h2>
 					</div>
 					<div class="content">
-						<canvas id="canvas"></canvas>
+						<form>
+							<fieldset>
+								<legend>数据结构定义</legend>
+								
+								<div class="row">
+									<div class="four columns">
+										<label>Table Name</label>
+										<input type="text" class="addon-postfix" data-bind="value : tableName" />
+									</div>
+									<div class="four columns">
+										<label>JPA Entity class Name</label>
+										<input type="text" class="addon-postfix" data-bind="value : tableName" />
+									</div>
+								</div>
+								<div class="row">
+									<table class="infoTable">
+										<thead>
+											<tr>
+												<th>id</th>
+												<th>Attribute Name</th>
+												<th>Attribute Type</th>
+												<th>Operations</th>
+											</tr>
+										</thead>
+										<tbody data-bind="foreach : attributeDefinitions">
+											<tr>
+												<td style="text-align: center" data-bind="text : id"></td>
+												<td style="text-align: center" data-bind="text : name"></td>
+												<td style="text-align: center" data-bind="text : username"></td>
+												<td style="text-align: center">
+													<a title="分配角色" data-bind="click : $root.openAssignRolesDialog" style="margin-left : 10px;" href="#"><i class="icon-user small icon-blue"></i></a>
+													<a title="重置密码" data-bind="click : $root.openResetPasswordDialog" style="margin-left : 10px;" href="#"><i class="icon-pencil small icon-orange"></i></a>
+													<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left : 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<br>
+								</div>
+							</fieldset>
+						</form>
 					</div>
 				</div>
 
@@ -38,17 +78,16 @@
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
 	<script>
-
 		$(document).ready(function() {
 
-			var StatisticsModel = function() {
+			var DevelopModel = function() {
 			};
 
-			var statisticsModel = new StatisticsModel();
+			var developModel = new DevelopModel();
 
-			var $statisticsModelContainer = $('#statisticsModelContainer')[0];
-			ko.applyBindings(statisticsModel, $statisticsModelContainer);
-			
+			var $developModelContainer = $('#developModelContainer')[0];
+			ko.applyBindings(developModel, $developModelContainer);
+
 		});
 
 		function activeCurrentMenuItem() {
