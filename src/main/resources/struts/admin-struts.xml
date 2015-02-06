@@ -26,6 +26,9 @@
 		<action name="loadStatistics">
 			<result>admin-statistics.jsp</result>
 		</action>
+		<action name="develop">
+			<result>admin-develop.jsp</result>
+		</action>
 		<action name="ajaxFindUser" class="userAction" method="ajaxFindUser">
 			<result name="success" type="json">
 				<param name="root">users</param>

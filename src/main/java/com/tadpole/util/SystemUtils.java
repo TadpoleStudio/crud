@@ -1,15 +1,14 @@
 package com.tadpole.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -17,10 +16,35 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.google.common.base.Splitter;
 import com.tadpole.constants.SystemConstants;
+import com.tadpole.constants.SystemPropertiesReader;
 import com.tadpole.entity.User;
 import com.tadpole.vo.ResponseVo;
 
+import freemarker.cache.FileTemplateLoader;
+import freemarker.template.Configuration;
+
 public class SystemUtils {
+	private static Configuration anchanConfiguration;
+	
+	public static Configuration getFTLTemplateConfiguration() {
+		
+		if (anchanConfiguration == null) {
+			anchanConfiguration = new Configuration();
+			anchanConfiguration.setDefaultEncoding("UTF-8");
+			
+			try {
+				String path = SystemPropertiesReader.getString("ftl_folder");
+				
+				File file = new File(path);
+				if (file.exists()) {
+					anchanConfiguration.setTemplateLoader(new FileTemplateLoader(file));
+				} 
+				
+			} catch (IOException e) {
+			}
+		}
+		return anchanConfiguration;
+	}
 
 	private static ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder(256);
 

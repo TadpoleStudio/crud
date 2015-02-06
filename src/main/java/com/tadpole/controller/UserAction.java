@@ -141,7 +141,7 @@ public class UserAction extends AbstractAction {
 	public String loadAllUsers() {
 
 		users = userRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
-		
+
 		return SUCCESS;
 	}
 
@@ -325,15 +325,6 @@ public class UserAction extends AbstractAction {
 		}
 
 		User targetUser = userRepository.findOne(Integer.valueOf(userId));
-
-		List<City> userCities = cityRepository.findByUsers(ImmutableList.of(targetUser));
-		for (City city : userCities) {
-			if (null == userOwnedCityIds) {
-				userOwnedCityIds = Lists.newArrayList();
-			}
-
-			userOwnedCityIds.add("city" + city.getId());
-		}
 
 		return SUCCESS;
 	}

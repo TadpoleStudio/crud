@@ -87,7 +87,6 @@ public class CommonAction extends AbstractAction {
 			}
 
 		} else {
-			provinces = commonService.findUserAssignedCities();
 		}
 
 		return SUCCESS;
