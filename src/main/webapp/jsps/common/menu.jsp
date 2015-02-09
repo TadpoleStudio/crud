@@ -16,7 +16,7 @@
 			self.menuList = ko.observableArray([]);
 			self.loadMenus = function() {
 				$.ajax({
-					url : '/crud/findAllMenus.ls',
+					url : '/crud/findAllMenus.action',
 					success : function(data) {
 						self.menuList(data);
 						

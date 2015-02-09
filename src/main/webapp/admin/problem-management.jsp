@@ -118,7 +118,7 @@
 						
 						self.findAllProblems = function() {
 							$.ajax({
-								url : 'getAllProblems.ls',
+								url : 'getAllProblems.action',
 								success : function(data) {
 									self.problems(data);
 								}
@@ -126,7 +126,7 @@
 						};
 						
 						$.ajax({
-							url : '/ls/findDropDownDataSouce.ls',
+							url : '/ls/findDropDownDataSouce.action',
 							data : {identityType : 'problem_category'},
 							success : function(data) {
 								self.problemCategories(data);
@@ -137,7 +137,7 @@
 							
 							if (window.confirm('你确定要删除这个问题选项吗？')) {
 								$.ajax({
-									url : 'deleteProblem.ls',
+									url : 'deleteProblem.action',
 									data : {
 										problem : JSON.stringify(item)
 									},
@@ -158,7 +158,7 @@
 							if ($('#problemForm').valid()) {
 								
 								$.ajax({
-									url : 'saveProblem.ls',
+									url : 'saveProblem.action',
 									method : 'POST',
 									data : {
 										problem : JSON.stringify(self.selectedProblem())

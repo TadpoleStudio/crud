@@ -145,7 +145,7 @@
 						data : {
 							userInputTargetDetailUrl : self.targetDetailUrl()
 						},
-						url : "grabSinglePage.ls",
+						url : "grabSinglePage.action",
 						success: function(data) {
 							handleStanderdResponse(data);
 							if (data && data.object) {

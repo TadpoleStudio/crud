@@ -15,7 +15,7 @@ import com.tadpole.vo.ResponseVo;
 public class AbstractAction extends ActionSupport implements ParameterAware {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Resource(name = "commonService")
 	public CommonService commonService;
 

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 public class PagedElement<T> {
+	
 	private Page<T> page;
 	
 	private List<T> elements;

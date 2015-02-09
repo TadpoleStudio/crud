@@ -4,6 +4,7 @@ public class JpaAttributeDefinition {
 
 	private String name;
 	private String type;
+	private String length;
 	private String firstLetterUpperName;
 
 	public JpaAttributeDefinition(String name, String type) {
@@ -16,6 +17,13 @@ public class JpaAttributeDefinition {
 
 		this.firstLetterUpperName = firstLetter.toUpperCase() + name.substring(1);
 
+	}
+
+	public JpaAttributeDefinition(String name, String type, String length) {
+
+		this(name, type);
+
+		this.length = length;
 	}
 
 	public String getName() {
@@ -46,6 +54,16 @@ public class JpaAttributeDefinition {
 	public void setFirstLetterUpperName(String firstLetterUpperName) {
 
 		this.firstLetterUpperName = firstLetterUpperName;
+	}
+
+	public String getLength() {
+
+		return length;
+	}
+
+	public void setLength(String length) {
+
+		this.length = length;
 	}
 
 }

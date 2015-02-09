@@ -127,7 +127,7 @@
 						
 						self.loadChina = function() {
 							$.ajax({	
-								url : 'loadChina.ls',
+								url : 'loadChina.action',
 								success : function(data) {
 									
 									self.userCities(data);
@@ -142,7 +142,7 @@
 							self.selectedUser(item);
 							
 							$.ajax({	
-								url : 'showAssignedCities.ls',
+								url : 'showAssignedCities.action',
 								data : {
 									userId : item.id
 								},
@@ -185,7 +185,7 @@
 							}
 							
 							$.ajax({
-								url : 'updateUserCity.ls',
+								url : 'updateUserCity.action',
 								method : 'POST',
 								data : {
 										selectedCities : JSON.stringify(self.selectedCities()),
@@ -198,7 +198,7 @@
 						};
 						
 						self.searchUser = function() {
-							$.ajax({	url : 'ajaxFindUser.ls',
+							$.ajax({	url : 'ajaxFindUser.action',
 										data : {
 											userName : self.userName()
 										},
@@ -210,7 +210,7 @@
 						
 						self.loadUserAccouts = function() {
 							$.ajax({                        
-								  url: 'getAllUserAccounts.ls',
+								  url: 'getAllUserAccounts.action',
 								  async: false,      
 								  success: function(data) {   
 									  $("#userNameInput").autocomplete({ source: data, minLength: 2 });
@@ -220,7 +220,7 @@
 						
 						self.loadAllUsers = function() {
 							$.ajax({                        
-								  url: 'loadAllUsers.ls',
+								  url: 'loadAllUsers.action',
 								  success: function(data) {   
 									  	self.users(data);
 

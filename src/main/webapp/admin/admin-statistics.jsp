@@ -52,7 +52,7 @@
 			ko.applyBindings(statisticsModel, $statisticsModelContainer);
 			
 			$.ajax({
-				url : 'findTop10CityCompanyCount.ls',
+				url : 'findTop10CityCompanyCount.action',
 				success : function(data) {
 					if (data) {
 						var ctx = document.getElementById("canvas").getContext("2d");

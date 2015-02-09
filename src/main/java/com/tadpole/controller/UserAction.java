@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import net.sf.json.JSONArray;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +15,6 @@ import com.tadpole.entity.City;
 import com.tadpole.entity.Province;
 import com.tadpole.entity.Role;
 import com.tadpole.entity.User;
-import com.tadpole.exception.ApplicationException;
 import com.tadpole.repository.CityRepository;
 import com.tadpole.repository.ProvinceRepository;
 import com.tadpole.repository.RoleRepository;
@@ -51,12 +48,14 @@ public class UserAction extends AbstractAction {
 
 	@Autowired
 	private CityRepository cityRepository;
+	
 	@Autowired
 	private ProvinceRepository provinceRepository;
 
 	private List<Role> roles;
 
 	private List<City> chinaCities;
+	
 	private List<Province> chinaProvinces;
 
 	private List<String> userOwnedCityIds;
@@ -279,50 +278,6 @@ public class UserAction extends AbstractAction {
 		for (Role role : roles) {
 			role.setUsers(null);
 		}
-		return SUCCESS;
-	}
-
-	public String updateUserCity() {
-
-		try {
-			String selectedCities = getParameter("selectedCities");
-
-			String targetUserId = getParameter("userId");
-			User userToAssign = null;
-			if (StringUtils.isBlank(targetUserId)) {
-				setResponse(SystemUtils.makeGeneralErrorResponse(new ApplicationException("未选择用户")));
-				return SUCCESS;
-			} else {
-				userToAssign = userRepository.findOne(Integer.valueOf(targetUserId));
-			}
-
-			Object[] cityArray = JSONArray.fromObject(selectedCities).toArray();
-
-			userService.updateUserCityAssignments(userToAssign, cityArray);
-
-		} catch (Exception e) {
-
-			setResponse(SystemUtils.makeGeneralErrorResponse(e));
-			return SUCCESS;
-		}
-
-		setResponse(SystemUtils.makeGeneralSuccessResponse());
-
-		return SUCCESS;
-	}
-
-	public String showAssignedCities() {
-
-		String userId = getParameter("userId");
-
-		if (StringUtils.isBlank(userId)) {
-			setResponse(SystemUtils.makeGeneralErrorResponse(new ApplicationException("没有找到用户!")));
-
-			return SUCCESS;
-		}
-
-		User targetUser = userRepository.findOne(Integer.valueOf(userId));
-
 		return SUCCESS;
 	}
 

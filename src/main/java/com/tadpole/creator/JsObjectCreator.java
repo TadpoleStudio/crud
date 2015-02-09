@@ -6,11 +6,9 @@ import java.nio.charset.Charset;
 
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
 import com.tadpole.constants.SystemPropertiesReader;
 import com.tadpole.util.SystemUtils;
-import com.tadpole.vo.JpaAttributeDefinition;
 import com.tadpole.vo.JpaEntityDefinition;
 
 import freemarker.template.Template;
@@ -18,22 +16,7 @@ import freemarker.template.TemplateException;
 
 public class JsObjectCreator {
 
-	public static void main(String[] args) {
-
-		JpaEntityDefinition jpaEntityDefinition = new JpaEntityDefinition();
-		jpaEntityDefinition.setTableName("tad_test_user");
-
-		JpaAttributeDefinition first = new JpaAttributeDefinition("userName", "String");
-		JpaAttributeDefinition second = new JpaAttributeDefinition("age", "Integer");
-
-		jpaEntityDefinition.setAttributeDefinitions(ImmutableList.of(first, second));
-		jpaEntityDefinition.setJavaClassName("TadUser");
-
-		generateEntitySourceFile(jpaEntityDefinition);
-
-	}
-
-	public static String generateJsVoCode(JpaEntityDefinition jpaEntityDefinition) {
+	private static String generateCode(JpaEntityDefinition jpaEntityDefinition) {
 
 		try {
 			Template template = SystemUtils.getFTLTemplateConfiguration().getTemplate("js-object.ftl");
@@ -53,12 +36,12 @@ public class JsObjectCreator {
 		return null;
 	}
 
-	public static void generateEntitySourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("js-vo-folder");
 		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + ".js";
 
-		String sourceCode = generateJsVoCode(jpaEntityDefinition);
+		String sourceCode = generateCode(jpaEntityDefinition);
 
 		try {
 

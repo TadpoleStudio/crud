@@ -155,11 +155,11 @@
 					
 					var url = '';
 					if (type == '58') {
-						url = "load58PreviewList.ls";
+						url = "load58PreviewList.action";
 					} else if (type == '138') {
-						url = "load138PreviewList.ls";
+						url = "load138PreviewList.action";
 					} else if (type =='gj') {
-						url = "loadGanjiPreviewList.ls";
+						url = "loadGanjiPreviewList.action";
 					} else {
 						fail('操作错误');
 						return;
@@ -188,7 +188,7 @@
 						data : {
 							cityIdsHtml : JSON.stringify(self.selectedCities())
 						},
-						url : 'load138PreviewList.ls',
+						url : 'load138PreviewList.action',
 						success: function(data) {
 							self.otePreviewList(data);
 							self.totalLength(self.otePreviewList().length);
@@ -207,7 +207,7 @@
 				self.initCities = function(city) {
 					
 					$.ajax({
-						url : '/ls/user/findAllProvinces.ls',
+						url : '/ls/user/findAllProvinces.action',
 						success: function(data) {
 							self.userCities(data);
 							self.createJstree();
@@ -217,7 +217,7 @@
 				};
 				
 				self.grab = function() {
-						$.ajax({url : '/ls/grab/grabCompanyIndexPage.ls',
+						$.ajax({url : '/ls/grab/grabCompanyIndexPage.action',
 								data : {url : encodeURIComponent(self.url())},
 								success: function(data) {
 									self.companyList.removeAll();
@@ -241,7 +241,7 @@
 								selectedIds : JSON.stringify(selectedIds),
 								datasourceType : self.datasourceType()
 							},
-							url : 'grabSelectedCities.ls',
+							url : 'grabSelectedCities.action',
 							success: function(data) {
 								handleStanderdResponse(data);
 							}

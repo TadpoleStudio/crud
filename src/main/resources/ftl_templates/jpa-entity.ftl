@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javax.persistence.Column;
+
 /**
  * @author Jerry Jiang
  */
@@ -21,7 +23,11 @@ public class ${javaClassName} implements Serializable {
 	protected Integer id;
 	
 <#list attributeDefinitions as attr>
+	<#if attr.length??>
+	@Column(length=${attr.length})
+	</#if>
 	protected ${attr.type} ${attr.name};
+	
 </#list>
 
 	public Integer getId() {

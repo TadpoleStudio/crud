@@ -28,7 +28,7 @@
 			self.newPassword = ko.observable('');
 			self.loadMe = function() {
 				$.ajax({
-					url : '/crud/loadMe.ls',
+					url : '/crud/loadMe.action',
 					success : function(data) {
 						
 						if (data && data.id) {
@@ -53,7 +53,7 @@
 						'Ã·Ωª' : function() {
 							
 							$.ajax({
-								url : '/crud/resetMyPassword.ls',
+								url : '/crud/resetMyPassword.action',
 								method : 'POST',
 								data : {
 									oldPassword : self.oldPassword(),

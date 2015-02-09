@@ -25,13 +25,13 @@
 				</div>
 				<div class="app-wrapper ui-corner-top">
 					<div class="blue module ui-corner-top clearfix">
-						<h2>系统开发</h2>
+						<h2>Function Development</h2>
 						<h2 class="right"></h2>
 					</div>
 					<div class="content">
 						<form>
 							<fieldset>
-								<legend>数据结构定义</legend>
+								<legend>Data structure</legend>
 								
 								<div class="row">
 									<div class="four columns">

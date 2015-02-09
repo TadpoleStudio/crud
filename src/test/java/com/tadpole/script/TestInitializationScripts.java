@@ -82,8 +82,8 @@ public class TestInitializationScripts {
 	@Test
 	public void testInitialMenus() {
 
-		Menu menu2 = new Menu("用户管理", "/crud/admin/loadUser.ls", "userManager");
-		Menu menu3 = new Menu("系统开发", "/crud/admin/develop.ls", "develop");
+		Menu menu2 = new Menu("User Management", "/crud/admin/loadUser.action", "userManager");
+		Menu menu3 = new Menu("System Development", "/crud/dev/develop.action", "develop");
 
 		menuRepository.save(ImmutableList.of(menu2, menu3));
 
