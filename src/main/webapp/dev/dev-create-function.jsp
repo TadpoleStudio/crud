@@ -18,7 +18,7 @@
 	<s:include value="/jsps/common/brand.jsp" />
 	<s:include value="/jsps/common/menu.jsp" />
 	<section class="mainbg">
-		<div class="container" id="developModelContainer">
+		<div class="container" id="tadFunctionDataModelContainer">
 			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
@@ -32,25 +32,41 @@
 						<form>
 							<fieldset>
 								<legend>Data structure</legend>
-								
+								<div data-bind="with : tadFunction">
+									<div class="row">
+										<div class="four columns">
+											<label>Table Name</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+										</div>
+										<div class="four columns">
+											<label>JPA Entity class Name</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+										</div>
+										<div class="four columns">
+											<label>Namespace</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+										</div>
+									</div>
+									<div class="row">
+										<div class="four columns">
+											<label>Title</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+										</div>
+										<div class="four columns">
+											<label>Menu Title</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+										</div>
+										<div class="four columns"></div>
+									</div>
+								</div>
 								<div class="row">
-									<div class="four columns">
-										<label>Table Name</label>
-										<input type="text" class="addon-postfix" data-bind="value : tableName" />
-									</div>
-									<div class="four columns">
-										<label>JPA Entity class Name</label>
-										<input type="text" class="addon-postfix" data-bind="value : tableName" />
-									</div>
+									<h2 class="right">
+										<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="small icon-plus icon-green"></i></a>
+									</h2>
 								</div>
 								<div class="row">
 									<table class="infoTable">
 										<thead>
 											<tr>
-												<th>id</th>
-												<th>Attribute Name</th>
-												<th>Attribute Type</th>
-												<th>Operations</th>
+												<th style="text-align: center">Name</th>
+												<th style="text-align: center">Type</th>
+												<th style="text-align: center">Label</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody data-bind="foreach : attributeDefinitions">
@@ -59,10 +75,7 @@
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : username"></td>
 												<td style="text-align: center">
-													<a title="分配角色" data-bind="click : $root.openAssignRolesDialog" style="margin-left : 10px;" href="#"><i class="icon-user small icon-blue"></i></a>
-													<a title="重置密码" data-bind="click : $root.openResetPasswordDialog" style="margin-left : 10px;" href="#"><i class="icon-pencil small icon-orange"></i></a>
-													<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left : 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
-												</td>
+												<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -77,16 +90,22 @@
 		</div>
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
+	<script src="/crud/js/vo/TadFunction.js"></script>
 	<script>
 		$(document).ready(function() {
 
-			var DevelopModel = function() {
+			var TadFunctionDataModel = function() {
+				
+				var self = this;
+				
+				self.tadFunction = ko.observable(new TadFunction());
+				self.attributeDefinitions = [];
 			};
 
-			var developModel = new DevelopModel();
+			var tadFunctionDataModel = new TadFunctionDataModel();
 
-			var $developModelContainer = $('#developModelContainer')[0];
-			ko.applyBindings(developModel, $developModelContainer);
+			var $tadFunctionDataModelContainer = $('#tadFunctionDataModelContainer')[0];
+			ko.applyBindings(tadFunctionDataModel, $tadFunctionDataModelContainer);
 
 		});
 
