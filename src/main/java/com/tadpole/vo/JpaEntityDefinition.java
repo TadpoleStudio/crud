@@ -6,6 +6,7 @@ public class JpaEntityDefinition {
 
 	private String tableName;
 	private String javaClassName;
+	private String firstLetterLowerCaseJavaClassName;
 
 	private List<JpaAttributeDefinition> attributeDefinitions;
 
@@ -38,4 +39,19 @@ public class JpaEntityDefinition {
 
 		this.javaClassName = javaClassName;
 	}
+
+	public String getFirstLetterLowerCaseJavaClassName() {
+
+		String firstLetter = javaClassName.substring(0, 1);
+
+		this.firstLetterLowerCaseJavaClassName = firstLetter.toLowerCase() + javaClassName.substring(1);
+
+		return firstLetterLowerCaseJavaClassName;
+	}
+
+	public void setFirstLetterLowerCaseJavaClassName(String firstLetterLowerCaseJavaClassName) {
+
+		this.firstLetterLowerCaseJavaClassName = firstLetterLowerCaseJavaClassName;
+	}
+
 }

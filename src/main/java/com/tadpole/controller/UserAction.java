@@ -13,9 +13,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import com.tadpole.constants.SystemConstants;
 import com.tadpole.entity.City;
 import com.tadpole.entity.Province;
 import com.tadpole.entity.Role;
