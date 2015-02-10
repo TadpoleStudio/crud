@@ -13,6 +13,17 @@
 		<action name="develop">
 			<result>dev-create-function.jsp</result>
 		</action>
+		<action name="saveOrUpdateTadFunction" class="TadFunctionAction" method="saveOrUpdateTadFunction">
+			<result name="input">
+				dev-create-function.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
 	</package>
 	
 </struts>

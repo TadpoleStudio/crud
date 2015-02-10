@@ -23,6 +23,7 @@
 				<div style="color: red">
 					<s:fielderror />
 				</div>
+				<div id="tadFunctionDialog" title="管理"></div>
 				<div class="app-wrapper ui-corner-top">
 					<div class="blue module ui-corner-top clearfix">
 						<h2>Function Development</h2>
@@ -38,26 +39,28 @@
 											<label>Table Name</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
 										</div>
 										<div class="four columns">
-											<label>JPA Entity class Name</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+											<label>JPA Entity class Name</label> <input type="text" class="addon-postfix" data-bind="value : entityName" />
 										</div>
 										<div class="four columns">
-											<label>Namespace</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+											<label>Namespace</label> <input type="text" class="addon-postfix" data-bind="value : strutsNamespace" />
 										</div>
 									</div>
 									<div class="row">
 										<div class="four columns">
-											<label>Title</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+											<label>Title</label> <input type="text" class="addon-postfix" data-bind="value : title" />
 										</div>
 										<div class="four columns">
-											<label>Menu Title</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+											<label>Menu Title</label> <input type="text" class="addon-postfix" data-bind="value : menuTitle" />
 										</div>
 										<div class="four columns"></div>
 									</div>
 								</div>
 								<div class="row">
-									<h2 class="right">
-										<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="small icon-plus icon-green"></i></a>
-									</h2>
+									<div class="nine columns">
+									</div>
+									<div class="three columns">
+										<a title="add attribute" data-bind="click : $root.addAttribute" href="#" class="right" style="margin-right:10px"><i class="small icon-plus icon-green"></i></a>
+									</div>
 								</div>
 								<div class="row">
 									<table class="infoTable">
@@ -81,8 +84,13 @@
 									</table>
 									<br>
 								</div>
+								
 							</fieldset>
 						</form>
+						
+						<div>
+							<a title="Save" data-bind="click : saveOrUpdateTadFunction" href="#" class="small blue button">Save</a>
+						</div>
 					</div>
 				</div>
 
@@ -91,6 +99,7 @@
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
 	<script src="/crud/js/vo/TadFunction.js"></script>
+	<script src="/crud/js/vo/TadAttribute.js"></script>
 	<script>
 		$(document).ready(function() {
 
@@ -100,6 +109,26 @@
 				
 				self.tadFunction = ko.observable(new TadFunction());
 				self.attributeDefinitions = [];
+				
+				self.saveOrUpdateTadFunction = function(item, event) {
+					
+					$.ajax({
+						url : 'saveOrUpdateTadFunction.action',
+						method : 'POST',
+						data : {
+							tadFunctionJson : JSON.stringify(self.tadFunction()),
+							attributeDefinitions : JSON.stringify(self.attributeDefinitions)
+						},
+						success : function(data) {
+							handleStanderdResponse(data);
+						}
+					});
+				};
+				
+				self.addAttribute = function(item, event) {
+					
+				};
+				
 			};
 
 			var tadFunctionDataModel = new TadFunctionDataModel();

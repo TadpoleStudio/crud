@@ -8,6 +8,16 @@ public class Test {
 
 	public static void main(String[] args) {
 
+		createAttributes();
+
+	}
+	
+	public static void createPoJo() {
+		
+	}
+	
+	public static void createFunction() {
+		
 		JpaEntityDefinition jpaEntityDefinition = new JpaEntityDefinition();
 
 		JpaAttributeDefinition first = new JpaAttributeDefinition("tableName", "String");
@@ -31,7 +41,24 @@ public class Test {
 		jpaEntityDefinition.setTableName("tad_dev_function");
 
 		AllInOneCreator.createEverything(jpaEntityDefinition);
+	}
+	
+	public static void createAttributes() {
+		
+		JpaEntityDefinition jpaEntityDefinition = new JpaEntityDefinition();
 
+		JpaAttributeDefinition first = new JpaAttributeDefinition("name", "String");
+		JpaAttributeDefinition second = new JpaAttributeDefinition("type", "String");
+		JpaAttributeDefinition third = new JpaAttributeDefinition("label", "String");
+
+		jpaEntityDefinition.setAttributeDefinitions(ImmutableList.of(first, second, third));
+
+		jpaEntityDefinition.setJavaClassName("TadAttribute");
+		jpaEntityDefinition.setTableName("tad_dev_attribute");
+
+		EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
+		JsObjectCreator.generateSourceFile(jpaEntityDefinition);
+		
 	}
 
 }

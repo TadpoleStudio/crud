@@ -6,11 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.tadpole.repository.CityRepository;
 import com.tadpole.repository.DropDownRepository;
 import com.tadpole.repository.MenuRepository;
 import com.tadpole.repository.ProvinceRepository;
-import com.tadpole.repository.UserRepository;
 import com.tadpole.service.CommonService;
 
 @Component("DeveloperAction")
@@ -31,15 +29,11 @@ public class DeveloperAction extends AbstractAction {
 	@Autowired
 	private MenuRepository menuRepository;
 
-	@Autowired
-	private UserRepository userRepository;
 
-	@Autowired
-	private CityRepository cityRepository;
-
-	public String findAllMenus() {
-
+	public String saveOrUpdateFunction() {
 		return SUCCESS;
 	}
+
+	
 
 }
