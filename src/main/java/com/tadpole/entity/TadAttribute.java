@@ -22,11 +22,15 @@ public class TadAttribute implements Serializable {
 	@GeneratedValue
 	protected Integer id;
 	
+	protected String functionId;
+	
 	protected String name;
 	
 	protected String type;
 	
 	protected String label;
+	
+	protected Boolean required;
 	
 
 	public Integer getId() {
@@ -39,6 +43,11 @@ public class TadAttribute implements Serializable {
 		this.id = id;
 	}
 
+	public String getFunctionId() {
+
+		return functionId;
+	}
+	
 	public String getName() {
 
 		return name;
@@ -54,6 +63,16 @@ public class TadAttribute implements Serializable {
 		return label;
 	}
 	
+	public Boolean getRequired() {
+
+		return required;
+	}
+	
+	public void setFunctionId(String functionId) {
+
+		this.functionId = functionId;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
@@ -67,6 +86,11 @@ public class TadAttribute implements Serializable {
 	public void setLabel(String label) {
 
 		this.label = label;
+	}
+	
+	public void setRequired(Boolean required) {
+
+		this.required = required;
 	}
 	
 }

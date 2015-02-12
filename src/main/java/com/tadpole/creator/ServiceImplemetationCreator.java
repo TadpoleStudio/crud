@@ -37,7 +37,7 @@ public class ServiceImplemetationCreator {
 		return null;
 	}
 
-	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("service-package");
 		String filePath = jpaEntityPackagePath + "impl\\" + jpaEntityDefinition.getJavaClassName() + "ServiceImpl.java";
@@ -49,7 +49,9 @@ public class ServiceImplemetationCreator {
 			Files.write(sourceCode, new File(filePath), Charset.defaultCharset());
 
 		} catch (IOException e) {
+			return null;
 		}
 
+		return sourceCode;
 	}
 }

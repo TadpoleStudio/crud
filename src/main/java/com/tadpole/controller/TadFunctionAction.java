@@ -1,5 +1,7 @@
 package com.tadpole.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
@@ -8,7 +10,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.tadpole.entity.TadAttribute;
 import com.tadpole.entity.TadFunction;
+import com.tadpole.service.TadAttributeService;
 import com.tadpole.service.TadFunctionService;
 import com.tadpole.vo.ResponseVo;
 
@@ -21,10 +25,13 @@ public class TadFunctionAction extends AbstractAction {
 	@Resource(name = "TadFunctionService")
 	private TadFunctionService tadFunctionService;
 
+	@Resource(name = "TadAttributeService")
+	private TadAttributeService tadAttributeService;
+
 	public String saveOrUpdateTadFunction() {
 
 		String tadFunctionJson = getParameter("tadFunctionJson");
-		
+
 		System.out.println(tadFunctionJson);
 
 		if (StringUtils.isEmpty(tadFunctionJson)) {
@@ -35,9 +42,108 @@ public class TadFunctionAction extends AbstractAction {
 
 		TadFunction tadFunction = (TadFunction)JSONObject.toBean(JSONObject.fromObject(tadFunctionJson), TadFunction.class);
 
-		tadFunctionService.saveOrUpdateTadFunction(tadFunction);
+		if (StringUtils.isEmpty(tadFunction.getTableName())) {
 
+			setResponse(ResponseVo.newFailMessage("Bad request : Table Name is required."));
+			return SUCCESS;
+		}
+
+		if (StringUtils.isEmpty(tadFunction.getEntityName())) {
+
+			setResponse(ResponseVo.newFailMessage("Bad request : Entity Name is required."));
+			return SUCCESS;
+		}
+
+		if (StringUtils.isEmpty(tadFunction.getStrutsNamespace())) {
+
+			setResponse(ResponseVo.newFailMessage("Bad request : Struts namespace is required."));
+			return SUCCESS;
+		}
+
+		if (StringUtils.isEmpty(tadFunction.getTitle())) {
+
+			setResponse(ResponseVo.newFailMessage("Bad request : Title is required."));
+			return SUCCESS;
+		}
+
+		if (StringUtils.isEmpty(tadFunction.getMenuTitle())) {
+
+			setResponse(ResponseVo.newFailMessage("Bad request : Menu title is required."));
+			return SUCCESS;
+		}
+
+		try {
+			TadFunction saved = tadFunctionService.saveOrUpdateTadFunction(tadFunction);
+
+			ResponseVo success = ResponseVo.newSuccessMessage("The function is saved successfully.");
+			success.setObject(saved);
+
+			setResponse(success);
+
+		} catch (Exception e) {
+
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+			return SUCCESS;
+		}
 		return SUCCESS;
 	}
 
+	public String saveOrUpdateTadAttribute() {
+
+		String tadAttributeJson = getParameter("tadAttributeJson");
+
+		if (StringUtils.isEmpty(tadAttributeJson)) {
+			setResponse(ResponseVo.newFailMessage("Bad request : no data found to save or update."));
+
+			return SUCCESS;
+		}
+
+		TadAttribute tadAttribute = (TadAttribute)JSONObject.toBean(JSONObject.fromObject(tadAttributeJson), TadAttribute.class);
+
+		tadAttributeService.saveOrUpdateTadAttribute(tadAttribute);
+
+		return SUCCESS;
+	}
+	
+	public String generateCode() {
+
+		String functionId = getParameter("functionId");
+
+		if (StringUtils.isEmpty(functionId)) {
+			setResponse(ResponseVo.newFailMessage("Bad request : no data "));
+
+			return SUCCESS;
+		}
+
+		try {
+			TadFunction saved = tadFunctionService.generateCode(functionId);
+			
+			ResponseVo success = ResponseVo.newSuccessMessage("The code is generated successfully.");
+			success.setObject(saved);
+
+			setResponse(success);
+			
+		} catch (Exception e) {
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+			return SUCCESS;
+		}
+
+		
+		return SUCCESS;
+	}
+	
+
+	public String loadAllTableNames() {
+		
+		List<String> tables = tadFunctionService.loadAllTableNames();
+		
+		System.out.println(tables);
+		
+		ResponseVo responseVo = ResponseVo.newSuccessMessage("tables loaded.");
+		responseVo.setObject(tables);
+		
+		setResponse(responseVo);
+		
+		return SUCCESS;
+	}
 }

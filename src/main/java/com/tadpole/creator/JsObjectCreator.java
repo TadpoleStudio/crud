@@ -36,7 +36,7 @@ public class JsObjectCreator {
 		return null;
 	}
 
-	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("js-vo-folder");
 		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + ".js";
@@ -50,5 +50,7 @@ public class JsObjectCreator {
 		} catch (IOException e) {
 		}
 
+		
+		return sourceCode;
 	}
 }

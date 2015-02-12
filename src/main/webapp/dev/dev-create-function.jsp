@@ -20,50 +20,112 @@
 	<section class="mainbg">
 		<div class="container" id="tadFunctionDataModelContainer">
 			<div class="row">
+				<div class="three columns">
+							 <select data-bind="options: $root.tableNames,
+                       							value: tableNameSearch,
+                       							selectedOption : tableNameSearch,
+                       							optionsCaption: 'Please select the table to load'"
+								class="required">
+							</select>
+				</div>
+				<div class="three columns">
+					<a data-bind="click : $root.loadSingleFunction" href="#" class="small blue button">Load</a>
+				</div>
+				<div class="three columns"></div>
+				<div class="three columns">
+
+					<a data-bind="click : $root.reloadPage" href="#" class="small blue button">Create New Function</a>
+				</div>
+			</div>
+			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
 				</div>
-				<div id="tadFunctionDialog" title="管理"></div>
-				<div class="app-wrapper ui-corner-top">
+				<div id="tadFunctionDialog" title="管理" style="display: none" data-bind="with : selectedTadAttribute">
+					<div class="row">
+						<div class="six columns">
+							<label>Name</label> <input type="text" data-bind="value : name" />
+						</div>
+						<div class="six columns">
+							<label>Type</label> <select
+								data-bind="options: $root.tableNames,
+                      					   optionsText: 'optionText',
+                       											   value: type,
+                       											   optionsValue : 'optionValue',
+                       											   selectedOption : type,
+                       											   optionsCaption: 'Please select'"
+								class="required">
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="six columns">
+							<label>Label</label> <input type="text" data-bind="value : label" />
+						</div>
+						
+						<div class="six columns"></div>
+					</div>
+					<div class="row">
+						<div class="six columns">
+							
+						</div>
+					</div>
+					<div class="row"></div>
+				</div>
+				<div class="app-wrapper ui-corner-top" title="管理">
 					<div class="blue module ui-corner-top clearfix">
 						<h2>Function Development</h2>
 						<h2 class="right"></h2>
 					</div>
 					<div class="content">
-						<form>
+						<h5>First step : create basic CRUD information.</h5>
+						<br>
+						<form id="tadFunctionForm">
 							<fieldset>
-								<legend>Data structure</legend>
+								<legend>基础信息</legend>
 								<div data-bind="with : tadFunction">
 									<div class="row">
 										<div class="four columns">
-											<label>Table Name</label> <input type="text" class="addon-postfix" data-bind="value : tableName" />
+											<label class="required">Table Name</label> <input class="required" type="text" data-bind="value : tableName" />
 										</div>
 										<div class="four columns">
-											<label>JPA Entity class Name</label> <input type="text" class="addon-postfix" data-bind="value : entityName" />
+											<label class="required">JPA Entity class Name</label> <input class="required" type="text" data-bind="value : entityName" />
 										</div>
 										<div class="four columns">
-											<label>Namespace</label> <input type="text" class="addon-postfix" data-bind="value : strutsNamespace" />
+											<label class="required">Namespace</label> <input class="required" type="text" data-bind="value : strutsNamespace" />
 										</div>
 									</div>
 									<div class="row">
 										<div class="four columns">
-											<label>Title</label> <input type="text" class="addon-postfix" data-bind="value : title" />
+											<label class="required">Title</label> <input class="required" type="text" data-bind="value : title" />
 										</div>
 										<div class="four columns">
-											<label>Menu Title</label> <input type="text" class="addon-postfix" data-bind="value : menuTitle" />
+											<label class="required">Menu Title</label> <input type="text" class="required" data-bind="value : menuTitle" />
 										</div>
 										<div class="four columns"></div>
 									</div>
 								</div>
+							</fieldset>
+						</form>
+
+						<div>
+							<a title="Save" data-bind="click : saveOrUpdateTadFunction" href="#" class="small blue button">Save basic information</a>
+						</div>
+						<hr>
+
+						<h5>Second step : Assign attributes.</h5>
+						<br>
+						<form>
+							<fieldset>
+								<legend>Attributes</legend>
 								<div class="row">
-									<div class="nine columns">
-									</div>
+									<div class="nine columns"></div>
 									<div class="three columns">
-										<a title="add attribute" data-bind="click : $root.addAttribute" href="#" class="right" style="margin-right:10px"><i class="small icon-plus icon-green"></i></a>
+										<a title="add attribute" data-bind="click : $root.manageAttribute" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
 								</div>
 								<div class="row">
-									<table class="infoTable">
+									<table class="dataTable">
 										<thead>
 											<tr>
 												<th style="text-align: center">Name</th>
@@ -74,41 +136,76 @@
 										</thead>
 										<tbody data-bind="foreach : attributeDefinitions">
 											<tr>
-												<td style="text-align: center" data-bind="text : id"></td>
 												<td style="text-align: center" data-bind="text : name"></td>
-												<td style="text-align: center" data-bind="text : username"></td>
-												<td style="text-align: center">
-												<a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
+												<td style="text-align: center" data-bind="text : type"></td>
+												<td style="text-align: center" data-bind="text : label"></td>
+												<td style="text-align: center"><a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
 											</tr>
 										</tbody>
 									</table>
 									<br>
 								</div>
-								
 							</fieldset>
 						</form>
 						
-						<div>
-							<a title="Save" data-bind="click : saveOrUpdateTadFunction" href="#" class="small blue button">Save</a>
-						</div>
+						<hr>
+
+						<h5>Third step : Generate basic CRUD code</h5>
+						<br>
+						<form>
+							<fieldset>
+								<legend>Code</legend>
+								
+								<div>
+									<a title="Generate Code" data-bind="click : generateCode" href="#" class="small blue button">Generate Code</a>
+								</div>
+							</fieldset>
+						</form>	
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>
-	<s:include value="/jsps/common/footer.jsp" />
+	<s:include value="/jsps/common/footer.jsp"/>
 	<script src="/crud/js/vo/TadFunction.js"></script>
 	<script src="/crud/js/vo/TadAttribute.js"></script>
 	<script>
 		$(document).ready(function() {
-
+			
 			var TadFunctionDataModel = function() {
 				
 				var self = this;
 				
+				self.tableNameSearch = ko.observable('');
+				
 				self.tadFunction = ko.observable(new TadFunction());
-				self.attributeDefinitions = [];
+				self.selectedTadAttribute = ko.observable(new TadAttribute());
+				self.attributeDefinitions = ko.observableArray([]);
+				self.dataTypes = ko.observableArray([]);
+				self.tableNames = ko.observableArray([]);
+				
+				self.reloadPage = function() {
+					window.location.assign('/crud/dev/develop.action');
+				};
+				
+				self.loadSingleFunction = function() {
+					console.debug(self.tableNameSearch());
+				};
+				
+				$.ajax({
+					url : '/crud/findDropDownDataSouce.action',
+					data : {identityType : 'jpa_data_type'},
+					success : function(data) {
+						self.dataTypes(data);
+					}
+				});
+				
+				$.ajax({
+					url : '/crud/dev/loadAllTableNames.action',
+					success : function(data) {
+						self.tableNames(data.object);
+					}
+				});
 				
 				self.saveOrUpdateTadFunction = function(item, event) {
 					
@@ -117,20 +214,82 @@
 						method : 'POST',
 						data : {
 							tadFunctionJson : JSON.stringify(self.tadFunction()),
-							attributeDefinitions : JSON.stringify(self.attributeDefinitions)
+							attributeDefinitions : JSON.stringify(self.attributeDefinitions())
 						},
 						success : function(data) {
 							handleStanderdResponse(data);
+							
+							if(data.object && data.object.id) {
+								self.tadFunction(data.object);
+							}
+						}
+					});	
+				};
+				
+				self.manageAttribute = function(item, event) {
+					
+					$('#tadFunctionDialog').dialog({
+						modal : true,
+						width : 700,
+						height : 350,
+						open : function(e) {
+							changeButtonStyleForPopup(e);
+						},
+						
+						buttons : {
+							'添加属性' : function() {
+								self.saveOrUpdateTadAttribute();
+								closeDialog('tadFunctionDialog');
+							},
+							'关闭窗口' : function() {
+								closeDialog('tadFunctionDialog');
+							}
 						}
 					});
 				};
 				
-				self.addAttribute = function(item, event) {
+				self.saveOrUpdateTadAttribute = function(item, event) {
 					
+					var functionId = self.tadFunction().id;
+					if(functionId) {
+						
+						self.selectedTadAttribute().functionId = functionId;
+						
+						$.ajax({
+							url : 'saveOrUpdateTadAttribute.action',
+							method : 'POST',
+							data : {
+								tadAttributeJson : JSON.stringify(self.selectedTadAttribute()),
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+								self.attributeDefinitions.push(self.selectedTadAttribute());
+							}
+						});	
+					}
 				};
 				
+				self.generateCode = function(item, event) {
+					
+					var functionId = self.tadFunction().id;
+					if(functionId) {
+						
+						self.selectedTadAttribute().functionId = functionId;
+						
+						$.ajax({
+							url : 'generateCode.action',
+							method : 'POST',
+							data : {
+								functionId : functionId,
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+							}
+						});	
+					}
+				};
 			};
-
+			
 			var tadFunctionDataModel = new TadFunctionDataModel();
 
 			var $tadFunctionDataModelContainer = $('#tadFunctionDataModelContainer')[0];

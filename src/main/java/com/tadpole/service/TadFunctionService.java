@@ -1,10 +1,16 @@
 package com.tadpole.service;
 
+import java.util.List;
+
 import com.tadpole.entity.TadFunction;
 
 
 public interface TadFunctionService {
 
-	void saveOrUpdateTadFunction(TadFunction tadFunction);
+	TadFunction saveOrUpdateTadFunction(TadFunction tadFunction);
+
+	TadFunction generateCode(String functionId);
+
+	List<String> loadAllTableNames();
 
 }

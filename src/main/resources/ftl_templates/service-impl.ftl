@@ -13,9 +13,9 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 	@Autowired
 	${javaClassName}Repository ${firstLetterLowerCaseJavaClassName}Repository;
 
-	public void saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName}) {
+	public ${javaClassName} saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName}) {
 
-		${firstLetterLowerCaseJavaClassName}Repository.save(${firstLetterLowerCaseJavaClassName});
+		return ${firstLetterLowerCaseJavaClassName}Repository.saveAndFlush(${firstLetterLowerCaseJavaClassName});
 	}
 
 }

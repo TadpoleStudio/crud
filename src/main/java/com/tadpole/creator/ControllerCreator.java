@@ -36,7 +36,7 @@ public class ControllerCreator {
 		return null;
 	}
 
-	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("controller-package");
 		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Action.java";
@@ -48,7 +48,9 @@ public class ControllerCreator {
 			Files.write(sourceCode, new File(filePath), Charset.defaultCharset());
 
 		} catch (IOException e) {
+			return null;
 		}
 
+		return sourceCode;
 	}
 }

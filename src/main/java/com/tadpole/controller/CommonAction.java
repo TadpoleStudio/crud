@@ -48,7 +48,7 @@ public class CommonAction extends AbstractAction {
 	@Autowired
 	private CityRepository cityRepository;
 
-	private List<Dictionary> companyTypes;
+	private List<Dictionary> dictionaries;
 
 	private List<Province> provinces;
 	private List<City> cities;
@@ -126,7 +126,7 @@ public class CommonAction extends AbstractAction {
 
 		String identityType = getParameter("identityType");
 
-		companyTypes = dropDownRepository.findByIdentity(identityType);
+		dictionaries = dropDownRepository.findByIdentity(identityType);
 
 		return SUCCESS;
 	}
@@ -178,14 +178,16 @@ public class CommonAction extends AbstractAction {
 		this.cities = cities;
 	}
 
-	public List<Dictionary> getCompanyTypes() {
-
-		return companyTypes;
+	
+	public List<Dictionary> getDictionaries() {
+	
+		return dictionaries;
 	}
 
-	public void setCompanyTypes(List<Dictionary> companyTypes) {
-
-		this.companyTypes = companyTypes;
+	
+	public void setDictionaries(List<Dictionary> dictionaries) {
+	
+		this.dictionaries = dictionaries;
 	}
 
 }

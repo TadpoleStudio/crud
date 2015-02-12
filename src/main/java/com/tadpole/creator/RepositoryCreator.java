@@ -36,7 +36,7 @@ public class RepositoryCreator {
 		return null;
 	}
 
-	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("repository-package");
 		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Repository.java";
@@ -48,7 +48,9 @@ public class RepositoryCreator {
 			Files.write(sourceCode, new File(filePath), Charset.defaultCharset());
 
 		} catch (IOException e) {
+			return null;
 		}
 
+		return sourceCode;
 	}
 }

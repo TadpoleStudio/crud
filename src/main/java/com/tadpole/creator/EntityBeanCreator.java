@@ -36,7 +36,7 @@ public class EntityBeanCreator {
 		return null;
 	}
 
-	public static void generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
+	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
 		String jpaEntityPackagePath = SystemPropertiesReader.getString("jpa-entity-package");
 		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + ".java";
@@ -48,7 +48,10 @@ public class EntityBeanCreator {
 			Files.write(sourceCode, new File(filePath), Charset.defaultCharset());
 
 		} catch (IOException e) {
+			
+			return null;
 		}
 
+		return sourceCode;
 	}
 }

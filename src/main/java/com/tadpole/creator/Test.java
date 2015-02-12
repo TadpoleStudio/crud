@@ -48,16 +48,17 @@ public class Test {
 		JpaEntityDefinition jpaEntityDefinition = new JpaEntityDefinition();
 
 		JpaAttributeDefinition first = new JpaAttributeDefinition("name", "String");
+		JpaAttributeDefinition functionId = new JpaAttributeDefinition("functionId", "String");
 		JpaAttributeDefinition second = new JpaAttributeDefinition("type", "String");
 		JpaAttributeDefinition third = new JpaAttributeDefinition("label", "String");
+		JpaAttributeDefinition fourth = new JpaAttributeDefinition("required", "Boolean");
 
-		jpaEntityDefinition.setAttributeDefinitions(ImmutableList.of(first, second, third));
+		jpaEntityDefinition.setAttributeDefinitions(ImmutableList.of(functionId, first, second, third, fourth));
 
 		jpaEntityDefinition.setJavaClassName("TadAttribute");
 		jpaEntityDefinition.setTableName("tad_dev_attribute");
 
-		EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
-		JsObjectCreator.generateSourceFile(jpaEntityDefinition);
+		AllInOneCreator.createEverything(jpaEntityDefinition);
 		
 	}
 

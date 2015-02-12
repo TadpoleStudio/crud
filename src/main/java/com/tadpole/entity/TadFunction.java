@@ -34,21 +34,21 @@ public class TadFunction implements Serializable {
 	
 	protected String menuTitle;
 	
-	@Column(length=1000)
+	@Column(length=5000)
 	protected String jpaEntityCode;
 	
 	protected String jsVoCode;
 	
-	@Column(length=2000)
+	@Column(length=5000)
 	protected String actionCode;
 	
-	@Column(length=500)
+	@Column(length=5000)
 	protected String repositoryCode;
 	
-	@Column(length=500)
+	@Column(length=5000)
 	protected String serviceInterfaceCode;
 	
-	@Column(length=4000)
+	@Column(length=5000)
 	protected String serviceImplementationCode;
 	
 
