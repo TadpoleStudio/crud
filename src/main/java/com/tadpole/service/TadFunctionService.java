@@ -2,6 +2,7 @@ package com.tadpole.service;
 
 import java.util.List;
 
+import com.tadpole.entity.TadAttribute;
 import com.tadpole.entity.TadFunction;
 
 
@@ -12,5 +13,9 @@ public interface TadFunctionService {
 	TadFunction generateCode(String functionId);
 
 	List<String> loadAllTableNames();
+
+	TadFunction loadSingleFunction(String tableNameSearch);
+
+	List<TadAttribute> loadFunctionAttrites(String functionId);
 
 }

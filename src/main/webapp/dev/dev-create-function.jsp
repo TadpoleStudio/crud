@@ -10,6 +10,9 @@
 <head>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width" />
+
+<link rel="stylesheet" href="/crud/js/syntaxHighlighter/css/shCore.css">
+<link rel="stylesheet" href="/crud/js/syntaxHighlighter/css/shThemeEclipse.css">
 <title>系统开发</title>
 <s:include value="/jsps/common/head.jsp" />
 
@@ -34,7 +37,7 @@
 				<div class="three columns"></div>
 				<div class="three columns">
 
-					<a data-bind="click : $root.reloadPage" href="#" class="small blue button">Create New Function</a>
+					<a data-bind="click : $root.reloadPage" href="#" class="small blue button right">Create New Function</a>
 				</div>
 			</div>
 			<div class="row">
@@ -47,8 +50,8 @@
 							<label>Name</label> <input type="text" data-bind="value : name" />
 						</div>
 						<div class="six columns">
-							<label>Type</label> <select
-								data-bind="options: $root.tableNames,
+							<label>Type</label> 
+							<select data-bind="options: $root.dataTypes,
                       					   optionsText: 'optionText',
                        											   value: type,
                        											   optionsValue : 'optionValue',
@@ -152,12 +155,36 @@
 
 						<h5>Third step : Generate basic CRUD code</h5>
 						<br>
-						<form>
+						<form data-bind="with : tadFunction">
 							<fieldset>
 								<legend>Code</legend>
 								
 								<div>
-									<a title="Generate Code" data-bind="click : generateCode" href="#" class="small blue button">Generate Code</a>
+									<a title="Generate Code" data-bind="click : $root.generateCode" href="#" class="small blue button">Generate Code</a>
+								</div>
+								<div class="row">
+									<label>JPA Entity code</label>
+									<pre data-bind="text : jpaEntityCode" class="brush: java;"></pre>
+								</div>
+								<div class="row">
+									<label>JS entity Code</label>
+									<pre data-bind="text : jsVoCode" class="brush: js;"></pre>
+								</div>
+								<div class="row">
+									<label>Repository code</label>
+									<pre data-bind="text : repositoryCode" class="brush: java;"></pre>
+								</div>
+								<div class="row">
+									<label>Service Interface code</label>
+									<pre data-bind="text : serviceInterfaceCode" class="brush: java;"></pre>
+								</div>
+								<div class="row">
+									<label>Service Implementation code</label>
+									<pre data-bind="text : serviceImplementationCode" class="brush: java;"></pre>
+								</div>
+								<div class="row">
+									<label>Action Class code</label>
+									<pre data-bind="text : actionCode" class="brush: xml;"></pre>
 								</div>
 							</fieldset>
 						</form>	
@@ -169,8 +196,16 @@
 	<s:include value="/jsps/common/footer.jsp"/>
 	<script src="/crud/js/vo/TadFunction.js"></script>
 	<script src="/crud/js/vo/TadAttribute.js"></script>
+	<script src="/crud/js/syntaxHighlighter/js/shCore.js"></script>
+	<script src="/crud/js/syntaxHighlighter/js/shBrushCss.js"></script>
+	<script src="/crud/js/syntaxHighlighter/js/shBrushJScript.js"></script>
+	<script src="/crud/js/syntaxHighlighter/js/shBrushJava.js"></script>
+	<script src="/crud/js/syntaxHighlighter/js/shBrushXml.js"></script>
+	
 	<script>
 		$(document).ready(function() {
+			
+			SyntaxHighlighter.all();
 			
 			var TadFunctionDataModel = function() {
 				
@@ -183,14 +218,6 @@
 				self.attributeDefinitions = ko.observableArray([]);
 				self.dataTypes = ko.observableArray([]);
 				self.tableNames = ko.observableArray([]);
-				
-				self.reloadPage = function() {
-					window.location.assign('/crud/dev/develop.action');
-				};
-				
-				self.loadSingleFunction = function() {
-					console.debug(self.tableNameSearch());
-				};
 				
 				$.ajax({
 					url : '/crud/findDropDownDataSouce.action',
@@ -206,6 +233,44 @@
 						self.tableNames(data.object);
 					}
 				});
+				
+				self.reloadPage = function() {
+					window.location.assign('/crud/dev/develop.action');
+				};
+				
+				self.loadSingleFunction = function() {
+					
+					if(self.tableNameSearch()) {
+						
+						$.ajax({
+							url : '/crud/dev/loadSingleFunction.action',
+							data : {tableNameSearch : self.tableNameSearch()},
+							success : function(data) {
+								self.tadFunction(data.object);
+								
+								handleStanderdResponse(data);
+								
+								self.loadFunctionAttrites();
+								
+								SyntaxHighlighter.highlight();
+							}
+						});
+					}
+					
+				};
+				
+				self.loadFunctionAttrites = function() {
+					var functionId = self.tadFunction().id;
+					if(functionId) {
+						$.ajax({
+							url : '/crud/dev/loadFunctionAttrites.action',
+							data : {functionId : functionId},
+							success : function(data) {
+								self.attributeDefinitions(data.object);
+							}
+						});
+					}
+				};
 				
 				self.saveOrUpdateTadFunction = function(item, event) {
 					
@@ -284,6 +349,10 @@
 							},
 							success : function(data) {
 								handleStanderdResponse(data);
+								
+								if(data.object && data.object.id) {
+									self.tadFunction(data.object);
+								}
 							}
 						});	
 					}

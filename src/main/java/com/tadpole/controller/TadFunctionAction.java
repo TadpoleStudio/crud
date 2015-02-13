@@ -104,7 +104,7 @@ public class TadFunctionAction extends AbstractAction {
 
 		return SUCCESS;
 	}
-	
+
 	public String generateCode() {
 
 		String functionId = getParameter("functionId");
@@ -117,33 +117,77 @@ public class TadFunctionAction extends AbstractAction {
 
 		try {
 			TadFunction saved = tadFunctionService.generateCode(functionId);
-			
+
 			ResponseVo success = ResponseVo.newSuccessMessage("The code is generated successfully.");
 			success.setObject(saved);
 
 			setResponse(success);
-			
+
 		} catch (Exception e) {
 			setResponse(ResponseVo.newFailMessage(e.getMessage()));
 			return SUCCESS;
 		}
 
-		
+		return SUCCESS;
+	}
+
+	public String loadAllTableNames() {
+
+		List<String> tables = tadFunctionService.loadAllTableNames();
+
+		System.out.println(tables);
+
+		ResponseVo responseVo = ResponseVo.newSuccessMessage("tables loaded.");
+		responseVo.setObject(tables);
+
+		setResponse(responseVo);
+
+		return SUCCESS;
+	}
+
+	public String loadSingleFunction() {
+
+		String tableNameSearch = getParameter("tableNameSearch");
+
+		if (StringUtils.isEmpty(tableNameSearch)) {
+			setResponse(ResponseVo.newFailMessage("Bad request : no table selected."));
+
+			return SUCCESS;
+		}
+
+		TadFunction tadFunction = tadFunctionService.loadSingleFunction(tableNameSearch);
+
+		ResponseVo responseVo = ResponseVo.newSuccessMessage("table loaded.");
+		responseVo.setObject(tadFunction);
+
+		setResponse(responseVo);
 		return SUCCESS;
 	}
 	
+	public String loadFunctionAttrites() {
 
-	public String loadAllTableNames() {
-		
-		List<String> tables = tadFunctionService.loadAllTableNames();
-		
-		System.out.println(tables);
-		
-		ResponseVo responseVo = ResponseVo.newSuccessMessage("tables loaded.");
-		responseVo.setObject(tables);
-		
-		setResponse(responseVo);
-		
+		String functionId = getParameter("functionId");
+
+		if (StringUtils.isEmpty(functionId)) {
+			setResponse(ResponseVo.newFailMessage("Bad request : no data "));
+
+			return SUCCESS;
+		}
+
+		try {
+			List<TadAttribute> attributes = tadFunctionService.loadFunctionAttrites(functionId);
+
+			ResponseVo success = ResponseVo.newSuccessMessage("The code is generated successfully.");
+			success.setObject(attributes);
+
+			setResponse(success);
+
+		} catch (Exception e) {
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+			return SUCCESS;
+		}
+
 		return SUCCESS;
 	}
+	
 }

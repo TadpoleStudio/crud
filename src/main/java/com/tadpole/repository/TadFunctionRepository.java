@@ -18,5 +18,4 @@ public interface TadFunctionRepository extends JpaRepository<TadFunction, Intege
 	
 	@Query(value="select a.tableName from TadFunction a")
 	List<String> loadAllTableNames();
-
 }

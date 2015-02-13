@@ -54,7 +54,22 @@
 				<param name="root">response</param>
 			</result>
 		</action>
-		
+		<action name="loadSingleFunction" class="TadFunctionAction" method="loadSingleFunction">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="loadFunctionAttrites" class="TadFunctionAction" method="loadFunctionAttrites">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
 	</package>
 	
 </struts>

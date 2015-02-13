@@ -105,4 +105,14 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		return tadFunctionRepository.loadAllTableNames();
 	}
 
+	public TadFunction loadSingleFunction(String tableNameSearch) {
+
+		return tadFunctionRepository.findByTableName(tableNameSearch);
+	}
+
+	public List<TadAttribute> loadFunctionAttrites(String functionId) {
+
+		return tadAttributeRepository.findByFunctionId(functionId);
+	}
+
 }
