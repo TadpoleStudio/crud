@@ -155,13 +155,14 @@
 
 						<h5>Third step : Generate basic CRUD code</h5>
 						<br>
+						<div>
+									<a title="Generate Code" data-bind="click : $root.generateCode" href="#" class="small blue button">Generate Code</a>
+								</div>
+						<br>
 						<form data-bind="with : tadFunction">
 							<fieldset>
 								<legend>Code</legend>
 								
-								<div>
-									<a title="Generate Code" data-bind="click : $root.generateCode" href="#" class="small blue button">Generate Code</a>
-								</div>
 								<div class="row">
 									<label>JPA Entity code</label>
 									<pre data-bind="text : jpaEntityCode" class="brush: java;"></pre>
@@ -184,7 +185,7 @@
 								</div>
 								<div class="row">
 									<label>Action Class code</label>
-									<pre data-bind="text : actionCode" class="brush: xml;"></pre>
+									<pre data-bind="text : actionCode" class="brush: java;"></pre>
 								</div>
 							</fieldset>
 						</form>	
@@ -304,7 +305,6 @@
 						buttons : {
 							'添加属性' : function() {
 								self.saveOrUpdateTadAttribute();
-								closeDialog('tadFunctionDialog');
 							},
 							'关闭窗口' : function() {
 								closeDialog('tadFunctionDialog');
@@ -352,6 +352,8 @@
 								
 								if(data.object && data.object.id) {
 									self.tadFunction(data.object);
+									
+									SyntaxHighlighter.highlight();
 								}
 							}
 						});	

@@ -5,8 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
-
 import javax.persistence.Column;
 
 /**
@@ -34,21 +34,21 @@ public class TadFunction implements Serializable {
 	
 	protected String menuTitle;
 	
-	@Column(length=5000)
+	@Lob
 	protected String jpaEntityCode;
 	
 	protected String jsVoCode;
 	
-	@Column(length=5000)
+	@Lob
 	protected String actionCode;
 	
-	@Column(length=5000)
+	@Lob
 	protected String repositoryCode;
 	
-	@Column(length=5000)
+	@Lob
 	protected String serviceInterfaceCode;
 	
-	@Column(length=5000)
+	@Lob
 	protected String serviceImplementationCode;
 	
 
