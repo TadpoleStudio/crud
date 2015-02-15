@@ -187,6 +187,10 @@
 									<label>Action Class code</label>
 									<pre data-bind="text : actionCode" class="brush: java;"></pre>
 								</div>
+								<div class="row">
+									<label>Struts Configuration</label>
+									<pre data-bind="text : strutsConfigurationgCode" class="brush: xml;"></pre>
+								</div>
 							</fieldset>
 						</form>	
 					</div>

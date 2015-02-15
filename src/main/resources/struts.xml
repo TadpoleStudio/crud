@@ -6,8 +6,6 @@
 	<constant name="struts.action.extension" value="action" />
 	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
 	
-	<include file="struts/dev-struts.xml" />	
-	<include file="struts/access-struts.xml" />
-	<include file="struts/admin-struts.xml"/>
+	<include file="struts/*.xml" />	
 	
 </struts>

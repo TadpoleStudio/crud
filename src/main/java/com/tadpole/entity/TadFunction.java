@@ -51,6 +51,12 @@ public class TadFunction implements Serializable {
 	@Lob
 	protected String serviceImplementationCode;
 	
+	@Lob
+	protected String strutsConfigurationgCode;
+	
+	@Lob
+	protected String jspCode;
+	
 
 	public Integer getId() {
 
@@ -181,5 +187,30 @@ public class TadFunction implements Serializable {
 
 		this.serviceImplementationCode = serviceImplementationCode;
 	}
+
+	
+	public String getStrutsConfigurationgCode() {
+	
+		return strutsConfigurationgCode;
+	}
+
+	
+	public void setStrutsConfigurationgCode(String strutsConfigurationgCode) {
+	
+		this.strutsConfigurationgCode = strutsConfigurationgCode;
+	}
+
+	
+	public String getJspCode() {
+	
+		return jspCode;
+	}
+
+	
+	public void setJspCode(String jspCode) {
+	
+		this.jspCode = jspCode;
+	}
+	
 	
 }

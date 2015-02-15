@@ -14,4 +14,6 @@ function TadFunction()  {
 	self.repositoryCode = '';
 	self.serviceInterfaceCode = '';
 	self.serviceImplementationCode = '';
+	self.strutsConfigurationgCode = '';
+	self.jspCode = '';
 }

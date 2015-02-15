@@ -7,5 +7,4 @@ import com.tadpole.entity.${javaClassName};
 
 public interface ${javaClassName}Repository extends JpaRepository<${javaClassName}, Integer>, JpaSpecificationExecutor<${javaClassName}> {
 
-	// public ${javaClassName} findByName(String name);
 }

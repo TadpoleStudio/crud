@@ -13,8 +13,11 @@ import com.tadpole.creator.JsObjectCreator;
 import com.tadpole.creator.RepositoryCreator;
 import com.tadpole.creator.ServiceImplemetationCreator;
 import com.tadpole.creator.ServiceInterfaceCreator;
+import com.tadpole.creator.StrutsConfigurationCreator;
+import com.tadpole.entity.Menu;
 import com.tadpole.entity.TadAttribute;
 import com.tadpole.entity.TadFunction;
+import com.tadpole.repository.MenuRepository;
 import com.tadpole.repository.TadAttributeRepository;
 import com.tadpole.repository.TadFunctionRepository;
 import com.tadpole.service.TadFunctionService;
@@ -26,9 +29,12 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 	@Autowired
 	TadFunctionRepository tadFunctionRepository;
-	
+
 	@Autowired
 	TadAttributeRepository tadAttributeRepository;
+
+	@Autowired
+	MenuRepository menuRepository;
 
 	public TadFunction saveOrUpdateTadFunction(TadFunction tadFunction) {
 
@@ -67,16 +73,16 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		JpaEntityDefinition jpaEntityDefinition = new JpaEntityDefinition();
 		jpaEntityDefinition.setTableName(function.getTableName());
 		jpaEntityDefinition.setJavaClassName(function.getEntityName());
-		
+
 		List<TadAttribute> tadAttributes = tadAttributeRepository.findByFunctionId(functionId);
 		List<JpaAttributeDefinition> jpaAttributeDefinitions = new ArrayList<JpaAttributeDefinition>();
-		
+
 		for (TadAttribute tadAttribute : tadAttributes) {
 			JpaAttributeDefinition jpaAttributeDefinition = new JpaAttributeDefinition(tadAttribute.getName(), tadAttribute.getType());
 			jpaAttributeDefinitions.add(jpaAttributeDefinition);
 		}
 		jpaEntityDefinition.setAttributeDefinitions(jpaAttributeDefinitions);
-		
+
 		String jpaEntityCode = EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
 		function.setJpaEntityCode(jpaEntityCode);
 
@@ -95,9 +101,29 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String actionCode = ControllerCreator.generateSourceFile(jpaEntityDefinition);
 		function.setActionCode(actionCode);
 
+		String strutsConfiguration = StrutsConfigurationCreator.generateSourceFile(function);
+		function.setStrutsConfigurationgCode(strutsConfiguration);
+
 		TadFunction result = tadFunctionRepository.saveAndFlush(function);
 
+		if (result != null) {
+
+			createOrUpdateMenuForFunction(function);
+		}
+
 		return result;
+	}
+
+	private void createOrUpdateMenuForFunction(TadFunction function) {
+
+		String elementId = function.getEntityName() + "Link";
+		String link = "/crud/" + function.getStrutsNamespace() + "/load" + function.getEntityName() + "Mgr.action";
+		Menu existedMenu = menuRepository.findByElementId(elementId);
+		if (existedMenu == null) {
+			existedMenu = new Menu(function.getMenuTitle(), link, elementId);
+		}
+
+		menuRepository.saveAndFlush(existedMenu);
 	}
 
 	public List<String> loadAllTableNames() {

@@ -7,5 +7,6 @@ import com.tadpole.entity.Menu;
 
 public interface MenuRepository extends JpaRepository<Menu, Integer>, JpaSpecificationExecutor<Menu> {
 
-	// public Menu findByName(String name);
+	Menu findByElementId(String elementId);
+
 }
