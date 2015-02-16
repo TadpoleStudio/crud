@@ -2,6 +2,8 @@ package com.tadpole.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.tadpole.entity.TadStrutsNamespace;
 import com.tadpole.repository.TadStrutsNamespaceRepository;
@@ -16,6 +18,11 @@ public class TadStrutsNamespaceServiceImpl implements TadStrutsNamespaceService 
 	public TadStrutsNamespace saveOrUpdateTadStrutsNamespace(TadStrutsNamespace tadStrutsNamespace) {
 
 		return tadStrutsNamespaceRepository.saveAndFlush(tadStrutsNamespace);
+	}
+	
+	public Page<TadStrutsNamespace> loadTadStrutsNamespaces() {
+
+		return tadStrutsNamespaceRepository.findAll(new PageRequest(0, 10));
 	}
 
 }

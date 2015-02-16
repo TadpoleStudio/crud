@@ -191,6 +191,10 @@
 									<label>Struts Configuration</label>
 									<pre data-bind="text : strutsConfigurationgCode" class="brush: xml;"></pre>
 								</div>
+								<div class="row">
+									<label>Jsp Code</label>
+									<pre data-bind="text : jspCode" class="brush: xml;"></pre>
+								</div>
 							</fieldset>
 						</form>	
 					</div>

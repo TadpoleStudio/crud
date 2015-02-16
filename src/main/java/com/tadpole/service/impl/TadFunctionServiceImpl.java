@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.tadpole.creator.ControllerCreator;
 import com.tadpole.creator.EntityBeanCreator;
 import com.tadpole.creator.JsObjectCreator;
+import com.tadpole.creator.JspCreator;
 import com.tadpole.creator.RepositoryCreator;
 import com.tadpole.creator.ServiceImplemetationCreator;
 import com.tadpole.creator.ServiceInterfaceCreator;
@@ -23,6 +24,7 @@ import com.tadpole.repository.TadFunctionRepository;
 import com.tadpole.service.TadFunctionService;
 import com.tadpole.vo.JpaAttributeDefinition;
 import com.tadpole.vo.JpaEntityDefinition;
+import com.tadpole.vo.JspVo;
 
 @Service("TadFunctionService")
 public class TadFunctionServiceImpl implements TadFunctionService {
@@ -104,6 +106,11 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String strutsConfiguration = StrutsConfigurationCreator.generateSourceFile(function);
 		function.setStrutsConfigurationgCode(strutsConfiguration);
 
+		JspVo jspVo = generateJspVo(jpaEntityDefinition, function, tadAttributes);
+		
+		String jspCode = JspCreator.generateSourceFile(jspVo);
+		function.setJspCode(jspCode);
+
 		TadFunction result = tadFunctionRepository.saveAndFlush(function);
 
 		if (result != null) {
@@ -112,6 +119,37 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		}
 
 		return result;
+	}
+
+	private JspVo generateJspVo(JpaEntityDefinition jpaEntityDefinition, TadFunction function, List<TadAttribute> tadAttributes) {
+
+		JspVo jspVo = new JspVo();
+		jspVo.setFirstLetterLowerCaseJavaClassName(jpaEntityDefinition.getFirstLetterLowerCaseJavaClassName());
+		jspVo.setAttributeDefinitions(jpaEntityDefinition.getAttributeDefinitions());
+		jspVo.setJavaClassName(jpaEntityDefinition.getJavaClassName());
+		jspVo.setStrutsNamespace(function.getStrutsNamespace());
+		jspVo.setTitle(function.getTitle());
+		jspVo.setTadAttributes(tadAttributes);
+		
+//		List<List<JpaAttributeDefinition>> attrGroups = new ArrayList<List<JpaAttributeDefinition>>();
+//		List<JpaAttributeDefinition> singleGroup = null;
+//		
+//		List<JpaAttributeDefinition> attributeDefinitions = jpaEntityDefinition.getAttributeDefinitions();
+//		for (int i = 0; i < attributeDefinitions.size(); i++) {
+//			
+//			int groupIndex = i % 2;
+//			
+//			if (groupIndex == 0) {
+//				singleGroup = new ArrayList<JpaAttributeDefinition>();
+//				attrGroups.add(singleGroup);
+//			}
+//			
+//			singleGroup.add(attributeDefinitions.get(i));
+//		}
+//		
+//		jspVo.setAttrGroupList(attrGroups);
+		
+		return jspVo;
 	}
 
 	private void createOrUpdateMenuForFunction(TadFunction function) {

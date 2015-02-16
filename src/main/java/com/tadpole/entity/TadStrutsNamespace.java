@@ -24,6 +24,10 @@ public class TadStrutsNamespace implements Serializable {
 	
 	protected String name;
 	
+	protected String createBy;
+	
+	protected String updatedBy;
+	
 
 	public Integer getId() {
 
@@ -40,9 +44,29 @@ public class TadStrutsNamespace implements Serializable {
 		return name;
 	}
 	
+	public String getCreateBy() {
+
+		return createBy;
+	}
+	
+	public String getUpdatedBy() {
+
+		return updatedBy;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
+	}
+	
+	public void setCreateBy(String createBy) {
+
+		this.createBy = createBy;
+	}
+	
+	public void setUpdatedBy(String updatedBy) {
+
+		this.updatedBy = updatedBy;
 	}
 	
 }

@@ -7,5 +7,4 @@ import com.tadpole.entity.TadStrutsNamespace;
 
 public interface TadStrutsNamespaceRepository extends JpaRepository<TadStrutsNamespace, Integer>, JpaSpecificationExecutor<TadStrutsNamespace> {
 
-	// public TadStrutsNamespace findByName(String name);
 }

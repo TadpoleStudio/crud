@@ -3,4 +3,6 @@ function TadStrutsNamespace()  {
 	
 	self.id = '';
 	self.name = '';
+	self.createBy = '';
+	self.updatedBy = '';
 }
