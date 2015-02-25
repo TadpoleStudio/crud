@@ -18,4 +18,12 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 		return tadAttributeRepository.saveAndFlush(tadAttribute);
 	}
 
+	public void removeAttribute(String attributeId) {
+
+		Integer attributeIdInteger = Integer.valueOf(attributeId);
+		
+		tadAttributeRepository.delete(attributeIdInteger);
+		
+	}
+
 }

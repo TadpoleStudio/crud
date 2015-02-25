@@ -7,4 +7,6 @@ public interface TadAttributeService {
 
 	TadAttribute saveOrUpdateTadAttribute(TadAttribute tadAttribute);
 
+	void removeAttribute(String attributeId);
+
 }

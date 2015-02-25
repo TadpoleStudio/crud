@@ -35,6 +35,17 @@
 				<param name="root">response</param>
 			</result>
 		</action>
+		<action name="removeAttribute" class="TadFunctionAction" method="removeAttribute">
+			<result name="input">
+				dev-create-function.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
 		<action name="generateCode" class="TadFunctionAction" method="generateCode">
 			<result name="input">
 				dev-create-function.jsp

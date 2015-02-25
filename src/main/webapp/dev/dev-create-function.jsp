@@ -142,7 +142,7 @@
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : type"></td>
 												<td style="text-align: center" data-bind="text : label"></td>
-												<td style="text-align: center"><a title="关闭用户" data-bind="click : $root.disactiveUser" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
+												<td style="text-align: center"><a title="关闭用户" data-bind="click : $root.removeAttribute" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -362,6 +362,27 @@
 									self.tadFunction(data.object);
 									
 									SyntaxHighlighter.highlight();
+								}
+							}
+						});	
+					}
+				};
+				
+				self.removeAttribute = function(item, event) {
+					
+					if(window.confirm("sure to delete?")) {
+						
+						$.ajax({
+							url : 'removeAttribute.action',
+							method : 'POST',
+							data : {
+								attributeId : item.id,
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+								
+								if(data.object && data.object.id) {
+									self.tadFunction(data.object);
 								}
 							}
 						});	

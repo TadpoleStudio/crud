@@ -105,6 +105,28 @@ public class TadFunctionAction extends AbstractAction {
 		return SUCCESS;
 	}
 
+	public String removeAttribute() {
+
+		String attributeId = getParameter("attributeId");
+		if (StringUtils.isEmpty(attributeId)) {
+			setResponse(ResponseVo.newFailMessage("Bad request : no data found to save or update."));
+
+			return SUCCESS;
+		}
+
+		try {
+			tadAttributeService.removeAttribute(attributeId);
+
+		} catch (Exception e) {
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+		}
+
+		ResponseVo response = ResponseVo.newSuccessMessage("The attribute is successfully removed.");
+
+		setResponse(response);
+		return SUCCESS;
+	}
+
 	public String generateCode() {
 
 		String functionId = getParameter("functionId");
@@ -163,7 +185,7 @@ public class TadFunctionAction extends AbstractAction {
 		setResponse(responseVo);
 		return SUCCESS;
 	}
-	
+
 	public String loadFunctionAttrites() {
 
 		String functionId = getParameter("functionId");
@@ -189,5 +211,5 @@ public class TadFunctionAction extends AbstractAction {
 
 		return SUCCESS;
 	}
-	
+
 }
