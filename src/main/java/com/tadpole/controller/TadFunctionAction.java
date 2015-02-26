@@ -99,9 +99,15 @@ public class TadFunctionAction extends AbstractAction {
 		}
 
 		TadAttribute tadAttribute = (TadAttribute)JSONObject.toBean(JSONObject.fromObject(tadAttributeJson), TadAttribute.class);
+		try {
+			
+			tadAttributeService.saveOrUpdateTadAttribute(tadAttribute);
+		} catch (Exception e) {
 
-		tadAttributeService.saveOrUpdateTadAttribute(tadAttribute);
-
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+			return SUCCESS;
+		}
+		
 		return SUCCESS;
 	}
 

@@ -33,6 +33,8 @@
 				</div>
 				<div class="three columns">
 					<a data-bind="click : $root.loadSingleFunction" href="#" class="small blue button">Load</a>
+					
+					<a data-bind="click : $root.removeSingleFunction" href="#" class="small red button" style="margin-left : 20px">Delete</a>
 				</div>
 				<div class="three columns"></div>
 				<div class="three columns">
@@ -142,7 +144,9 @@
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : type"></td>
 												<td style="text-align: center" data-bind="text : label"></td>
-												<td style="text-align: center"><a title="关闭用户" data-bind="click : $root.removeAttribute" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
+												<td style="text-align: center">
+												<a title="update attr" data-bind="click : $root.manageAttribute" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
+												<a title="delete attr" data-bind="click : $root.removeAttribute" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -267,6 +271,14 @@
 					}
 					
 				};
+				self.removeSingleFunction = function() {
+					
+					if(window.confirm('Are you sure to delete?')) {
+						
+						
+					}
+					
+				};
 				
 				self.loadFunctionAttrites = function() {
 					var functionId = self.tadFunction().id;
@@ -302,6 +314,12 @@
 				
 				self.manageAttribute = function(item, event) {
 					
+					if (item.id) {
+						self.selectedTadAttribute(item);
+					} else {
+						self.selectedTadAttribute(new TadAttribute());
+					}
+					
 					$('#tadFunctionDialog').dialog({
 						modal : true,
 						width : 700,
@@ -311,10 +329,10 @@
 						},
 						
 						buttons : {
-							'添加属性' : function() {
+							'Save Attribute' : function() {
 								self.saveOrUpdateTadAttribute();
 							},
-							'关闭窗口' : function() {
+							'Close Window' : function() {
 								closeDialog('tadFunctionDialog');
 							}
 						}
@@ -336,7 +354,9 @@
 							},
 							success : function(data) {
 								handleStanderdResponse(data);
-								self.attributeDefinitions.push(self.selectedTadAttribute());
+								//self.attributeDefinitions.push(self.selectedTadAttribute());
+								
+								self.loadFunctionAttrites();
 							}
 						});	
 					}
@@ -381,8 +401,8 @@
 							success : function(data) {
 								handleStanderdResponse(data);
 								
-								if(data.object && data.object.id) {
-									self.tadFunction(data.object);
+								if(isOK(data)) {
+									self.loadFunctionAttrites();
 								}
 							}
 						});	

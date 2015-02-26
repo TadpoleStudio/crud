@@ -1,10 +1,16 @@
 package com.tadpole.service.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
 import com.tadpole.creator.ControllerCreator;
@@ -37,6 +43,9 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 	@Autowired
 	MenuRepository menuRepository;
+	
+	@Resource(name="dataSource")
+	org.springframework.jdbc.datasource.DriverManagerDataSource dataSource;
 
 	public TadFunction saveOrUpdateTadFunction(TadFunction tadFunction) {
 
@@ -165,7 +174,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 	}
 
 	public List<String> loadAllTableNames() {
-
+		
 		return tadFunctionRepository.loadAllTableNames();
 	}
 
