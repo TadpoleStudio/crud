@@ -38,8 +38,7 @@ public class JsObjectCreator {
 
 	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
-		String jpaEntityPackagePath = SystemPropertiesReader.getString("js-vo-folder");
-		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + ".js";
+		String filePath = getSourceFileName(jpaEntityDefinition);
 
 		String sourceCode = generateCode(jpaEntityDefinition);
 
@@ -52,5 +51,13 @@ public class JsObjectCreator {
 
 		
 		return sourceCode;
+	}
+	
+	public static String getSourceFileName(JpaEntityDefinition jpaEntityDefinition) {
+
+		String jpaEntityPackagePath = SystemPropertiesReader.getString("js-vo-folder");
+		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + ".js";
+
+		return filePath;
 	}
 }

@@ -1,15 +1,18 @@
 package com.tadpole.service.impl;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.ImmutableList;
 import com.tadpole.entity.TadAttribute;
 import com.tadpole.entity.TadFunction;
 import com.tadpole.repository.TadAttributeRepository;
@@ -109,7 +112,7 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 		System.out.println(dropColumnSql);
 
 		java.sql.Connection connection = DataSourceUtils.getConnection(dataSource);
-		
+
 		try {
 			Statement statement = connection.createStatement();
 			statement.execute(dropColumnSql);
@@ -124,4 +127,56 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 		}
 	}
 
+	public void removeSingleFunction(String functionId) {
+
+		TadFunction tadFunction = tadFunctionRepository.findOne(Integer.valueOf(functionId));
+
+		List<TadAttribute> attributes = tadAttributeRepository.findByFunctionId(functionId);
+
+		tadAttributeRepository.deleteInBatch(attributes);
+
+		removeSourceFiles(tadFunction);
+
+		tadFunctionRepository.delete(tadFunction);
+		
+		removeTable(tadFunction.getTableName());
+	}
+
+	private void removeTable(String tableName) {
+
+		String dropTableSql = "DROP TABLE IF EXISTS " + tableName;
+		System.out.println(dropTableSql);
+
+		java.sql.Connection connection = DataSourceUtils.getConnection(dataSource);
+
+		try {
+			Statement statement = connection.createStatement();
+			statement.execute(dropTableSql);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException("drop table fails : " + e.getMessage());
+
+		} finally {
+			DataSourceUtils.releaseConnection(connection, dataSource);
+		}
+		
+	}
+
+	private void removeSourceFiles(TadFunction t) {
+
+		List<String> filePaths = ImmutableList.of(t.getActionFilePath(), t.getJpaEntityFilePath(), t.getJspFilePath(), t.getJsVoFilePath(), t.getRepositoryFilePath(), t.getServiceImplementationFilePath(), t.getServiceInterfaceFilePath(), t.getStrutsConfigurationgFilePath());
+
+		for (String filePath : filePaths) {
+
+			if (StringUtils.isNotBlank(filePath)) {
+
+				File file = new File(filePath);
+				if (file.exists()) {
+					file.delete();
+				}
+			}
+		}
+	}
 }

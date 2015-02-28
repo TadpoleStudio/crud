@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
-import javax.persistence.Column;
 
 /**
  * @author Jerry Jiang
@@ -21,42 +20,57 @@ public class TadFunction implements Serializable {
 	@Id
 	@GeneratedValue
 	protected Integer id;
-	
+
 	protected String tableName;
-	
+
 	protected String entityName;
-	
+
 	protected String strutsNamespace;
-	
+
 	protected String description;
-	
+
 	protected String title;
-	
+
 	protected String menuTitle;
-	
+
 	@Lob
 	protected String jpaEntityCode;
-	
+
+	protected String jpaEntityFilePath;
+
+	@Lob
 	protected String jsVoCode;
-	
+
+	protected String jsVoFilePath;
+
 	@Lob
 	protected String actionCode;
-	
+
+	protected String actionFilePath;
+
 	@Lob
 	protected String repositoryCode;
-	
+	protected String repositoryFilePath;
+
 	@Lob
 	protected String serviceInterfaceCode;
-	
+
+	protected String serviceInterfaceFilePath;
+
 	@Lob
 	protected String serviceImplementationCode;
-	
+
+	protected String serviceImplementationFilePath;
+
 	@Lob
 	protected String strutsConfigurationgCode;
-	
+
+	protected String strutsConfigurationgFilePath;
+
 	@Lob
 	protected String jspCode;
-	
+
+	protected String jspFilePath;
 
 	public Integer getId() {
 
@@ -72,145 +86,236 @@ public class TadFunction implements Serializable {
 
 		return tableName;
 	}
-	
+
 	public String getEntityName() {
 
 		return entityName;
 	}
-	
+
 	public String getStrutsNamespace() {
 
 		return strutsNamespace;
 	}
-	
+
 	public String getDescription() {
 
 		return description;
 	}
-	
+
 	public String getTitle() {
 
 		return title;
 	}
-	
+
 	public String getMenuTitle() {
 
 		return menuTitle;
 	}
-	
+
 	public String getJpaEntityCode() {
 
 		return jpaEntityCode;
 	}
-	
+
 	public String getJsVoCode() {
 
 		return jsVoCode;
 	}
-	
+
 	public String getActionCode() {
 
 		return actionCode;
 	}
-	
+
 	public String getRepositoryCode() {
 
 		return repositoryCode;
 	}
-	
+
 	public String getServiceInterfaceCode() {
 
 		return serviceInterfaceCode;
 	}
-	
+
 	public String getServiceImplementationCode() {
 
 		return serviceImplementationCode;
 	}
-	
+
 	public void setTableName(String tableName) {
 
 		this.tableName = tableName;
 	}
-	
+
 	public void setEntityName(String entityName) {
 
 		this.entityName = entityName;
 	}
-	
+
 	public void setStrutsNamespace(String strutsNamespace) {
 
 		this.strutsNamespace = strutsNamespace;
 	}
-	
+
 	public void setDescription(String description) {
 
 		this.description = description;
 	}
-	
+
 	public void setTitle(String title) {
 
 		this.title = title;
 	}
-	
+
 	public void setMenuTitle(String menuTitle) {
 
 		this.menuTitle = menuTitle;
 	}
-	
+
 	public void setJpaEntityCode(String jpaEntityCode) {
 
 		this.jpaEntityCode = jpaEntityCode;
 	}
-	
+
 	public void setJsVoCode(String jsVoCode) {
 
 		this.jsVoCode = jsVoCode;
 	}
-	
+
 	public void setActionCode(String actionCode) {
 
 		this.actionCode = actionCode;
 	}
-	
+
 	public void setRepositoryCode(String repositoryCode) {
 
 		this.repositoryCode = repositoryCode;
 	}
-	
+
 	public void setServiceInterfaceCode(String serviceInterfaceCode) {
 
 		this.serviceInterfaceCode = serviceInterfaceCode;
 	}
-	
+
 	public void setServiceImplementationCode(String serviceImplementationCode) {
 
 		this.serviceImplementationCode = serviceImplementationCode;
 	}
 
-	
 	public String getStrutsConfigurationgCode() {
-	
+
 		return strutsConfigurationgCode;
 	}
 
-	
 	public void setStrutsConfigurationgCode(String strutsConfigurationgCode) {
-	
+
 		this.strutsConfigurationgCode = strutsConfigurationgCode;
 	}
 
-	
 	public String getJspCode() {
-	
+
 		return jspCode;
 	}
 
-	
 	public void setJspCode(String jspCode) {
-	
+
 		this.jspCode = jspCode;
 	}
+
 	
+	public String getJpaEntityFilePath() {
 	
+		return jpaEntityFilePath;
+	}
+
+	
+	public void setJpaEntityFilePath(String jpaEntityFilePath) {
+	
+		this.jpaEntityFilePath = jpaEntityFilePath;
+	}
+
+	
+	public String getJsVoFilePath() {
+	
+		return jsVoFilePath;
+	}
+
+	
+	public void setJsVoFilePath(String jsVoFilePath) {
+	
+		this.jsVoFilePath = jsVoFilePath;
+	}
+
+	
+	public String getActionFilePath() {
+	
+		return actionFilePath;
+	}
+
+	
+	public void setActionFilePath(String actionFilePath) {
+	
+		this.actionFilePath = actionFilePath;
+	}
+
+	
+	public String getRepositoryFilePath() {
+	
+		return repositoryFilePath;
+	}
+
+	
+	public void setRepositoryFilePath(String repositoryFilePath) {
+	
+		this.repositoryFilePath = repositoryFilePath;
+	}
+
+	
+	public String getServiceInterfaceFilePath() {
+	
+		return serviceInterfaceFilePath;
+	}
+
+	
+	public void setServiceInterfaceFilePath(String serviceInterfaceFilePath) {
+	
+		this.serviceInterfaceFilePath = serviceInterfaceFilePath;
+	}
+
+	
+	public String getServiceImplementationFilePath() {
+	
+		return serviceImplementationFilePath;
+	}
+
+	
+	public void setServiceImplementationFilePath(String serviceImplementationFilePath) {
+	
+		this.serviceImplementationFilePath = serviceImplementationFilePath;
+	}
+
+	
+	public String getStrutsConfigurationgFilePath() {
+	
+		return strutsConfigurationgFilePath;
+	}
+
+	
+	public void setStrutsConfigurationgFilePath(String strutsConfigurationgFilePath) {
+	
+		this.strutsConfigurationgFilePath = strutsConfigurationgFilePath;
+	}
+
+	
+	public String getJspFilePath() {
+	
+		return jspFilePath;
+	}
+
+	
+	public void setJspFilePath(String jspFilePath) {
+	
+		this.jspFilePath = jspFilePath;
+	}
+
 }

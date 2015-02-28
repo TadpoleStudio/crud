@@ -15,7 +15,7 @@ import com.tadpole.vo.ResponseVo;
 public class AbstractAction extends ActionSupport implements ParameterAware {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Resource(name = "commonService")
 	public CommonService commonService;
 
@@ -100,4 +100,17 @@ public class AbstractAction extends ActionSupport implements ParameterAware {
 		this.response = response;
 	}
 
+	public void success() {
+
+		ResponseVo response = ResponseVo.newSuccessMessage("Server process it successfully.");
+
+		setResponse(response);
+	}
+
+	public void success(String message) {
+
+		ResponseVo response = ResponseVo.newSuccessMessage(message);
+
+		setResponse(response);
+	}
 }

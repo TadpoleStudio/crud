@@ -16,7 +16,6 @@ import freemarker.template.TemplateException;
 
 public class ServiceImplemetationCreator {
 
-
 	public static String generateCode(JpaEntityDefinition jpaEntityDefinition) {
 
 		try {
@@ -39,8 +38,7 @@ public class ServiceImplemetationCreator {
 
 	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
-		String jpaEntityPackagePath = SystemPropertiesReader.getString("service-package");
-		String filePath = jpaEntityPackagePath + "impl\\" + jpaEntityDefinition.getJavaClassName() + "ServiceImpl.java";
+		String filePath = getSourceFileName(jpaEntityDefinition);
 
 		String sourceCode = generateCode(jpaEntityDefinition);
 
@@ -53,5 +51,13 @@ public class ServiceImplemetationCreator {
 		}
 
 		return sourceCode;
+	}
+
+	public static String getSourceFileName(JpaEntityDefinition jpaEntityDefinition) {
+
+		String jpaEntityPackagePath = SystemPropertiesReader.getString("service-package");
+		String filePath = jpaEntityPackagePath + "impl\\" + jpaEntityDefinition.getJavaClassName() + "ServiceImpl.java";
+
+		return filePath;
 	}
 }

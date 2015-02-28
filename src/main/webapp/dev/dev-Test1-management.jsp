@@ -10,7 +10,7 @@
 <head>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width" />
-<title>系统开发</title>
+<title>test111</title>
 <s:include value="/jsps/common/head.jsp" />
 
 </head>
@@ -18,38 +18,33 @@
 	<s:include value="/jsps/common/brand.jsp" />
 	<s:include value="/jsps/common/menu.jsp" />
 	<section class="mainbg">
-		<div class="container" id="MenuDataModelContainer">
+		<div class="container" id="Test1DataModelContainer">
 			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
 				</div>
-				<div id="menuDialog" title="管理" style="display: none" data-bind="with : selectedMenu">
+				<div id="test1Dialog" title="Test1 Management" style="display: none" data-bind="with : selectedTest1">
 					<div class="row">
 						<div class="six columns">
-							<label>Title</label> <input type="text" data-bind="value : title" />
+							<label>A1</label> 
+							<input type="text" data-bind="value : a1" />
 						</div>
 						<div class="six columns">
-							<label>url</label> <input type="text" data-bind="value : url" />
+							<label>A2</label> 
+							<input type="text" data-bind="value : a2" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Element Id</label> <input type="text" data-bind="value : elementId" />
-						</div>
-						
-						<div class="six columns"></div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							
+							<label>a3</label> 
+							<input type="text" data-bind="value : a3" />
 						</div>
 					</div>
-					<div class="row"></div>
 				</div>
 				<div class="row">
-					<div class="app-wrapper ui-corner-top" title="管理">
+					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
-							<h2>Menu Development</h2>
+							<h2>Test1 List</h2>
 							<h2 class="right"></h2>
 						</div>
 						<div class="content">
@@ -57,27 +52,27 @@
 							<div class="row">
 									<div class="nine columns"></div>
 									<div class="three columns">
-										<a title="add attribute" data-bind="click : $root.openManageMenuDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
+										<a title="add attribute" data-bind="click : $root.openManageTest1Dialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
 								</div>
 								<div class="row">
 									<table class="dataTable">
 										<thead>
 											<tr>
-												<th style="text-align: center">Display Title</th>
-												<th style="text-align: center">Action URL</th>
-												<th style="text-align: center">Identity String</th>
+												<th style="text-align: center">A1</th>
+												<th style="text-align: center">A2</th>
+												<th style="text-align: center">a3</th>
 												<th></th>
 											</tr>
 										</thead>
-										<tbody data-bind="foreach : menuList">
+										<tbody data-bind="foreach : test1List">
 											<tr>
-												<td style="text-align: center" data-bind="text : title"></td>
-												<td style="text-align: center" data-bind="text : url"></td>
-												<td style="text-align: center" data-bind="text : elementId"></td>
+												<td style="text-align: center" data-bind="text : a1"></td>
+												<td style="text-align: center" data-bind="text : a2"></td>
+												<td style="text-align: center" data-bind="text : a3"></td>
 												<td style="text-align: center">
-													<a title="update menu" data-bind="click : $root.openManageMenuDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
-													<a title="delete menu" data-bind="click : $root.deleteMenu" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
+													<a title="update test1" data-bind="click : $root.openManageTest1Dialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
+													<a title="delete test1" data-bind="click : $root.deleteTest1" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
 												</td>
 											</tr>
 										</tbody>
@@ -93,26 +88,26 @@
 		</div>
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
-	<script src="/crud/js/vo/Menu.js"></script>
+	<script src="/crud/js/vo/Test1.js"></script>
 
 	<script>
 		$(document).ready(function() {
 
-			var MenuDataModel = function() {
+			var Test1DataModel = function() {
 
 				var self = this;
 				
-				self.selectedMenu = ko.observable(new Menu());
-				self.menuList = ko.observableArray([]);
+				self.selectedTest1 = ko.observable(new Test1());
+				self.test1List = ko.observableArray([]);
 				
-				self.searchMenu = function() {
+				self.searchTest1 = function() {
 					
 					$.ajax({
-						url : 'loadMenus.action',
+						url : 'loadTest1s.action',
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
-								self.menuList(data.object.elements);
+								self.test1List(data.object.elements);
 							}
 							
 							handleStanderdResponse(data);
@@ -121,36 +116,36 @@
 					});
 				};
 				
-				self.searchMenu();
+				self.searchTest1();
 				
-				self.saveOrUpdateMenu = function() {
+				self.saveOrUpdateTest1 = function() {
 					
 					$.ajax({
-						url : 'saveOrUpdateMenu.action',
+						url : 'saveOrUpdateTest1.action',
 						method : 'POST',
 						data : {
-							menuJson : JSON.stringify(self.selectedMenu())
+							test1Json : JSON.stringify(self.selectedTest1())
 						},
 						success : function(data) {
 							handleStanderdResponse(data);
 							
 							if(data.object && data.object.id) {
-								self.selectedMenu(data.object);
+								self.selectedTest1(data.object);
 							}
 						}
 					});	
 					
 				};
 				
-				self.openManageMenuDialog = function(item, event) {
+				self.openManageTest1Dialog = function(item, event) {
 					
 					if(item.id) {
-						self.selectedMenu(item);
+						self.selectedTest1(item);
 					} else {
-						self.selectedMenu(new Menu());
+						self.selectedTest1(new Test1());
 					}
 					
-					$('#menuDialog').dialog({
+					$('#test1Dialog').dialog({
 						modal : true,
 						width : 700,
 						height : 350,
@@ -160,10 +155,10 @@
 						
 						buttons : {
 							'Save' : function() {
-								self.saveOrUpdateMenu();
+								self.saveOrUpdateTest1();
 							},
 							'Close' : function() {
-								closeDialog('menuDialog');
+								closeDialog('test1Dialog');
 							}
 						}
 					});
@@ -171,15 +166,15 @@
 				
 			};
 
-			var menuDataModel = new MenuDataModel();
+			var test1DataModel = new Test1DataModel();
 
-			var $menuDataModelContainer = $('#MenuDataModelContainer')[0];
+			var $test1DataModelContainer = $('#Test1DataModelContainer')[0];
 			
-			ko.applyBindings(menuDataModel, $menuDataModelContainer);
+			ko.applyBindings(test1DataModel, $test1DataModelContainer);
 		});
 
 		function activeCurrentMenuItem() {
-			$('#MenuLink').addClass('active');
+			$('#Test1Link').addClass('active');
 		}
 	</script>
 </body>

@@ -132,6 +132,23 @@ public class TadFunctionAction extends AbstractAction {
 		setResponse(response);
 		return SUCCESS;
 	}
+	
+	public String removeSingleFunction() {
+		
+		String functionId = getParameter("functionId");
+		if (StringUtils.isBlank(functionId)) {
+			
+			setResponse(ResponseVo.newFailMessage("No function selected."));
+			
+			return SUCCESS;
+		}
+		
+		tadAttributeService.removeSingleFunction(functionId);
+		
+		success();
+		
+		return SUCCESS;
+	}
 
 	public String generateCode() {
 

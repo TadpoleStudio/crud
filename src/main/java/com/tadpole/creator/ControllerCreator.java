@@ -38,8 +38,7 @@ public class ControllerCreator {
 
 	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
-		String jpaEntityPackagePath = SystemPropertiesReader.getString("controller-package");
-		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Action.java";
+		String filePath = getSourceFileName(jpaEntityDefinition);
 
 		String sourceCode = generateCode(jpaEntityDefinition);
 
@@ -52,5 +51,13 @@ public class ControllerCreator {
 		}
 
 		return sourceCode;
+	}
+	
+	public static String getSourceFileName(JpaEntityDefinition jpaEntityDefinition) {
+
+		String jpaEntityPackagePath = SystemPropertiesReader.getString("controller-package");
+		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Action.java";
+
+		return filePath;
 	}
 }

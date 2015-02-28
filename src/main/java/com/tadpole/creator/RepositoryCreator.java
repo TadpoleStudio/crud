@@ -38,8 +38,7 @@ public class RepositoryCreator {
 
 	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
-		String jpaEntityPackagePath = SystemPropertiesReader.getString("repository-package");
-		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Repository.java";
+		String filePath = getSourceFileName(jpaEntityDefinition);
 
 		String sourceCode = generateCode(jpaEntityDefinition);
 
@@ -52,5 +51,13 @@ public class RepositoryCreator {
 		}
 
 		return sourceCode;
+	}
+	
+	public static String getSourceFileName(JpaEntityDefinition jpaEntityDefinition) {
+
+		String jpaEntityPackagePath = SystemPropertiesReader.getString("repository-package");
+		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Repository.java";
+
+		return filePath;
 	}
 }

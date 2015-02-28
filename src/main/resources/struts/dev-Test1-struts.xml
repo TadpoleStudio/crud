@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="devTest" namespace="/dev" extends="struts-default">
+	<package name="devTest1" namespace="/dev" extends="struts-default">
 		
 		<result-types>
 			 <result-type name="json" class="org.apache.struts2.json.JSONResult" />
 		</result-types>
-		<action name="loadTestMgr">
-			<result>dev-Test-management.jsp</result>
+		<action name="loadTest1Mgr">
+			<result>dev-Test1-management.jsp</result>
 		</action>
-		<action name="saveOrUpdateTest" class="TestAction" method="saveOrUpdateTest">
+		<action name="saveOrUpdateTest1" class="Test1Action" method="saveOrUpdateTest1">
 			<result name="input">
-				dev-Test-management.jsp
+				dev-Test1-management.jsp
 			</result>
 			<result name="success" type="json">
 				<param name="root">response</param>
@@ -20,7 +20,7 @@
 				<param name="root">response</param>
 			</result>
 		</action>
-		<action name="loadTests" class="TestAction" method="loadTests">
+		<action name="loadTest1s" class="Test1Action" method="loadTest1s">
 			<result name="success" type="json">
 				<param name="root">response</param>
 			</result>

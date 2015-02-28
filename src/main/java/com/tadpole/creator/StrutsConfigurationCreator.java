@@ -22,7 +22,7 @@ public class StrutsConfigurationCreator {
 
 			String javaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, tadFunction);
 			
-			String strutsConfigurationFileName = SystemPropertiesReader.getString("struts-folder") + tadFunction.getStrutsNamespace() + "-" + tadFunction.getEntityName() + "-struts.xml";
+			String strutsConfigurationFileName = getSourceFileName(tadFunction);
 			File strutsFile = new File(strutsConfigurationFileName);
 			if (!strutsFile.exists()) {
 				strutsFile.createNewFile();
@@ -41,4 +41,10 @@ public class StrutsConfigurationCreator {
 		return "";
 	}
 
+	public static String getSourceFileName(TadFunction tadFunction) {
+
+		String strutsConfigurationFileName = SystemPropertiesReader.getString("struts-folder") + tadFunction.getStrutsNamespace() + "-" + tadFunction.getEntityName() + "-struts.xml";
+
+		return strutsConfigurationFileName;
+	}
 }

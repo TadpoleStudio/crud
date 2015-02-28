@@ -96,29 +96,37 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 		String jpaEntityCode = EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
 		function.setJpaEntityCode(jpaEntityCode);
+		function.setJpaEntityFilePath(EntityBeanCreator.getSourceFileName(jpaEntityDefinition));
 
 		String jsVoCode = JsObjectCreator.generateSourceFile(jpaEntityDefinition);
 		function.setJsVoCode(jsVoCode);
+		function.setJsVoFilePath(JsObjectCreator.getSourceFileName(jpaEntityDefinition));
 
 		String repositoryCode = RepositoryCreator.generateSourceFile(jpaEntityDefinition);
 		function.setRepositoryCode(repositoryCode);
-
+		function.setRepositoryFilePath(RepositoryCreator.getSourceFileName(jpaEntityDefinition));
+		
 		String serviceInterfaceCode = ServiceInterfaceCreator.generateSourceFile(jpaEntityDefinition);
 		function.setServiceInterfaceCode(serviceInterfaceCode);
+		function.setServiceInterfaceFilePath(ServiceInterfaceCreator.getSourceFileName(jpaEntityDefinition));
 
 		String serviceImplementationCode = ServiceImplemetationCreator.generateSourceFile(jpaEntityDefinition);
 		function.setServiceImplementationCode(serviceImplementationCode);
+		function.setServiceImplementationFilePath(ServiceImplemetationCreator.getSourceFileName(jpaEntityDefinition));
 
 		String actionCode = ControllerCreator.generateSourceFile(jpaEntityDefinition);
 		function.setActionCode(actionCode);
+		function.setActionFilePath(ControllerCreator.getSourceFileName(jpaEntityDefinition));
 
 		String strutsConfiguration = StrutsConfigurationCreator.generateSourceFile(function);
 		function.setStrutsConfigurationgCode(strutsConfiguration);
+		function.setStrutsConfigurationgFilePath(StrutsConfigurationCreator.getSourceFileName(function));
 
 		JspVo jspVo = generateJspVo(jpaEntityDefinition, function, tadAttributes);
 		
 		String jspCode = JspCreator.generateSourceFile(jspVo);
 		function.setJspCode(jspCode);
+		function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
 
 		TadFunction result = tadFunctionRepository.saveAndFlush(function);
 
@@ -139,24 +147,6 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		jspVo.setStrutsNamespace(function.getStrutsNamespace());
 		jspVo.setTitle(function.getTitle());
 		jspVo.setTadAttributes(tadAttributes);
-		
-//		List<List<JpaAttributeDefinition>> attrGroups = new ArrayList<List<JpaAttributeDefinition>>();
-//		List<JpaAttributeDefinition> singleGroup = null;
-//		
-//		List<JpaAttributeDefinition> attributeDefinitions = jpaEntityDefinition.getAttributeDefinitions();
-//		for (int i = 0; i < attributeDefinitions.size(); i++) {
-//			
-//			int groupIndex = i % 2;
-//			
-//			if (groupIndex == 0) {
-//				singleGroup = new ArrayList<JpaAttributeDefinition>();
-//				attrGroups.add(singleGroup);
-//			}
-//			
-//			singleGroup.add(attributeDefinitions.get(i));
-//		}
-//		
-//		jspVo.setAttrGroupList(attrGroups);
 		
 		return jspVo;
 	}

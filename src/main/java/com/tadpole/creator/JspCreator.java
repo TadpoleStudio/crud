@@ -19,8 +19,7 @@ public class JspCreator {
 	public static String generateSourceFile(JspVo jspVo) {
 
 		try {
-			String jspFileName = SystemPropertiesReader.getString("jsp-base-folder");
-			String filePath = jspFileName + jspVo.getStrutsNamespace() + "\\" + jspVo.getStrutsNamespace() + "-" + jspVo.getJavaClassName() + "-management.jsp";
+			String filePath = getSourceFileName(jspVo);
 			
 			System.out.println(filePath);
 			
@@ -47,5 +46,13 @@ public class JspCreator {
 			return null;
 		}
 
+	}
+	
+	public static String getSourceFileName(JspVo jspVo) {
+
+		String jspFileName = SystemPropertiesReader.getString("jsp-base-folder");
+		String filePath = jspFileName + jspVo.getStrutsNamespace() + "\\" + jspVo.getStrutsNamespace() + "-" + jspVo.getJavaClassName() + "-management.jsp";
+
+		return filePath;
 	}
 }

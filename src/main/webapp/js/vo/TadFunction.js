@@ -16,4 +16,12 @@ function TadFunction()  {
 	self.serviceImplementationCode = '';
 	self.strutsConfigurationgCode = '';
 	self.jspCode = '';
+	self.jpaEntityFilePath = '';
+	self.jsVoFilePath = '';
+	self.actionFilePath = '';
+	self.repositoryFilePath = '';
+	self.serviceInterfaceFilePath = '';
+	self.serviceImplementationFilePath = '';
+	self.strutsConfigurationgFilePath = '';
+	self.jspFilePath = '';
 }

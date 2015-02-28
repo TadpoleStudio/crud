@@ -9,4 +9,6 @@ public interface TadAttributeService {
 
 	void removeAttribute(String attributeId);
 
+	void removeSingleFunction(String functionId);
+
 }

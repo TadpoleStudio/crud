@@ -168,35 +168,35 @@
 								<legend>Code</legend>
 								
 								<div class="row">
-									<label>JPA Entity code</label>
+									<label>JPA Entity code	&nbsp; <span data-bind="text : jpaEntityFilePath, visible : jpaEntityFilePath "></span></label> 
 									<pre data-bind="text : jpaEntityCode" class="brush: java;"></pre>
 								</div>
 								<div class="row">
-									<label>JS entity Code</label>
+									<label>JS entity Code &nbsp; <span data-bind="text : jsVoFilePath, visible : jsVoFilePath "></span></label>
 									<pre data-bind="text : jsVoCode" class="brush: js;"></pre>
 								</div>
 								<div class="row">
-									<label>Repository code</label>
+									<label>Repository code &nbsp; <span data-bind="text : repositoryFilePath, visible : repositoryFilePath "></span></label>
 									<pre data-bind="text : repositoryCode" class="brush: java;"></pre>
 								</div>
 								<div class="row">
-									<label>Service Interface code</label>
+									<label>Service Interface code &nbsp; <span data-bind="text : serviceInterfaceFilePath, visible : serviceInterfaceFilePath "></span></label>
 									<pre data-bind="text : serviceInterfaceCode" class="brush: java;"></pre>
 								</div>
 								<div class="row">
-									<label>Service Implementation code</label>
+									<label>Service Implementation code &nbsp; <span data-bind="text : serviceImplementationFilePath, visible : serviceImplementationFilePath "></span></label>
 									<pre data-bind="text : serviceImplementationCode" class="brush: java;"></pre>
 								</div>
 								<div class="row">
-									<label>Action Class code</label>
+									<label>Action Class code &nbsp; <span data-bind="text : actionFilePath, visible : actionFilePath "></span></label>
 									<pre data-bind="text : actionCode" class="brush: java;"></pre>
 								</div>
 								<div class="row">
-									<label>Struts Configuration</label>
+									<label>Struts Configuration &nbsp; <span data-bind="text : strutsConfigurationgFilePath, visible : strutsConfigurationgFilePath "></span></label>
 									<pre data-bind="text : strutsConfigurationgCode" class="brush: xml;"></pre>
 								</div>
 								<div class="row">
-									<label>Jsp Code</label>
+									<label>Jsp Code &nbsp; <span data-bind="text : jspFilePath, visible : jspFilePath "></span></label>
 									<pre data-bind="text : jspCode" class="brush: xml;"></pre>
 								</div>
 							</fieldset>
@@ -272,11 +272,26 @@
 					
 				};
 				self.removeSingleFunction = function() {
+					var functionId = self.tadFunction().id;
 					
 					if(window.confirm('Are you sure to delete?')) {
 						
+						$.ajax({
+							url : 'removeSingleFunction.action',
+							method : 'POST',
+							data : {
+								functionId : functionId
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+								
+								if (isOK(data)) {
+									self.reloadPage();
+								}
+							}
+						});	
 						
-					}
+					}	
 					
 				};
 				

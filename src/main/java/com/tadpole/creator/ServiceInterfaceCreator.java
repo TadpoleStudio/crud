@@ -38,8 +38,7 @@ public class ServiceInterfaceCreator {
 
 	public static String generateSourceFile(JpaEntityDefinition jpaEntityDefinition) {
 
-		String jpaEntityPackagePath = SystemPropertiesReader.getString("service-package");
-		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Service.java";
+		String filePath = getSourceFileName(jpaEntityDefinition);
 
 		String sourceCode = generateCode(jpaEntityDefinition);
 
@@ -52,5 +51,13 @@ public class ServiceInterfaceCreator {
 		}
 
 		return sourceCode;
+	}
+
+	public static String getSourceFileName(JpaEntityDefinition jpaEntityDefinition) {
+
+		String jpaEntityPackagePath = SystemPropertiesReader.getString("service-package");
+		String filePath = jpaEntityPackagePath + jpaEntityDefinition.getJavaClassName() + "Service.java";
+
+		return filePath;
 	}
 }
