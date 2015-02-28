@@ -13,8 +13,8 @@ import javax.persistence.Column;
  * @author Jerry Jiang
  */
 @Entity
-@Table(name = "tad_test1")
-public class Test1 implements Serializable {
+@Table(name = "tad_teacher")
+public class Teacher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,19 @@ public class Test1 implements Serializable {
 	@GeneratedValue
 	protected Integer id;
 	
+	protected String name;
+	
+	protected Integer age;
+	
+	protected Integer salary;
+	
 	protected String a1;
 	
 	protected String a2;
 	
 	protected String a3;
+	
+	protected String a4;
 	
 
 	public Integer getId() {
@@ -39,6 +47,21 @@ public class Test1 implements Serializable {
 		this.id = id;
 	}
 
+	public String getName() {
+
+		return name;
+	}
+	
+	public Integer getAge() {
+
+		return age;
+	}
+	
+	public Integer getSalary() {
+
+		return salary;
+	}
+	
 	public String getA1() {
 
 		return a1;
@@ -54,6 +77,26 @@ public class Test1 implements Serializable {
 		return a3;
 	}
 	
+	public String getA4() {
+
+		return a4;
+	}
+	
+	public void setName(String name) {
+
+		this.name = name;
+	}
+	
+	public void setAge(Integer age) {
+
+		this.age = age;
+	}
+	
+	public void setSalary(Integer salary) {
+
+		this.salary = salary;
+	}
+	
 	public void setA1(String a1) {
 
 		this.a1 = a1;
@@ -67,6 +110,11 @@ public class Test1 implements Serializable {
 	public void setA3(String a3) {
 
 		this.a3 = a3;
+	}
+	
+	public void setA4(String a4) {
+
+		this.a4 = a4;
 	}
 	
 }

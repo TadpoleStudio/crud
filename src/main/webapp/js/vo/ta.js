@@ -1,4 +1,4 @@
-function Test1()  {
+function ta()  {
 	var self = this;
 	
 	self.id = '';

@@ -141,8 +141,8 @@
 					
 					$('#${firstLetterLowerCaseJavaClassName}Dialog').dialog({
 						modal : true,
-						width : 700,
-						height : 350,
+						width : 1191,
+						height : 658,
 						open : function(e) {
 							changeButtonStyleForPopup(e);
 						},

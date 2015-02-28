@@ -15,6 +15,7 @@
 <script src="/crud/js/common.js"></script>
 <script src="/crud/js/knockout-jqueryui.min.js"></script>
 <script src="/crud/js/User.js"></script>
+<script src="/crud/js/jquery.pagination.js"></script>
 <script>
 	Messenger.options = {
 		extraClasses : 'messenger-fixed messenger-on-top',

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.ImmutableList;
 import com.tadpole.entity.TadAttribute;
 import com.tadpole.entity.TadFunction;
+import com.tadpole.repository.MenuRepository;
 import com.tadpole.repository.TadAttributeRepository;
 import com.tadpole.repository.TadFunctionRepository;
 import com.tadpole.service.TadAttributeService;
@@ -27,6 +28,9 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 
 	@Autowired
 	TadFunctionRepository tadFunctionRepository;
+	
+	@Autowired
+	MenuRepository menuRepository;
 
 	@Resource(name = "dataSource")
 	org.springframework.jdbc.datasource.DriverManagerDataSource dataSource;
@@ -140,6 +144,13 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 		tadFunctionRepository.delete(tadFunction);
 		
 		removeTable(tadFunction.getTableName());
+		removeMenu(tadFunction.getMenuId());
+	}
+
+	private void removeMenu(Integer menuId) {
+
+		menuRepository.delete(menuId);
+		
 	}
 
 	private void removeTable(String tableName) {

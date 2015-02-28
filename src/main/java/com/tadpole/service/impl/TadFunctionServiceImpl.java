@@ -43,8 +43,8 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 	@Autowired
 	MenuRepository menuRepository;
-	
-	@Resource(name="dataSource")
+
+	@Resource(name = "dataSource")
 	org.springframework.jdbc.datasource.DriverManagerDataSource dataSource;
 
 	public TadFunction saveOrUpdateTadFunction(TadFunction tadFunction) {
@@ -105,7 +105,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String repositoryCode = RepositoryCreator.generateSourceFile(jpaEntityDefinition);
 		function.setRepositoryCode(repositoryCode);
 		function.setRepositoryFilePath(RepositoryCreator.getSourceFileName(jpaEntityDefinition));
-		
+
 		String serviceInterfaceCode = ServiceInterfaceCreator.generateSourceFile(jpaEntityDefinition);
 		function.setServiceInterfaceCode(serviceInterfaceCode);
 		function.setServiceInterfaceFilePath(ServiceInterfaceCreator.getSourceFileName(jpaEntityDefinition));
@@ -123,7 +123,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		function.setStrutsConfigurationgFilePath(StrutsConfigurationCreator.getSourceFileName(function));
 
 		JspVo jspVo = generateJspVo(jpaEntityDefinition, function, tadAttributes);
-		
+
 		String jspCode = JspCreator.generateSourceFile(jspVo);
 		function.setJspCode(jspCode);
 		function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
@@ -147,24 +147,46 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		jspVo.setStrutsNamespace(function.getStrutsNamespace());
 		jspVo.setTitle(function.getTitle());
 		jspVo.setTadAttributes(tadAttributes);
-		
+
 		return jspVo;
 	}
 
 	private void createOrUpdateMenuForFunction(TadFunction function) {
 
+		Integer menuId = function.getMenuId();
+		Menu menu = null;
 		String elementId = function.getEntityName() + "Link";
 		String link = "/crud/" + function.getStrutsNamespace() + "/load" + function.getEntityName() + "Mgr.action";
-		Menu existedMenu = menuRepository.findByElementId(elementId);
-		if (existedMenu == null) {
-			existedMenu = new Menu(function.getMenuTitle(), link, elementId);
+		String title = function.getMenuTitle();
+
+		if (menuId == null) {
+
+			menu = new Menu(title, link, elementId);
+
+			Menu savedMenu = menuRepository.saveAndFlush(menu);
+
+			function.setMenuId(savedMenu.getId());
+
+			tadFunctionRepository.saveAndFlush(function);
+
+		} else {
+			menu = menuRepository.findOne(menuId);
+
+			if (menu == null) {
+				throw new RuntimeException("WTF!");
+			}
+
+			menu.setElementId(elementId);
+			menu.setUrl(link);
+			menu.setTitle(title);
+
+			menuRepository.saveAndFlush(menu);
 		}
 
-		menuRepository.saveAndFlush(existedMenu);
 	}
 
 	public List<String> loadAllTableNames() {
-		
+
 		return tadFunctionRepository.loadAllTableNames();
 	}
 

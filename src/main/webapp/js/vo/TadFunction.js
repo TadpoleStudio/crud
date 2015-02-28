@@ -8,6 +8,7 @@ function TadFunction()  {
 	self.description = '';
 	self.title = '';
 	self.menuTitle = '';
+	self.menuId = '';
 	self.jpaEntityCode = '';
 	self.jsVoCode = '';
 	self.actionCode = '';

@@ -6,39 +6,40 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.tadpole.entity.Test1;
-import com.tadpole.service.Test1Service;
+import com.tadpole.entity.Teacher;
+import com.tadpole.service.TeacherService;
 import com.tadpole.vo.ResponseVo;
 import com.tadpole.vo.PagedElement;
+
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
 
-@Component("Test1Action")
+@Component("TeacherAction")
 @Scope("prototype")
-public class Test1Action extends AbstractAction {
+public class TeacherAction extends AbstractAction {
 
 	private static final long serialVersionUID = 1L;
 
-	@Resource(name = "Test1Service")
-	private Test1Service test1Service;
+	@Resource(name = "TeacherService")
+	private TeacherService teacherService;
 
-	public String saveOrUpdateTest1() {
+	public String saveOrUpdateTeacher() {
 	
 		try {
-			String test1Json = getParameter("test1Json");
+			String teacherJson = getParameter("teacherJson");
 
-			if (StringUtils.isEmpty(test1Json)) {
+			if (StringUtils.isEmpty(teacherJson)) {
 				setResponse(ResponseVo.newFailMessage("Bad request : no data found to save or update."));
 
 				return SUCCESS;
 			}
 
-			Test1 test1 = (Test1)JSONObject.toBean(JSONObject.fromObject(test1Json), Test1.class);
+			Teacher teacher = (Teacher)JSONObject.toBean(JSONObject.fromObject(teacherJson), Teacher.class);
 
-			Test1 saved = test1Service.saveOrUpdateTest1(test1);
+			Teacher saved = teacherService.saveOrUpdateTeacher(teacher);
 			
-			ResponseVo response = ResponseVo.newSuccessMessage("The test1 is successfully saved.");
+			ResponseVo response = ResponseVo.newSuccessMessage("The teacher is successfully saved.");
 			response.setObject(saved);
 			
 			setResponse(response);
@@ -51,12 +52,18 @@ public class Test1Action extends AbstractAction {
 		return SUCCESS;
 	}
 
-	public String loadTest1s() {
+	public String loadTeachers() {
 
 		try {
-			Page<Test1> test1s = test1Service.loadTest1s();
+			
+			String currentIndex = getParameter("currentIndex");
+			if (StringUtils.isEmpty(currentIndex)) {
+				currentIndex = "1";
+			}
 
-			PagedElement<Test1> pageElement = new PagedElement<Test1>(test1s);
+			Page<Teacher> teachers = teacherService.loadTeachers(currentIndex);
+
+			PagedElement<Teacher> pageElement = new PagedElement<Teacher>(teachers);
 
 			ResponseVo response = ResponseVo.newSuccessMessage("loaded successfully.");
 			response.setObject(pageElement);

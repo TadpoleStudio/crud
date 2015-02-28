@@ -32,6 +32,8 @@ public class TadFunction implements Serializable {
 	protected String title;
 
 	protected String menuTitle;
+	
+	protected Integer menuId;
 
 	@Lob
 	protected String jpaEntityCode;
@@ -71,6 +73,16 @@ public class TadFunction implements Serializable {
 	protected String jspCode;
 
 	protected String jspFilePath;
+
+	public Integer getMenuId() {
+	
+		return menuId;
+	}
+
+	public void setMenuId(Integer menuId) {
+	
+		this.menuId = menuId;
+	}
 
 	public Integer getId() {
 
