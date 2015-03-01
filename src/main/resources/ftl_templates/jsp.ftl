@@ -73,6 +73,7 @@
 									</table>
 									<br>
 								</div>
+								<div class="row" id="${firstLetterLowerCaseJavaClassName}PageNavigation"></div>
 						</div>
 					</div>
 
@@ -93,24 +94,43 @@
 				
 				self.selected${javaClassName} = ko.observable(new ${javaClassName}());
 				self.${firstLetterLowerCaseJavaClassName}List = ko.observableArray([]);
-				
+				self.totalCount = ko.observable('');
+				self.currentIndex = ko.observable(1);
 				self.search${javaClassName} = function() {
 					
 					$.ajax({
 						url : 'load${javaClassName}s.action',
+						data : {currentIndex : self.currentIndex()},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
 								self.${firstLetterLowerCaseJavaClassName}List(data.object.elements);
+								self.totalCount(data.object.total);
+								$('#teacherPageNavigation').pagination(
+                				self.totalCount(),
+        							{
+                					num_edge_entries: 1,
+                					num_display_entries: 15,
+                					callback: self.pageSelectCallback,
+                					items_per_page: 10,
+                					prev_text: "Last Page",
+                					next_text: "Next Page",
+                					current_page : self.currentIndex() - 1,
+                					load_first_page : false
+        							}
+								);
 							}
-							
-							handleStanderdResponse(data);
-							
 						}
 					});
 				};
 				
 				self.search${javaClassName}();
+				
+				self.pageSelectCallback = function(page_index, jq){
+        				self.currentIndex(page_index + 1);
+        				self.searchTeacher();
+        				return false;
+				};
 				
 				self.saveOrUpdate${javaClassName} = function() {
 					

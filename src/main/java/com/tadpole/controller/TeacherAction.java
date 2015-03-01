@@ -10,7 +10,6 @@ import com.tadpole.entity.Teacher;
 import com.tadpole.service.TeacherService;
 import com.tadpole.vo.ResponseVo;
 import com.tadpole.vo.PagedElement;
-
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
@@ -55,12 +54,10 @@ public class TeacherAction extends AbstractAction {
 	public String loadTeachers() {
 
 		try {
-			
 			String currentIndex = getParameter("currentIndex");
 			if (StringUtils.isEmpty(currentIndex)) {
-				currentIndex = "1";
+        		currentIndex = "1";
 			}
-
 			Page<Teacher> teachers = teacherService.loadTeachers(currentIndex);
 
 			PagedElement<Teacher> pageElement = new PagedElement<Teacher>(teachers);

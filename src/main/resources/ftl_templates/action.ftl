@@ -54,7 +54,11 @@ public class ${javaClassName}Action extends AbstractAction {
 	public String load${javaClassName}s() {
 
 		try {
-			Page<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Service.load${javaClassName}s();
+			String currentIndex = getParameter("currentIndex");
+			if (StringUtils.isEmpty(currentIndex)) {
+        		currentIndex = "1";
+			}
+			Page<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Service.load${javaClassName}s(currentIndex);
 
 			PagedElement<${javaClassName}> pageElement = new PagedElement<${javaClassName}>(${firstLetterLowerCaseJavaClassName}s);
 

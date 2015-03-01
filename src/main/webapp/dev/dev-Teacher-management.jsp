@@ -36,27 +36,21 @@
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Salary</label> 
-							<input type="text" data-bind="value : salary" />
-						</div>
-						<div class="six columns">
-							<label>A1</label> 
+							<label>a1</label> 
 							<input type="text" data-bind="value : a1" />
 						</div>
-					</div>
-					<div class="row">
 						<div class="six columns">
-							<label>A2</label> 
+							<label>a2</label> 
 							<input type="text" data-bind="value : a2" />
 						</div>
-						<div class="six columns">
-							<label>A3</label> 
-							<input type="text" data-bind="value : a3" />
-						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>A4</label> 
+							<label>a3</label> 
+							<input type="text" data-bind="value : a3" />
+						</div>
+						<div class="six columns">
+							<label>a4</label> 
 							<input type="text" data-bind="value : a4" />
 						</div>
 					</div>
@@ -81,11 +75,10 @@
 											<tr>
 												<th style="text-align: center">Name</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">Salary</th>
-												<th style="text-align: center">A1</th>
-												<th style="text-align: center">A2</th>
-												<th style="text-align: center">A3</th>
-												<th style="text-align: center">A4</th>
+												<th style="text-align: center">a1</th>
+												<th style="text-align: center">a2</th>
+												<th style="text-align: center">a3</th>
+												<th style="text-align: center">a4</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -93,7 +86,6 @@
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : salary"></td>
 												<td style="text-align: center" data-bind="text : a1"></td>
 												<td style="text-align: center" data-bind="text : a2"></td>
 												<td style="text-align: center" data-bind="text : a3"></td>
@@ -129,28 +121,29 @@
 				self.selectedTeacher = ko.observable(new Teacher());
 				self.teacherList = ko.observableArray([]);
 				self.totalCount = ko.observable('');
-				self.currentIndex = ko.observable('');
+				self.currentIndex = ko.observable(1);
 				self.searchTeacher = function() {
 					
 					$.ajax({
 						url : 'loadTeachers.action',
+						data : {currentIndex : self.currentIndex()},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
 								self.teacherList(data.object.elements);
 								self.totalCount(data.object.total);
 								$('#teacherPageNavigation').pagination(
-										self.totalCount(), 
-									{
-										num_edge_entries: 1, 
-										num_display_entries: 15, 
-										callback: self.pageSelectCallback,
-										items_per_page: 10, 
-										prev_text: "上一页",
-										next_text: "下一页",
-										current_page : self.currentIndex() - 1,
-										load_first_page : false
-									}
+                				self.totalCount(),
+        							{
+                					num_edge_entries: 1,
+                					num_display_entries: 15,
+                					callback: self.pageSelectCallback,
+                					items_per_page: 10,
+                					prev_text: "Last Page",
+                					next_text: "Next Page",
+                					current_page : self.currentIndex() - 1,
+                					load_first_page : false
+        							}
 								);
 							}
 						}
@@ -160,10 +153,11 @@
 				self.searchTeacher();
 				
 				self.pageSelectCallback = function(page_index, jq){
-					self.currentIndex(page_index + 1);
-					self.searchTeacher();
-					return false;
+        				self.currentIndex(page_index + 1);
+        				self.searchTeacher();
+        				return false;
 				};
+				
 				self.saveOrUpdateTeacher = function() {
 					
 					$.ajax({

@@ -20,9 +20,9 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 		return ${firstLetterLowerCaseJavaClassName}Repository.saveAndFlush(${firstLetterLowerCaseJavaClassName});
 	}
 	
-	public Page<${javaClassName}> load${javaClassName}s() {
+	public Page<${javaClassName}> load${javaClassName}s(String currentIndex) {
 
-		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(0, 10));
+		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(Integer.valueOf(currentIndex), 10));
 	}
 
 }

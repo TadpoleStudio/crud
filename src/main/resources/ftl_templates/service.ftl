@@ -9,5 +9,5 @@ public interface ${javaClassName}Service {
 
 	${javaClassName} saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName});
 
-	Page<${javaClassName}> load${javaClassName}s();
+	Page<${javaClassName}> load${javaClassName}s(String currentIndex);
 }
