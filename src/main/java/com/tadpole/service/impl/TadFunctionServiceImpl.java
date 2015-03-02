@@ -163,7 +163,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		jspVo.setTadAttributes(tadAttributes);
 		List<TadAttribute> searchableTadAttributes = Lists.newArrayList();
 		for (TadAttribute tadAttribute : tadAttributes) {
-			if (tadAttribute.getSearchable()) {
+			if (tadAttribute.getSearchable() != null && tadAttribute.getSearchable()) {
 				searchableTadAttributes.add(tadAttribute);
 			}
 		}

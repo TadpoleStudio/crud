@@ -169,6 +169,8 @@ public class TadFunctionAction extends AbstractAction {
 			setResponse(success);
 
 		} catch (Exception e) {
+			e.printStackTrace();
+			
 			setResponse(ResponseVo.newFailMessage(e.getMessage()));
 			return SUCCESS;
 		}

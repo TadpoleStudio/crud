@@ -6,12 +6,12 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.tadpole.vo.search.TeacherSearchVo;
+
 import com.tadpole.entity.Teacher;
 import com.tadpole.service.TeacherService;
 import com.tadpole.vo.ResponseVo;
 import com.tadpole.vo.PagedElement;
-import com.tadpole.vo.search.TeacherSearchVo;
-
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
@@ -78,15 +78,16 @@ public class TeacherAction extends AbstractAction {
 		return SUCCESS;
 	}
 	public String loadTeachers() {
-		
-		String teacherSearchVoJson = getParameter("teacherSearchVoJson");
-		TeacherSearchVo teacherSearchVo = (TeacherSearchVo)JSONObject.toBean(JSONObject.fromObject(teacherSearchVoJson), TeacherSearchVo.class);
 
 		try {
 			String currentIndex = getParameter("currentIndex");
 			if (StringUtils.isEmpty(currentIndex)) {
         		currentIndex = "1";
 			}
+			
+			String teacherSearchVoJson = getParameter("teacherSearchVoJson");
+			TeacherSearchVo teacherSearchVo = (TeacherSearchVo)JSONObject.toBean(JSONObject.fromObject(teacherSearchVoJson), TeacherSearchVo.class);
+			
 			Page<Teacher> teachers = teacherService.loadTeachers(currentIndex, teacherSearchVo);
 
 			PagedElement<Teacher> pageElement = new PagedElement<Teacher>(teachers);

@@ -38,27 +38,28 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 		Specifications<${javaClassName}> ${firstLetterLowerCaseJavaClassName}Specification = null;
 <#list attributeDefinitions as attr>
 	<#if attr.searchable??>
-		<#if ${attr_index} == 0??>
-			<#if attr.type == 'String'??>
-			if (StringUtils.isNotBlank(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}())) {
+		<#if attr_index == 0>
+			<#if attr.type == 'String'>
+		if (StringUtils.isNotBlank(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}())) {
 			<#else>
-			if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
+		if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
 			</#if>
-        		${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
-			}
+       	 	${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
+		}
 		<#else>
 		
-			if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
+		if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
 
-         		if (${firstLetterLowerCaseJavaClassName}Specification == null) {
-                	 ${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
-         		} else {
-                	 ${firstLetterLowerCaseJavaClassName}Specification.and(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
-        	 }
+         	if (${firstLetterLowerCaseJavaClassName}Specification == null) {
+                ${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
+         	} else {
+                ${firstLetterLowerCaseJavaClassName}Specification.and(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
+        	}
  		}
 		</#if>
 	</#if>
 </#list>
+
 		if (teacherSpecification == null) {
        		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
 		} else {
@@ -69,7 +70,7 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 
 <#list attributeDefinitions as attr>
 	<#if attr.searchable??>
-	private Specification<${javaClassName}> ${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(final String ${attr.name}) {
+	private Specification<${javaClassName}> ${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(final ${attr.type} ${attr.name}) {
 
 		return new Specification<${javaClassName}>(){
 
