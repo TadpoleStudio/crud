@@ -13,7 +13,20 @@ public class JspVo {
 	private List<JpaAttributeDefinition> attributeDefinitions;
 	private List<List<JpaAttributeDefinition>> attrGroupList;
 	private List<TadAttribute> tadAttributes;
+	private List<TadAttribute> searchableTadAttributes;
 	
+	
+	public List<TadAttribute> getSearchableTadAttributes() {
+	
+		return searchableTadAttributes;
+	}
+
+	
+	public void setSearchableTadAttributes(List<TadAttribute> searchableTadAttributes) {
+	
+		this.searchableTadAttributes = searchableTadAttributes;
+	}
+
 	public String getJavaClassName() {
 	
 		return javaClassName;

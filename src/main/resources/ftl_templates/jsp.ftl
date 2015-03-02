@@ -38,6 +38,30 @@
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
+							<h2>Search ${javaClassName}</h2>
+							<h2 class="right"></h2>
+						</div>
+						<div class="content" data-bind="with : ${firstLetterLowerCaseJavaClassName}Search">
+							<#list searchableTadAttributes?chunk(4) as row>
+								<div class="row">
+								<#list row as cell>
+									<div class="three columns">
+										<label>${cell.label}</label> 
+										<input type="text" data-bind="value : ${cell.name}" />
+									</div>
+								</#list>
+							</div>
+							</#list>
+							
+							<div class="row">
+								<a title="Search ${javaClassName}" data-bind="click : $root.search${javaClassName}" href="#" class="small blue button">Seach ${javaClassName}</a>
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="app-wrapper ui-corner-top">
+						<div class="blue module ui-corner-top clearfix">
 							<h2>${javaClassName} List</h2>
 							<h2 class="right"></h2>
 						</div>
@@ -86,7 +110,7 @@
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
 	<script src="/crud/js/vo/${javaClassName}.js"></script>
-
+	<script src="/crud/js/vo/search/${javaClassName}Search.js"></script>
 	<script>
 		$(document).ready(function() {
 
@@ -99,11 +123,14 @@
 				self.totalCount = ko.observable(0);
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
+				self.${firstLetterLowerCaseJavaClassName}Search = ko.observable(new ${javaClassName}Search);
 				self.search${javaClassName} = function() {
 					
 					$.ajax({
 						url : 'load${javaClassName}s.action',
-						data : {currentIndex : self.currentIndex()},
+						data : {currentIndex : self.currentIndex(),
+								${firstLetterLowerCaseJavaClassName}SearchVoJson : JSON.stringify(self.${firstLetterLowerCaseJavaClassName}Search())
+								},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {

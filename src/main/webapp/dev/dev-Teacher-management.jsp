@@ -64,6 +64,30 @@
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
+							<h2>Search Teacher</h2>
+							<h2 class="right"></h2>
+						</div>
+						<div class="content" data-bind="with : teacherSearch">
+							<div class="row">
+								<div class="three columns">
+									<label>Name</label> <input type="text" data-bind="value : name" />
+								</div>
+								<div class="three columns">
+									<label>Age</label> <input type="text" data-bind="value : age" />
+								</div>
+								<div class="three columns">
+									<label>Salary</label> <input type="text" data-bind="value : salary" />
+								</div>
+							</div>
+							<div class="row">
+								<a title="add attribute" data-bind="click : $root.searchTeacher" href="#" class="small blue button">Seach Teacher</a>
+							</div>
+						</div>
+					</div>	
+				</div>
+				<div class="row">
+					<div class="app-wrapper ui-corner-top">
+						<div class="blue module ui-corner-top clearfix">
 							<h2>Teacher List</h2>
 							<h2 class="right"></h2>
 						</div>
@@ -120,7 +144,7 @@
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
 	<script src="/crud/js/vo/Teacher.js"></script>
-
+	<script src="/crud/js/vo/search/TeacherSearch.js"></script>
 	<script>
 		$(document).ready(function() {
 
@@ -133,11 +157,14 @@
 				self.totalCount = ko.observable(0);
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
+				self.teacherSearch = ko.observable(new TeacherSearch());
 				self.searchTeacher = function() {
 					
 					$.ajax({
 						url : 'loadTeachers.action',
-						data : {currentIndex : self.currentIndex()},
+						data : {currentIndex : self.currentIndex(),
+								teacherSearchVoJson : JSON.stringify(self.teacherSearch())
+							},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {

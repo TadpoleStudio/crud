@@ -13,9 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
+import com.google.common.primitives.Ints;
 import com.tadpole.creator.ControllerCreator;
 import com.tadpole.creator.EntityBeanCreator;
+import com.tadpole.creator.JavaSearchVoCreator;
 import com.tadpole.creator.JsObjectCreator;
+import com.tadpole.creator.JsSearchObjectCreator;
 import com.tadpole.creator.JspCreator;
 import com.tadpole.creator.RepositoryCreator;
 import com.tadpole.creator.ServiceImplemetationCreator;
@@ -89,7 +93,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		List<JpaAttributeDefinition> jpaAttributeDefinitions = new ArrayList<JpaAttributeDefinition>();
 
 		for (TadAttribute tadAttribute : tadAttributes) {
-			JpaAttributeDefinition jpaAttributeDefinition = new JpaAttributeDefinition(tadAttribute.getName(), tadAttribute.getType());
+			JpaAttributeDefinition jpaAttributeDefinition = new JpaAttributeDefinition(tadAttribute.getName(), tadAttribute.getType(), tadAttribute.getSearchable());
 			jpaAttributeDefinitions.add(jpaAttributeDefinition);
 		}
 		jpaEntityDefinition.setAttributeDefinitions(jpaAttributeDefinitions);
@@ -101,6 +105,16 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String jsVoCode = JsObjectCreator.generateSourceFile(jpaEntityDefinition);
 		function.setJsVoCode(jsVoCode);
 		function.setJsVoFilePath(JsObjectCreator.getSourceFileName(jpaEntityDefinition));
+		
+		String jsSearchVoCode = JsSearchObjectCreator.generateSourceFile(jpaEntityDefinition);
+		String jsSearchVoFilePath = JsSearchObjectCreator.getSourceFileName(jpaEntityDefinition);
+		function.setJsSearchVoCode(jsSearchVoCode);
+		function.setJsSearchVoFilePath(jsSearchVoFilePath);
+		
+		String javaSearchVoCode = JavaSearchVoCreator.generateSourceFile(jpaEntityDefinition);
+		String javaSearchVoFilePath = JavaSearchVoCreator.getSourceFileName(jpaEntityDefinition);
+		function.setJavaSearchVoCode(javaSearchVoCode);
+		function.setJavaSearchVoFilePath(javaSearchVoFilePath);
 
 		String repositoryCode = RepositoryCreator.generateSourceFile(jpaEntityDefinition);
 		function.setRepositoryCode(repositoryCode);
@@ -147,7 +161,13 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		jspVo.setStrutsNamespace(function.getStrutsNamespace());
 		jspVo.setTitle(function.getTitle());
 		jspVo.setTadAttributes(tadAttributes);
-
+		List<TadAttribute> searchableTadAttributes = Lists.newArrayList();
+		for (TadAttribute tadAttribute : tadAttributes) {
+			if (tadAttribute.getSearchable()) {
+				searchableTadAttributes.add(tadAttribute);
+			}
+		}
+		jspVo.setSearchableTadAttributes(searchableTadAttributes);
 		return jspVo;
 	}
 

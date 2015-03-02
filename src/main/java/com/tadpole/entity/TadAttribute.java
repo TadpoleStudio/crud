@@ -32,6 +32,8 @@ public class TadAttribute implements Serializable {
 	
 	protected Boolean required;
 	
+	protected Boolean searchable;
+	
 
 	public Integer getId() {
 
@@ -93,4 +95,13 @@ public class TadAttribute implements Serializable {
 		this.required = required;
 	}
 	
+	public Boolean getSearchable() {
+	
+		return searchable;
+	}
+	
+	public void setSearchable(Boolean searchable) {
+	
+		this.searchable = searchable;
+	}
 }

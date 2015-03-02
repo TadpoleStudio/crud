@@ -39,11 +39,21 @@ public class TadFunction implements Serializable {
 	protected String jpaEntityCode;
 
 	protected String jpaEntityFilePath;
+	
+	@Lob
+	protected String javaSearchVoCode;
+	
+	protected String javaSearchVoFilePath;
 
 	@Lob
 	protected String jsVoCode;
-
+	
 	protected String jsVoFilePath;
+	
+	@Lob
+	protected String jsSearchVoCode;
+	
+	protected String jsSearchVoFilePath;
 
 	@Lob
 	protected String actionCode;
@@ -73,6 +83,54 @@ public class TadFunction implements Serializable {
 	protected String jspCode;
 
 	protected String jspFilePath;
+
+	
+	public String getJavaSearchVoCode() {
+	
+		return javaSearchVoCode;
+	}
+
+	
+	public void setJavaSearchVoCode(String javaSearchVoCode) {
+	
+		this.javaSearchVoCode = javaSearchVoCode;
+	}
+
+	
+	public String getJavaSearchVoFilePath() {
+	
+		return javaSearchVoFilePath;
+	}
+
+	
+	public void setJavaSearchVoFilePath(String javaSearchVoFilePath) {
+	
+		this.javaSearchVoFilePath = javaSearchVoFilePath;
+	}
+
+	
+	public String getJsSearchVoCode() {
+	
+		return jsSearchVoCode;
+	}
+
+	
+	public void setJsSearchVoCode(String jsSearchVoCode) {
+	
+		this.jsSearchVoCode = jsSearchVoCode;
+	}
+
+	
+	public String getJsSearchVoFilePath() {
+	
+		return jsSearchVoFilePath;
+	}
+
+	
+	public void setJsSearchVoFilePath(String jsSearchVoFilePath) {
+	
+		this.jsSearchVoFilePath = jsSearchVoFilePath;
+	}
 
 	public Integer getMenuId() {
 	

@@ -53,5 +53,19 @@ public class JpaEntityDefinition {
 
 		this.firstLetterLowerCaseJavaClassName = firstLetterLowerCaseJavaClassName;
 	}
+	
+	public boolean hasSearchableAttribute() {
+		
+		boolean findSeachableAttribute = false;
+		
+		for (JpaAttributeDefinition jpaAttributeDefinition : attributeDefinitions) {
+			
+			if (jpaAttributeDefinition.getSearchable()) {
+				return true;
+			}
+		}
+		
+		return findSeachableAttribute;
+	}
 
 }

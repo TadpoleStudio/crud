@@ -5,9 +5,10 @@ public class JpaAttributeDefinition {
 	private String name;
 	private String type;
 	private String length;
+	private Boolean searchable;
 	private String firstLetterUpperName;
 
-	public JpaAttributeDefinition(String name, String type) {
+	public JpaAttributeDefinition(String name, String type, Boolean searchable) {
 
 		super();
 		this.name = name;
@@ -16,14 +17,29 @@ public class JpaAttributeDefinition {
 		String firstLetter = name.substring(0, 1);
 
 		this.firstLetterUpperName = firstLetter.toUpperCase() + name.substring(1);
+		
+		this.searchable = searchable;
 
 	}
 
-	public JpaAttributeDefinition(String name, String type, String length) {
+	public JpaAttributeDefinition(String name, String type, String length, Boolean searchable) {
 
-		this(name, type);
+		this(name, type, searchable);
 
 		this.length = length;
+	}
+
+	
+	
+	public Boolean getSearchable() {
+	
+		return searchable;
+	}
+
+	
+	public void setSearchable(Boolean searchable) {
+	
+		this.searchable = searchable;
 	}
 
 	public String getName() {

@@ -3,7 +3,7 @@ package com.tadpole.service;
 import org.springframework.data.domain.Page;
 
 import com.tadpole.entity.${javaClassName};
-
+import com.tadpole.vo.search.${javaClassName}SearchVo;
 
 public interface ${javaClassName}Service {
 
@@ -11,5 +11,5 @@ public interface ${javaClassName}Service {
 
 	void delete${javaClassName}(String ${firstLetterLowerCaseJavaClassName}Id);
 	
-	Page<${javaClassName}> load${javaClassName}s(String currentIndex);
+	Page<${javaClassName}> load${javaClassName}s(String currentIndex, ${javaClassName}SearchVo ${firstLetterLowerCaseJavaClassName}SearchVo);
 }

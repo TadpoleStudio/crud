@@ -68,7 +68,12 @@
 							<label>Label</label> <input type="text" data-bind="value : label" />
 						</div>
 						
-						<div class="six columns"></div>
+						<div class="six columns">
+							<label>Search</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : searchable" />
+							Searchable</label> 
+						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">

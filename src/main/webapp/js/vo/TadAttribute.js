@@ -7,4 +7,5 @@ function TadAttribute()  {
 	self.type = '';
 	self.label = '';
 	self.required = '';
+	self.searchable = '';
 }

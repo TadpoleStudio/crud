@@ -6,6 +6,8 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.tadpole.vo.search.${javaClassName}SearchVo;
+
 import com.tadpole.entity.${javaClassName};
 import com.tadpole.service.${javaClassName}Service;
 import com.tadpole.vo.ResponseVo;
@@ -82,7 +84,11 @@ public class ${javaClassName}Action extends AbstractAction {
 			if (StringUtils.isEmpty(currentIndex)) {
         		currentIndex = "1";
 			}
-			Page<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Service.load${javaClassName}s(currentIndex);
+			
+			String ${firstLetterLowerCaseJavaClassName}SearchVoJson = getParameter("${firstLetterLowerCaseJavaClassName}SearchVoJson");
+			${javaClassName}SearchVo ${firstLetterLowerCaseJavaClassName}SearchVo = (${javaClassName}SearchVo)JSONObject.toBean(JSONObject.fromObject(${firstLetterLowerCaseJavaClassName}SearchVoJson), ${javaClassName}SearchVo.class);
+			
+			Page<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Service.load${javaClassName}s(currentIndex, ${firstLetterLowerCaseJavaClassName}SearchVo);
 
 			PagedElement<${javaClassName}> pageElement = new PagedElement<${javaClassName}>(${firstLetterLowerCaseJavaClassName}s);
 
