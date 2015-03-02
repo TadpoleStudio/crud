@@ -43,8 +43,10 @@
 						</div>
 						<div class="content">
 						
-							<div class="row">
-									<div class="nine columns"></div>
+								<div class="row" style="margin-bottom: 5px">
+									<div class="nine columns">
+										Find <span class="label" data-bind="text : $root.totalCount"></span> records, <span class="label" data-bind="text : $root.totalPageCount"></span> pages.
+									</div>
 									<div class="three columns">
 										<a title="add attribute" data-bind="click : $root.openManage${javaClassName}Dialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
@@ -95,6 +97,7 @@
 				self.selected${javaClassName} = ko.observable(new ${javaClassName}());
 				self.${firstLetterLowerCaseJavaClassName}List = ko.observableArray([]);
 				self.totalCount = ko.observable('');
+				self.totalPageCount = ko.observable('');
 				self.currentIndex = ko.observable(1);
 				self.search${javaClassName} = function() {
 					
@@ -106,6 +109,7 @@
 							if (data && data.object && data.object.elements) {
 								self.${firstLetterLowerCaseJavaClassName}List(data.object.elements);
 								self.totalCount(data.object.total);
+								self.totalPageCount(data.object.totalPages);
 								$('#teacherPageNavigation').pagination(
                 				self.totalCount(),
         							{
@@ -145,6 +149,9 @@
 							
 							if(data.object && data.object.id) {
 								self.selected${javaClassName}(data.object);
+								closeDialog('${firstLetterLowerCaseJavaClassName}Dialog');
+								
+								self.search${javaClassName}();
 							}
 						}
 					});	
