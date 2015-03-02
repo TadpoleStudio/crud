@@ -51,6 +51,30 @@ public class ${javaClassName}Action extends AbstractAction {
 		return SUCCESS;
 	}
 
+	public String delete${javaClassName}() {
+	
+		try {
+			String ${firstLetterLowerCaseJavaClassName}Id = getParameter("${firstLetterLowerCaseJavaClassName}Id");
+
+			if (StringUtils.isEmpty(${firstLetterLowerCaseJavaClassName}Id)) {
+				setResponse(ResponseVo.newFailMessage("Bad request : no data is provided to delete."));
+
+				return SUCCESS;
+			}
+
+			${firstLetterLowerCaseJavaClassName}Service.delete${javaClassName}(${firstLetterLowerCaseJavaClassName}Id);
+			
+			ResponseVo response = ResponseVo.newSuccessMessage("The ${firstLetterLowerCaseJavaClassName} is successfully deleted.");
+			
+			setResponse(response);
+			
+		} catch (Exception e) {
+			
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+		}
+
+		return SUCCESS;
+	}
 	public String load${javaClassName}s() {
 
 		try {

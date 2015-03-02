@@ -36,21 +36,27 @@
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>a1</label> 
-							<input type="text" data-bind="value : a1" />
+							<label>Salary</label> 
+							<input type="text" data-bind="value : salary" />
 						</div>
 						<div class="six columns">
-							<label>a2</label> 
-							<input type="text" data-bind="value : a2" />
+							<label>A1</label> 
+							<input type="text" data-bind="value : a1" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>a3</label> 
-							<input type="text" data-bind="value : a3" />
+							<label>A2</label> 
+							<input type="text" data-bind="value : a2" />
 						</div>
 						<div class="six columns">
-							<label>a4</label> 
+							<label>A3</label> 
+							<input type="text" data-bind="value : a3" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="six columns">
+							<label>A4</label> 
 							<input type="text" data-bind="value : a4" />
 						</div>
 					</div>
@@ -63,8 +69,10 @@
 						</div>
 						<div class="content">
 						
-							<div class="row">
-									<div class="nine columns"></div>
+								<div class="row" style="margin-bottom: 5px">
+									<div class="nine columns">
+										Find <span class="label" data-bind="text : $root.totalCount"></span> records, <span class="label" data-bind="text : $root.totalPageCount"></span> pages.
+									</div>
 									<div class="three columns">
 										<a title="add attribute" data-bind="click : $root.openManageTeacherDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
@@ -75,10 +83,11 @@
 											<tr>
 												<th style="text-align: center">Name</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">a1</th>
-												<th style="text-align: center">a2</th>
-												<th style="text-align: center">a3</th>
-												<th style="text-align: center">a4</th>
+												<th style="text-align: center">Salary</th>
+												<th style="text-align: center">A1</th>
+												<th style="text-align: center">A2</th>
+												<th style="text-align: center">A3</th>
+												<th style="text-align: center">A4</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -86,6 +95,7 @@
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
+												<td style="text-align: center" data-bind="text : salary"></td>
 												<td style="text-align: center" data-bind="text : a1"></td>
 												<td style="text-align: center" data-bind="text : a2"></td>
 												<td style="text-align: center" data-bind="text : a3"></td>
@@ -120,7 +130,8 @@
 				
 				self.selectedTeacher = ko.observable(new Teacher());
 				self.teacherList = ko.observableArray([]);
-				self.totalCount = ko.observable('');
+				self.totalCount = ko.observable(0);
+				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.searchTeacher = function() {
 					
@@ -132,6 +143,7 @@
 							if (data && data.object && data.object.elements) {
 								self.teacherList(data.object.elements);
 								self.totalCount(data.object.total);
+								self.totalPageCount(data.object.totalPages);
 								$('#teacherPageNavigation').pagination(
                 				self.totalCount(),
         							{
@@ -171,6 +183,9 @@
 							
 							if(data.object && data.object.id) {
 								self.selectedTeacher(data.object);
+								closeDialog('teacherDialog');
+								
+								self.searchTeacher();
 							}
 						}
 					});	
@@ -204,6 +219,26 @@
 					});
 				};
 				
+				self.deleteTeacher = function(item, event) {
+					
+					if (window.confirm("Are your sure to DELETE it?")) {
+						
+						$.ajax({
+							url : 'deleteTeacher.action',
+							method : 'POST',
+							data : {
+								teacherId : item.id
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+								
+								if(isOK(data)) {
+									self.searchTeacher();
+								}
+							}
+						});
+					}
+				};
 			};
 
 			var teacherDataModel = new TeacherDataModel();

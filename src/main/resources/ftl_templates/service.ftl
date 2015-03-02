@@ -9,5 +9,7 @@ public interface ${javaClassName}Service {
 
 	${javaClassName} saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName});
 
+	void delete${javaClassName}(String ${firstLetterLowerCaseJavaClassName}Id);
+	
 	Page<${javaClassName}> load${javaClassName}s(String currentIndex);
 }

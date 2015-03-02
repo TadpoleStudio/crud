@@ -20,6 +20,17 @@
 				<param name="root">response</param>
 			</result>
 		</action>
+		<action name="deleteTeacher" class="TeacherAction" method="deleteTeacher">
+			<result name="input">
+				dev-Teacher-management.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
 		<action name="loadTeachers" class="TeacherAction" method="loadTeachers">
 			<result name="success" type="json">
 				<param name="root">response</param>

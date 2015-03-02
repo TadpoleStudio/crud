@@ -20,9 +20,14 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherRepository.saveAndFlush(teacher);
 	}
 	
+	public void deleteTeacher(String teacherId) {
+
+		teacherRepository.delete(Integer.valueOf(teacherId));
+	}
+	
 	public Page<Teacher> loadTeachers(String currentIndex) {
 
-		return teacherRepository.findAll(new PageRequest(Integer.valueOf(currentIndex), 10));
+		return teacherRepository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
 	}
 
 }

@@ -77,7 +77,7 @@ jQuery.fn.pagination = function(maxentries, opts){
 				page_id = page_id<0?0:(page_id<np?page_id:np-1); // 规范page id值
 				appendopts = jQuery.extend({text:page_id+1, classes:""}, appendopts||{});
 				if(page_id == current_page){
-					var lnk = jQuery("<span class='label green'>"+(appendopts.text)+"</span>");
+					var lnk = jQuery("<span class='label disabled' style=\"margin-left: 2px; margin-right: 2px\">"+(appendopts.text)+"</span>");
 				}else{
 					var lnk = jQuery("<a class='tiny blue button' style=\"margin-left: 2px; margin-right: 2px\">"+(appendopts.text)+"</a>")
 						.bind("click", getClickHandler(page_id))

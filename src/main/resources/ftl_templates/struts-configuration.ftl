@@ -20,6 +20,17 @@
 				<param name="root">response</param>
 			</result>
 		</action>
+		<action name="delete${entityName}" class="${entityName}Action" method="delete${entityName}">
+			<result name="input">
+				${strutsNamespace}-${entityName}-management.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
 		<action name="load${entityName}s" class="${entityName}Action" method="load${entityName}s">
 			<result name="success" type="json">
 				<param name="root">response</param>

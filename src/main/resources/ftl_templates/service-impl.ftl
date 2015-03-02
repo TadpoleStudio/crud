@@ -20,9 +20,14 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 		return ${firstLetterLowerCaseJavaClassName}Repository.saveAndFlush(${firstLetterLowerCaseJavaClassName});
 	}
 	
+	public void delete${javaClassName}(String ${firstLetterLowerCaseJavaClassName}Id) {
+
+		${firstLetterLowerCaseJavaClassName}Repository.delete(Integer.valueOf(${firstLetterLowerCaseJavaClassName}Id));
+	}
+	
 	public Page<${javaClassName}> load${javaClassName}s(String currentIndex) {
 
-		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(Integer.valueOf(currentIndex), 10));
+		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
 	}
 
 }

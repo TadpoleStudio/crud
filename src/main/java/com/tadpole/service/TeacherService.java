@@ -9,5 +9,7 @@ public interface TeacherService {
 
 	Teacher saveOrUpdateTeacher(Teacher teacher);
 
+	void deleteTeacher(String teacherId);
+	
 	Page<Teacher> loadTeachers(String currentIndex);
 }

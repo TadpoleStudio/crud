@@ -96,8 +96,8 @@
 				
 				self.selected${javaClassName} = ko.observable(new ${javaClassName}());
 				self.${firstLetterLowerCaseJavaClassName}List = ko.observableArray([]);
-				self.totalCount = ko.observable('');
-				self.totalPageCount = ko.observable('');
+				self.totalCount = ko.observable(0);
+				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.search${javaClassName} = function() {
 					
@@ -185,6 +185,26 @@
 					});
 				};
 				
+				self.delete${javaClassName} = function(item, event) {
+					
+					if (window.confirm("Are your sure to DELETE it?")) {
+						
+						$.ajax({
+							url : 'delete${javaClassName}.action',
+							method : 'POST',
+							data : {
+								${firstLetterLowerCaseJavaClassName}Id : item.id
+							},
+							success : function(data) {
+								handleStanderdResponse(data);
+								
+								if(isOK(data)) {
+									self.search${javaClassName}();
+								}
+							}
+						});
+					}
+				};
 			};
 
 			var ${firstLetterLowerCaseJavaClassName}DataModel = new ${javaClassName}DataModel();

@@ -51,6 +51,30 @@ public class TeacherAction extends AbstractAction {
 		return SUCCESS;
 	}
 
+	public String deleteTeacher() {
+	
+		try {
+			String teacherId = getParameter("teacherId");
+
+			if (StringUtils.isEmpty(teacherId)) {
+				setResponse(ResponseVo.newFailMessage("Bad request : no data is provided to delete."));
+
+				return SUCCESS;
+			}
+
+			teacherService.deleteTeacher(teacherId);
+			
+			ResponseVo response = ResponseVo.newSuccessMessage("The teacher is successfully deleted.");
+			
+			setResponse(response);
+			
+		} catch (Exception e) {
+			
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+		}
+
+		return SUCCESS;
+	}
 	public String loadTeachers() {
 
 		try {
