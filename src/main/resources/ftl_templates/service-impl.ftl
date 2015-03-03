@@ -38,17 +38,16 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 		Specifications<${javaClassName}> ${firstLetterLowerCaseJavaClassName}Specification = null;
 <#list attributeDefinitions as attr>
 	<#if attr.searchable??>
-		<#if attr_index == 0>
-			<#if attr.type == 'String'>
+		<#if attr.type == 'String'>
 		if (StringUtils.isNotBlank(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}())) {
 			<#else>
 		if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
-			</#if>
+			</#if>	
+		<#if attr_index == 0>
+			
        	 	${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
 		}
 		<#else>
-		
-		if (${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}() != null) {
 
          	if (${firstLetterLowerCaseJavaClassName}Specification == null) {
                 ${firstLetterLowerCaseJavaClassName}Specification = Specifications.where(${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}()));
@@ -60,7 +59,7 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 	</#if>
 </#list>
 
-		if (teacherSpecification == null) {
+		if (${firstLetterLowerCaseJavaClassName}Specification == null) {
        		return ${firstLetterLowerCaseJavaClassName}Repository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
 		} else {
         	return ${firstLetterLowerCaseJavaClassName}Repository.findAll(${firstLetterLowerCaseJavaClassName}Specification, new PageRequest(Integer.valueOf(currentIndex) - 1, 10));

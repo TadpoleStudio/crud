@@ -10,7 +10,7 @@
 <head>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width" />
-<title>Teacher</title>
+<title>Statudent</title>
 <s:include value="/jsps/common/head.jsp" />
 
 </head>
@@ -18,16 +18,26 @@
 	<s:include value="/jsps/common/brand.jsp" />
 	<s:include value="/jsps/common/menu.jsp" />
 	<section class="mainbg">
-		<div class="container" id="TeacherDataModelContainer">
+		<div class="container" id="StatudentDataModelContainer">
 			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
 				</div>
-				<div id="teacherDialog" title="Teacher Management" style="display: none" data-bind="with : selectedTeacher">
+				<div id="statudentDialog" title="Statudent Management" style="display: none" data-bind="with : selectedStatudent">
 					<div class="row">
 						<div class="six columns">
 							<label>Name</label> 
 							<input type="text" data-bind="value : name" />
+						</div>
+						<div class="six columns">
+							<label>Number</label> 
+							<input type="text" data-bind="value : number" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="six columns">
+							<label>Class Number</label> 
+							<input type="text" data-bind="value : classNumber" />
 						</div>
 						<div class="six columns">
 							<label>Age</label> 
@@ -36,55 +46,39 @@
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Salary</label> 
-							<input type="text" data-bind="value : salary" />
-						</div>
-						<div class="six columns">
-							<label>A1</label> 
-							<input type="text" data-bind="value : a1" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>A2</label> 
-							<input type="text" data-bind="value : a2" />
-						</div>
-						<div class="six columns">
-							<label>A3</label> 
-							<input type="text" data-bind="value : a3" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>A4</label> 
-							<input type="text" data-bind="value : a4" />
+							<label>Sex</label> 
+							<input type="text" data-bind="value : sex" />
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
-							<h2>Search Teacher</h2>
+							<h2>Search Statudent</h2>
 							<h2 class="right"></h2>
 						</div>
-						<div class="content" data-bind="with : teacherSearch">
+						<div class="content" data-bind="with : statudentSearch">
 								<div class="row">
 									<div class="three columns">
-										<label>Name</label> 
-										<input type="text" data-bind="value : name" />
+										<label>Number</label> 
+										<input type="text" data-bind="value : number" />
+									</div>
+									<div class="three columns">
+										<label>Class Number</label> 
+										<input type="text" data-bind="value : classNumber" />
 									</div>
 									<div class="three columns">
 										<label>Age</label> 
 										<input type="text" data-bind="value : age" />
 									</div>
 									<div class="three columns">
-										<label>Salary</label> 
-										<input type="text" data-bind="value : salary" />
+										<label>Sex</label> 
+										<input type="text" data-bind="value : sex" />
 									</div>
 							</div>
 							
 							<div class="row">
-								<a title="Search Teacher" data-bind="click : $root.searchTeacher" href="#" class="small blue button">Seach Teacher</a>
+								<a title="Search Statudent" data-bind="click : $root.searchStatudent" href="#" class="small blue button">Seach Statudent</a>
 							</div>
 						</div>
 					</div>	
@@ -92,7 +86,7 @@
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
-							<h2>Teacher List</h2>
+							<h2>Statudent List</h2>
 							<h2 class="right"></h2>
 						</div>
 						<div class="content">
@@ -102,7 +96,7 @@
 										Find <span class="label" data-bind="text : $root.totalCount"></span> records, <span class="label" data-bind="text : $root.totalPageCount"></span> pages.
 									</div>
 									<div class="three columns">
-										<a title="add attribute" data-bind="click : $root.openManageTeacherDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
+										<a title="add attribute" data-bind="click : $root.openManageStatudentDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
 								</div>
 								<div class="row">
@@ -110,34 +104,30 @@
 										<thead>
 											<tr>
 												<th style="text-align: center">Name</th>
+												<th style="text-align: center">Number</th>
+												<th style="text-align: center">Class Number</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">Salary</th>
-												<th style="text-align: center">A1</th>
-												<th style="text-align: center">A2</th>
-												<th style="text-align: center">A3</th>
-												<th style="text-align: center">A4</th>
+												<th style="text-align: center">Sex</th>
 												<th></th>
 											</tr>
 										</thead>
-										<tbody data-bind="foreach : teacherList">
+										<tbody data-bind="foreach : statudentList">
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
+												<td style="text-align: center" data-bind="text : number"></td>
+												<td style="text-align: center" data-bind="text : classNumber"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : salary"></td>
-												<td style="text-align: center" data-bind="text : a1"></td>
-												<td style="text-align: center" data-bind="text : a2"></td>
-												<td style="text-align: center" data-bind="text : a3"></td>
-												<td style="text-align: center" data-bind="text : a4"></td>
+												<td style="text-align: center" data-bind="text : sex"></td>
 												<td style="text-align: center">
-													<a title="update teacher" data-bind="click : $root.openManageTeacherDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
-													<a title="delete teacher" data-bind="click : $root.deleteTeacher" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
+													<a title="update statudent" data-bind="click : $root.openManageStatudentDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
+													<a title="delete statudent" data-bind="click : $root.deleteStatudent" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
 												</td>
 											</tr>
 										</tbody>
 									</table>
 									<br>
 								</div>
-								<div class="row" id="teacherPageNavigation"></div>
+								<div class="row" id="statudentPageNavigation"></div>
 						</div>
 					</div>
 
@@ -147,35 +137,35 @@
 		</div>
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
-	<script src="/crud/js/vo/Teacher.js"></script>
-	<script src="/crud/js/vo/search/TeacherSearch.js"></script>
+	<script src="/crud/js/vo/Statudent.js"></script>
+	<script src="/crud/js/vo/search/StatudentSearch.js"></script>
 	<script>
 		$(document).ready(function() {
 
-			var TeacherDataModel = function() {
+			var StatudentDataModel = function() {
 
 				var self = this;
 				
-				self.selectedTeacher = ko.observable(new Teacher());
-				self.teacherList = ko.observableArray([]);
+				self.selectedStatudent = ko.observable(new Statudent());
+				self.statudentList = ko.observableArray([]);
 				self.totalCount = ko.observable(0);
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
-				self.teacherSearch = ko.observable(new TeacherSearch());
-				self.searchTeacher = function() {
+				self.statudentSearch = ko.observable(new StatudentSearch());
+				self.searchStatudent = function() {
 					
 					$.ajax({
-						url : 'loadTeachers.action',
+						url : 'loadStatudents.action',
 						data : {currentIndex : self.currentIndex(),
-								teacherSearchVoJson : JSON.stringify(self.teacherSearch())
+								statudentSearchVoJson : JSON.stringify(self.statudentSearch())
 								},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
-								self.teacherList(data.object.elements);
+								self.statudentList(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
-								$('#teacherPageNavigation').pagination(
+								$('#statudentPageNavigation').pagination(
                 				self.totalCount(),
         							{
                 					num_edge_entries: 1,
@@ -193,45 +183,45 @@
 					});
 				};
 				
-				self.searchTeacher();
+				self.searchStatudent();
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);
-        				self.searchTeacher();
+        				self.searchstatudent();
         				return false;
 				};
 				
-				self.saveOrUpdateTeacher = function() {
+				self.saveOrUpdateStatudent = function() {
 					
 					$.ajax({
-						url : 'saveOrUpdateTeacher.action',
+						url : 'saveOrUpdateStatudent.action',
 						method : 'POST',
 						data : {
-							teacherJson : JSON.stringify(self.selectedTeacher())
+							statudentJson : JSON.stringify(self.selectedStatudent())
 						},
 						success : function(data) {
 							handleStanderdResponse(data);
 							
 							if(data.object && data.object.id) {
-								self.selectedTeacher(data.object);
-								closeDialog('teacherDialog');
+								self.selectedStatudent(data.object);
+								closeDialog('statudentDialog');
 								
-								self.searchTeacher();
+								self.searchStatudent();
 							}
 						}
 					});	
 					
 				};
 				
-				self.openManageTeacherDialog = function(item, event) {
+				self.openManageStatudentDialog = function(item, event) {
 					
 					if(item.id) {
-						self.selectedTeacher(item);
+						self.selectedStatudent(item);
 					} else {
-						self.selectedTeacher(new Teacher());
+						self.selectedStatudent(new Statudent());
 					}
 					
-					$('#teacherDialog').dialog({
+					$('#statudentDialog').dialog({
 						modal : true,
 						width : 1191,
 						height : 658,
@@ -241,30 +231,30 @@
 						
 						buttons : {
 							'Save' : function() {
-								self.saveOrUpdateTeacher();
+								self.saveOrUpdateStatudent();
 							},
 							'Close' : function() {
-								closeDialog('teacherDialog');
+								closeDialog('statudentDialog');
 							}
 						}
 					});
 				};
 				
-				self.deleteTeacher = function(item, event) {
+				self.deleteStatudent = function(item, event) {
 					
 					if (window.confirm("Are your sure to DELETE it?")) {
 						
 						$.ajax({
-							url : 'deleteTeacher.action',
+							url : 'deleteStatudent.action',
 							method : 'POST',
 							data : {
-								teacherId : item.id
+								statudentId : item.id
 							},
 							success : function(data) {
 								handleStanderdResponse(data);
 								
 								if(isOK(data)) {
-									self.searchTeacher();
+									self.searchStatudent();
 								}
 							}
 						});
@@ -272,15 +262,15 @@
 				};
 			};
 
-			var teacherDataModel = new TeacherDataModel();
+			var statudentDataModel = new StatudentDataModel();
 
-			var $teacherDataModelContainer = $('#TeacherDataModelContainer')[0];
+			var $statudentDataModelContainer = $('#StatudentDataModelContainer')[0];
 			
-			ko.applyBindings(teacherDataModel, $teacherDataModelContainer);
+			ko.applyBindings(statudentDataModel, $statudentDataModelContainer);
 		});
 
 		function activeCurrentMenuItem() {
-			$('#TeacherLink').addClass('active');
+			$('#StatudentLink').addClass('active');
 		}
 	</script>
 </body>

@@ -22,6 +22,7 @@ import com.tadpole.creator.JsObjectCreator;
 import com.tadpole.creator.JsSearchObjectCreator;
 import com.tadpole.creator.JspCreator;
 import com.tadpole.creator.RepositoryCreator;
+import com.tadpole.creator.RestWebServiceCreator;
 import com.tadpole.creator.ServiceImplemetationCreator;
 import com.tadpole.creator.ServiceInterfaceCreator;
 import com.tadpole.creator.StrutsConfigurationCreator;
@@ -141,6 +142,11 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String jspCode = JspCreator.generateSourceFile(jspVo);
 		function.setJspCode(jspCode);
 		function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
+		
+		String restCode = RestWebServiceCreator.generateSourceFile(jpaEntityDefinition);
+		String restFilePath = RestWebServiceCreator.getSourceFileName(jpaEntityDefinition);
+		function.setRestCode(restCode);
+		function.setRestFilePath(restFilePath);
 
 		TadFunction result = tadFunctionRepository.saveAndFlush(function);
 

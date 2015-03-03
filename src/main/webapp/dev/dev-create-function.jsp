@@ -204,6 +204,11 @@
 									<label>Jsp Code &nbsp; <span data-bind="text : jspFilePath, visible : jspFilePath "></span></label>
 									<pre data-bind="text : jspCode" class="brush: xml;"></pre>
 								</div>
+								<div class="row">
+									<label>Web services Code &nbsp; <span data-bind="text : restFilePath, visible : restFilePath "></span></label>
+									<pre data-bind="text : restCode" class="brush: java;"></pre>
+								</div>
+								
 							</fieldset>
 						</form>	
 					</div>

@@ -32,27 +32,27 @@ public class TadFunction implements Serializable {
 	protected String title;
 
 	protected String menuTitle;
-	
+
 	protected Integer menuId;
 
 	@Lob
 	protected String jpaEntityCode;
 
 	protected String jpaEntityFilePath;
-	
+
 	@Lob
 	protected String javaSearchVoCode;
-	
+
 	protected String javaSearchVoFilePath;
 
 	@Lob
 	protected String jsVoCode;
-	
+
 	protected String jsVoFilePath;
-	
+
 	@Lob
 	protected String jsSearchVoCode;
-	
+
 	protected String jsSearchVoFilePath;
 
 	@Lob
@@ -84,61 +84,58 @@ public class TadFunction implements Serializable {
 
 	protected String jspFilePath;
 
-	
+	@Lob
+	protected String restCode;
+
+	protected String restFilePath;
+
 	public String getJavaSearchVoCode() {
-	
+
 		return javaSearchVoCode;
 	}
 
-	
 	public void setJavaSearchVoCode(String javaSearchVoCode) {
-	
+
 		this.javaSearchVoCode = javaSearchVoCode;
 	}
 
-	
 	public String getJavaSearchVoFilePath() {
-	
+
 		return javaSearchVoFilePath;
 	}
 
-	
 	public void setJavaSearchVoFilePath(String javaSearchVoFilePath) {
-	
+
 		this.javaSearchVoFilePath = javaSearchVoFilePath;
 	}
 
-	
 	public String getJsSearchVoCode() {
-	
+
 		return jsSearchVoCode;
 	}
 
-	
 	public void setJsSearchVoCode(String jsSearchVoCode) {
-	
+
 		this.jsSearchVoCode = jsSearchVoCode;
 	}
 
-	
 	public String getJsSearchVoFilePath() {
-	
+
 		return jsSearchVoFilePath;
 	}
 
-	
 	public void setJsSearchVoFilePath(String jsSearchVoFilePath) {
-	
+
 		this.jsSearchVoFilePath = jsSearchVoFilePath;
 	}
 
 	public Integer getMenuId() {
-	
+
 		return menuId;
 	}
 
 	public void setMenuId(Integer menuId) {
-	
+
 		this.menuId = menuId;
 	}
 
@@ -292,100 +289,110 @@ public class TadFunction implements Serializable {
 		this.jspCode = jspCode;
 	}
 
-	
 	public String getJpaEntityFilePath() {
-	
+
 		return jpaEntityFilePath;
 	}
 
-	
 	public void setJpaEntityFilePath(String jpaEntityFilePath) {
-	
+
 		this.jpaEntityFilePath = jpaEntityFilePath;
 	}
 
-	
 	public String getJsVoFilePath() {
-	
+
 		return jsVoFilePath;
 	}
 
-	
 	public void setJsVoFilePath(String jsVoFilePath) {
-	
+
 		this.jsVoFilePath = jsVoFilePath;
 	}
 
-	
 	public String getActionFilePath() {
-	
+
 		return actionFilePath;
 	}
 
-	
 	public void setActionFilePath(String actionFilePath) {
-	
+
 		this.actionFilePath = actionFilePath;
 	}
 
-	
 	public String getRepositoryFilePath() {
-	
+
 		return repositoryFilePath;
 	}
 
-	
 	public void setRepositoryFilePath(String repositoryFilePath) {
-	
+
 		this.repositoryFilePath = repositoryFilePath;
 	}
 
-	
 	public String getServiceInterfaceFilePath() {
-	
+
 		return serviceInterfaceFilePath;
 	}
 
-	
 	public void setServiceInterfaceFilePath(String serviceInterfaceFilePath) {
-	
+
 		this.serviceInterfaceFilePath = serviceInterfaceFilePath;
 	}
 
-	
 	public String getServiceImplementationFilePath() {
-	
+
 		return serviceImplementationFilePath;
 	}
 
-	
 	public void setServiceImplementationFilePath(String serviceImplementationFilePath) {
-	
+
 		this.serviceImplementationFilePath = serviceImplementationFilePath;
 	}
 
-	
 	public String getStrutsConfigurationgFilePath() {
-	
+
 		return strutsConfigurationgFilePath;
 	}
 
-	
 	public void setStrutsConfigurationgFilePath(String strutsConfigurationgFilePath) {
-	
+
 		this.strutsConfigurationgFilePath = strutsConfigurationgFilePath;
 	}
 
-	
 	public String getJspFilePath() {
-	
+
 		return jspFilePath;
 	}
 
-	
 	public void setJspFilePath(String jspFilePath) {
-	
+
 		this.jspFilePath = jspFilePath;
 	}
+
+	
+	public String getRestCode() {
+	
+		return restCode;
+	}
+
+	
+	public void setRestCode(String restCode) {
+	
+		this.restCode = restCode;
+	}
+
+	
+	public String getRestFilePath() {
+	
+		return restFilePath;
+	}
+
+	
+	public void setRestFilePath(String restFilePath) {
+	
+		this.restFilePath = restFilePath;
+	}
+	
+	
 
 }

@@ -25,4 +25,6 @@ function TadFunction()  {
 	self.serviceImplementationFilePath = '';
 	self.strutsConfigurationgFilePath = '';
 	self.jspFilePath = '';
+	self.restCode = '';
+	self.restFilePath = '';
 }

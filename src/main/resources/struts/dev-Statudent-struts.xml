@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="devStatudent" namespace="/dev" extends="struts-default">
+		
+		<result-types>
+			 <result-type name="json" class="org.apache.struts2.json.JSONResult" />
+		</result-types>
+		<action name="loadStatudentMgr">
+			<result>dev-Statudent-management.jsp</result>
+		</action>
+		<action name="saveOrUpdateStatudent" class="StatudentAction" method="saveOrUpdateStatudent">
+			<result name="input">
+				dev-Statudent-management.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="deleteStatudent" class="StatudentAction" method="deleteStatudent">
+			<result name="input">
+				dev-Statudent-management.jsp
+			</result>
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+		<action name="loadStatudents" class="StatudentAction" method="loadStatudents">
+			<result name="success" type="json">
+				<param name="root">response</param>
+			</result>
+			<result name="error" type="json">
+				<param name="root">response</param>
+			</result>
+		</action>
+	</package>
+	
+</struts>

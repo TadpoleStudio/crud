@@ -123,7 +123,7 @@
 				self.totalCount = ko.observable(0);
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
-				self.${firstLetterLowerCaseJavaClassName}Search = ko.observable(new ${javaClassName}Search);
+				self.${firstLetterLowerCaseJavaClassName}Search = ko.observable(new ${javaClassName}Search());
 				self.search${javaClassName} = function() {
 					
 					$.ajax({
@@ -137,7 +137,7 @@
 								self.${firstLetterLowerCaseJavaClassName}List(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
-								$('#teacherPageNavigation').pagination(
+								$('#${firstLetterLowerCaseJavaClassName}PageNavigation').pagination(
                 				self.totalCount(),
         							{
                 					num_edge_entries: 1,
@@ -159,7 +159,7 @@
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);
-        				self.searchTeacher();
+        				self.search${firstLetterLowerCaseJavaClassName}();
         				return false;
 				};
 				
