@@ -28,8 +28,14 @@
 					<div class="row">
 					<#list row as cell>
 						<div class="six columns">
-							<label>${cell.label}</label> 
-							<input type="text" data-bind="value : ${cell.name}" />
+							<label>${cell.label}</label>
+								<#if cell.type == 'Boolean'>
+								<label class="input-checkbox">
+									<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
+								</label>
+								<#else>
+									<input type="text" data-bind="value : ${cell.name}" />
+								</#if>			 
 						</div>
 					</#list>
 					</div>
@@ -46,8 +52,14 @@
 								<div class="row">
 								<#list row as cell>
 									<div class="three columns">
-										<label>${cell.label}</label> 
-										<input type="text" data-bind="value : ${cell.name}" />
+										<label>${cell.label}</label>
+										<#if cell.type == 'Boolean'>
+											<label class="input-checkbox">
+												<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
+											</label>
+										<#else>
+											<input type="text" data-bind="value : ${cell.name}" />
+										</#if> 
 									</div>
 								</#list>
 							</div>
@@ -159,7 +171,7 @@
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);
-        				self.search${firstLetterLowerCaseJavaClassName}();
+        				self.search${javaClassName}();
         				return false;
 				};
 				

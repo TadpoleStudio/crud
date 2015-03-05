@@ -34,6 +34,10 @@ public class TadAttribute implements Serializable {
 	
 	protected Boolean searchable;
 	
+	protected String optionText;
+	
+	protected String dataSourceName;
+	
 
 	public Integer getId() {
 
@@ -104,4 +108,28 @@ public class TadAttribute implements Serializable {
 	
 		this.searchable = searchable;
 	}
+
+	
+	public String getOptionText() {
+	
+		return optionText;
+	}
+	
+	public void setOptionText(String optionText) {
+	
+		this.optionText = optionText;
+	}
+
+	
+	public String getDataSourceName() {
+	
+		return dataSourceName;
+	}
+
+	
+	public void setDataSourceName(String dataSourceName) {
+	
+		this.dataSourceName = dataSourceName;
+	}
+	
 }

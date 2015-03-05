@@ -17,6 +17,7 @@ public class Menu implements Serializable {
 	protected String title;
 	protected String url;
 	protected String elementId;
+	protected Boolean visible;
 
 	public Menu() {
 
@@ -77,4 +78,17 @@ public class Menu implements Serializable {
 
 		this.url = url;
 	}
+
+	
+	public Boolean getVisible() {
+	
+		return visible;
+	}
+
+	
+	public void setVisible(Boolean visible) {
+	
+		this.visible = visible;
+	}
+	
 }

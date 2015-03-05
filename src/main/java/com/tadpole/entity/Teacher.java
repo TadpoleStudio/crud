@@ -26,7 +26,7 @@ public class Teacher implements Serializable {
 	
 	protected Integer age;
 	
-	protected Integer salary;
+	protected String salary;
 	
 	protected String a1;
 	
@@ -35,6 +35,8 @@ public class Teacher implements Serializable {
 	protected String a3;
 	
 	protected String a4;
+	
+	protected Boolean retired;
 	
 
 	public Integer getId() {
@@ -57,7 +59,7 @@ public class Teacher implements Serializable {
 		return age;
 	}
 	
-	public Integer getSalary() {
+	public String getSalary() {
 
 		return salary;
 	}
@@ -82,6 +84,11 @@ public class Teacher implements Serializable {
 		return a4;
 	}
 	
+	public Boolean getRetired() {
+
+		return retired;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
@@ -92,7 +99,7 @@ public class Teacher implements Serializable {
 		this.age = age;
 	}
 	
-	public void setSalary(Integer salary) {
+	public void setSalary(String salary) {
 
 		this.salary = salary;
 	}
@@ -115,6 +122,11 @@ public class Teacher implements Serializable {
 	public void setA4(String a4) {
 
 		this.a4 = a4;
+	}
+	
+	public void setRetired(Boolean retired) {
+
+		this.retired = retired;
 	}
 	
 }

@@ -4,4 +4,5 @@ function TeacherSearch()  {
 	self.name = '';
 	self.age = '';
 	self.salary = '';
+	self.retired = '';
 }

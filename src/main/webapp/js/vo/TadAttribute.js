@@ -7,5 +7,7 @@ function TadAttribute()  {
 	self.type = '';
 	self.label = '';
 	self.required = '';
-	self.searchable = '';
+	self.searchable = false;
+	self.optionText = '';
+	self.dataSourceName = '';
 }

@@ -69,15 +69,16 @@
 						</div>
 						
 						<div class="six columns">
-							<label>Search</label>
-							<label class="input-checkbox">
-								<input type="checkbox" data-bind="checked : searchable" />
-							Searchable</label> 
+							<label>Option Text</label>
+							<input type="text" data-bind="value : optionText" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							
+							<label>Search</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : searchable" />
+							Searchable</label>
 						</div>
 					</div>
 					<div class="row"></div>
@@ -348,7 +349,7 @@
 					$('#tadFunctionDialog').dialog({
 						modal : true,
 						width : 700,
-						height : 350,
+						height : 450,
 						open : function(e) {
 							changeButtonStyleForPopup(e);
 						},

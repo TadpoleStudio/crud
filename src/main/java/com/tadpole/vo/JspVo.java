@@ -2,6 +2,7 @@ package com.tadpole.vo;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.tadpole.entity.TadAttribute;
 
 public class JspVo {
@@ -14,6 +15,7 @@ public class JspVo {
 	private List<List<JpaAttributeDefinition>> attrGroupList;
 	private List<TadAttribute> tadAttributes;
 	private List<TadAttribute> searchableTadAttributes;
+	private List<Option> optionList = Lists.newArrayList();
 	
 	
 	public List<TadAttribute> getSearchableTadAttributes() {
@@ -97,6 +99,16 @@ public class JspVo {
 	public void setTadAttributes(List<TadAttribute> tadAttributes) {
 	
 		this.tadAttributes = tadAttributes;
+	}
+	
+	public List<Option> getOptionList() {
+	
+		return optionList;
+	}
+	
+	public void setOptionList(List<Option> optionList) {
+	
+		this.optionList = optionList;
 	}
 	
 }

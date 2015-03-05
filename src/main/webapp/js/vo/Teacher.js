@@ -9,4 +9,5 @@ function Teacher()  {
 	self.a2 = '';
 	self.a3 = '';
 	self.a4 = '';
+	self.retired = '';
 }

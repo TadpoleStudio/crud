@@ -19,6 +19,7 @@ import com.tadpole.repository.CityRepository;
 import com.tadpole.repository.DropDownRepository;
 import com.tadpole.repository.MenuRepository;
 import com.tadpole.repository.ProvinceRepository;
+import com.tadpole.repository.QuickDataSourceRepository;
 import com.tadpole.repository.UserRepository;
 import com.tadpole.service.CommonService;
 import com.tadpole.util.SystemUtils;
@@ -47,6 +48,9 @@ public class CommonAction extends AbstractAction {
 
 	@Autowired
 	private CityRepository cityRepository;
+	
+	@Autowired
+	private QuickDataSourceRepository quickDataSourceRepository;
 
 	private List<Dictionary> dictionaries;
 
@@ -133,7 +137,7 @@ public class CommonAction extends AbstractAction {
 
 	public String findAllMenus() {
 
-		menus = menuRepository.findAll();
+		menus = menuRepository.findByVisible(true);
 
 		return SUCCESS;
 	}
@@ -178,15 +182,13 @@ public class CommonAction extends AbstractAction {
 		this.cities = cities;
 	}
 
-	
 	public List<Dictionary> getDictionaries() {
-	
+
 		return dictionaries;
 	}
 
-	
 	public void setDictionaries(List<Dictionary> dictionaries) {
-	
+
 		this.dictionaries = dictionaries;
 	}
 

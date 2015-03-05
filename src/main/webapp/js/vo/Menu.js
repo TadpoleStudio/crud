@@ -5,4 +5,5 @@ function Menu()  {
 	self.title = '';
 	self.url = '';
 	self.elementId = '';
+	self.visible = false;
 }

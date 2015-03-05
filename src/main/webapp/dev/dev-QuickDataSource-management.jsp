@@ -10,7 +10,7 @@
 <head>
 <!-- Set the viewport width to device width for mobile -->
 <meta name="viewport" content="width=device-width" />
-<title>Teacher</title>
+<title>Data Source</title>
 <s:include value="/jsps/common/head.jsp" />
 
 </head>
@@ -18,79 +18,55 @@
 	<s:include value="/jsps/common/brand.jsp" />
 	<s:include value="/jsps/common/menu.jsp" />
 	<section class="mainbg">
-		<div class="container" id="TeacherDataModelContainer">
+		<div class="container" id="QuickDataSourceDataModelContainer">
 			<div class="row">
 				<div style="color: red">
 					<s:fielderror />
 				</div>
-				<div id="teacherDialog" title="Teacher Management" style="display: none" data-bind="with : selectedTeacher">
+				<div id="quickDataSourceDialog" title="QuickDataSource Management" style="display: none" data-bind="with : selectedQuickDataSource">
 					<div class="row">
 						<div class="six columns">
 							<label>Name</label>
 									<input type="text" data-bind="value : name" />
 						</div>
 						<div class="six columns">
-							<label>Age</label>
-									<input type="text" data-bind="value : age" />
+							<label>Type</label>
+									<input type="text" data-bind="value : type" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Salary</label>
-									<input type="text" data-bind="value : salary" />
+							<label>Fixed Values</label>
+									<input type="text" data-bind="value : keyValues" />
 						</div>
 						<div class="six columns">
-							<label>A1</label>
-									<input type="text" data-bind="value : a1" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>A2</label>
-									<input type="text" data-bind="value : a2" />
-						</div>
-						<div class="six columns">
-							<label>A3</label>
-									<input type="text" data-bind="value : a3" />
+							<label>SQL</label>
+									<input type="text" data-bind="value : querySql" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>A4</label>
-									<input type="text" data-bind="value : a4" />
-						</div>
-						<div class="six columns">
-							<label>Retired</label>
-								<label class="input-checkbox">
-									<input type="checkbox" data-bind="checked : retired" /> Retired Now
-								</label>
+							<label>Description</label>
+									<input type="text" data-bind="value : description" />
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
-							<h2>Search Teacher</h2>
+							<h2>Search QuickDataSource</h2>
 							<h2 class="right"></h2>
 						</div>
-						<div class="content" data-bind="with : teacherSearch">
+						<div class="content" data-bind="with : quickDataSourceSearch">
 								<div class="row">
 									<div class="three columns">
 										<label>Name</label>
 											<input type="text" data-bind="value : name" />
 									</div>
-									<div class="three columns">
-										<label>Age</label>
-											<input type="text" data-bind="value : age" />
-									</div>
-									<div class="three columns">
-										<label>Salary</label>
-											<input type="text" data-bind="value : salary" />
-									</div>
 							</div>
 							
 							<div class="row">
-								<a title="Search Teacher" data-bind="click : $root.searchTeacher" href="#" class="small blue button">Seach Teacher</a>
+								<a title="Search QuickDataSource" data-bind="click : $root.searchQuickDataSource" href="#" class="small blue button">Seach QuickDataSource</a>
 							</div>
 						</div>
 					</div>	
@@ -98,7 +74,7 @@
 				<div class="row">
 					<div class="app-wrapper ui-corner-top">
 						<div class="blue module ui-corner-top clearfix">
-							<h2>Teacher List</h2>
+							<h2>QuickDataSource List</h2>
 							<h2 class="right"></h2>
 						</div>
 						<div class="content">
@@ -108,7 +84,7 @@
 										Find <span class="label" data-bind="text : $root.totalCount"></span> records, <span class="label" data-bind="text : $root.totalPageCount"></span> pages.
 									</div>
 									<div class="three columns">
-										<a title="add attribute" data-bind="click : $root.openManageTeacherDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
+										<a title="add attribute" data-bind="click : $root.openManageQuickDataSourceDialog" href="#" class="right" style="margin-right: 10px"><i class="small icon-plus icon-green"></i></a>
 									</div>
 								</div>
 								<div class="row">
@@ -116,36 +92,30 @@
 										<thead>
 											<tr>
 												<th style="text-align: center">Name</th>
-												<th style="text-align: center">Age</th>
-												<th style="text-align: center">Salary</th>
-												<th style="text-align: center">A1</th>
-												<th style="text-align: center">A2</th>
-												<th style="text-align: center">A3</th>
-												<th style="text-align: center">A4</th>
-												<th style="text-align: center">Retired</th>
+												<th style="text-align: center">Type</th>
+												<th style="text-align: center">Fixed Values</th>
+												<th style="text-align: center">SQL</th>
+												<th style="text-align: center">Description</th>
 												<th></th>
 											</tr>
 										</thead>
-										<tbody data-bind="foreach : teacherList">
+										<tbody data-bind="foreach : quickDataSourceList">
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
-												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : salary"></td>
-												<td style="text-align: center" data-bind="text : a1"></td>
-												<td style="text-align: center" data-bind="text : a2"></td>
-												<td style="text-align: center" data-bind="text : a3"></td>
-												<td style="text-align: center" data-bind="text : a4"></td>
-												<td style="text-align: center" data-bind="text : retired"></td>
+												<td style="text-align: center" data-bind="text : type"></td>
+												<td style="text-align: center" data-bind="text : keyValues"></td>
+												<td style="text-align: center" data-bind="text : querySql"></td>
+												<td style="text-align: center" data-bind="text : description"></td>
 												<td style="text-align: center">
-													<a title="update teacher" data-bind="click : $root.openManageTeacherDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
-													<a title="delete teacher" data-bind="click : $root.deleteTeacher" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
+													<a title="update quickDataSource" data-bind="click : $root.openManageQuickDataSourceDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
+													<a title="delete quickDataSource" data-bind="click : $root.deleteQuickDataSource" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
 												</td>
 											</tr>
 										</tbody>
 									</table>
 									<br>
 								</div>
-								<div class="row" id="teacherPageNavigation"></div>
+								<div class="row" id="quickDataSourcePageNavigation"></div>
 						</div>
 					</div>
 
@@ -155,35 +125,35 @@
 		</div>
 	</section>
 	<s:include value="/jsps/common/footer.jsp" />
-	<script src="/crud/js/vo/Teacher.js"></script>
-	<script src="/crud/js/vo/search/TeacherSearch.js"></script>
+	<script src="/crud/js/vo/QuickDataSource.js"></script>
+	<script src="/crud/js/vo/search/QuickDataSourceSearch.js"></script>
 	<script>
 		$(document).ready(function() {
 
-			var TeacherDataModel = function() {
+			var QuickDataSourceDataModel = function() {
 
 				var self = this;
 				
-				self.selectedTeacher = ko.observable(new Teacher());
-				self.teacherList = ko.observableArray([]);
+				self.selectedQuickDataSource = ko.observable(new QuickDataSource());
+				self.quickDataSourceList = ko.observableArray([]);
 				self.totalCount = ko.observable(0);
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
-				self.teacherSearch = ko.observable(new TeacherSearch());
-				self.searchTeacher = function() {
+				self.quickDataSourceSearch = ko.observable(new QuickDataSourceSearch());
+				self.searchQuickDataSource = function() {
 					
 					$.ajax({
-						url : 'loadTeachers.action',
+						url : 'loadQuickDataSources.action',
 						data : {currentIndex : self.currentIndex(),
-								teacherSearchVoJson : JSON.stringify(self.teacherSearch())
+								quickDataSourceSearchVoJson : JSON.stringify(self.quickDataSourceSearch())
 								},
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
-								self.teacherList(data.object.elements);
+								self.quickDataSourceList(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
-								$('#teacherPageNavigation').pagination(
+								$('#quickDataSourcePageNavigation').pagination(
                 				self.totalCount(),
         							{
                 					num_edge_entries: 1,
@@ -201,45 +171,45 @@
 					});
 				};
 				
-				self.searchTeacher();
+				self.searchQuickDataSource();
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);
-        				self.searchTeacher();
+        				self.searchQuickDataSource();
         				return false;
 				};
 				
-				self.saveOrUpdateTeacher = function() {
+				self.saveOrUpdateQuickDataSource = function() {
 					
 					$.ajax({
-						url : 'saveOrUpdateTeacher.action',
+						url : 'saveOrUpdateQuickDataSource.action',
 						method : 'POST',
 						data : {
-							teacherJson : JSON.stringify(self.selectedTeacher())
+							quickDataSourceJson : JSON.stringify(self.selectedQuickDataSource())
 						},
 						success : function(data) {
 							handleStanderdResponse(data);
 							
 							if(data.object && data.object.id) {
-								self.selectedTeacher(data.object);
-								closeDialog('teacherDialog');
+								self.selectedQuickDataSource(data.object);
+								closeDialog('quickDataSourceDialog');
 								
-								self.searchTeacher();
+								self.searchQuickDataSource();
 							}
 						}
 					});	
 					
 				};
 				
-				self.openManageTeacherDialog = function(item, event) {
+				self.openManageQuickDataSourceDialog = function(item, event) {
 					
 					if(item.id) {
-						self.selectedTeacher(item);
+						self.selectedQuickDataSource(item);
 					} else {
-						self.selectedTeacher(new Teacher());
+						self.selectedQuickDataSource(new QuickDataSource());
 					}
 					
-					$('#teacherDialog').dialog({
+					$('#quickDataSourceDialog').dialog({
 						modal : true,
 						width : 1191,
 						height : 658,
@@ -249,30 +219,30 @@
 						
 						buttons : {
 							'Save' : function() {
-								self.saveOrUpdateTeacher();
+								self.saveOrUpdateQuickDataSource();
 							},
 							'Close' : function() {
-								closeDialog('teacherDialog');
+								closeDialog('quickDataSourceDialog');
 							}
 						}
 					});
 				};
 				
-				self.deleteTeacher = function(item, event) {
+				self.deleteQuickDataSource = function(item, event) {
 					
 					if (window.confirm("Are your sure to DELETE it?")) {
 						
 						$.ajax({
-							url : 'deleteTeacher.action',
+							url : 'deleteQuickDataSource.action',
 							method : 'POST',
 							data : {
-								teacherId : item.id
+								quickDataSourceId : item.id
 							},
 							success : function(data) {
 								handleStanderdResponse(data);
 								
 								if(isOK(data)) {
-									self.searchTeacher();
+									self.searchQuickDataSource();
 								}
 							}
 						});
@@ -280,15 +250,15 @@
 				};
 			};
 
-			var teacherDataModel = new TeacherDataModel();
+			var quickDataSourceDataModel = new QuickDataSourceDataModel();
 
-			var $teacherDataModelContainer = $('#TeacherDataModelContainer')[0];
+			var $quickDataSourceDataModelContainer = $('#QuickDataSourceDataModelContainer')[0];
 			
-			ko.applyBindings(teacherDataModel, $teacherDataModelContainer);
+			ko.applyBindings(quickDataSourceDataModel, $quickDataSourceDataModelContainer);
 		});
 
 		function activeCurrentMenuItem() {
-			$('#TeacherLink').addClass('active');
+			$('#QuickDataSourceLink').addClass('active');
 		}
 	</script>
 </body>

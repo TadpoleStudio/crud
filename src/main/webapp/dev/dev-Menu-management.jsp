@@ -37,7 +37,9 @@
 							<label>Element Id</label> <input type="text" data-bind="value : elementId" />
 						</div>
 						
-						<div class="six columns"></div>
+						<div class="six columns">
+							<label>Visible</label><label class="input-checkbox"> <input type="checkbox" data-bind="checked : visible" /> Shown on the menu</label>
+						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
@@ -67,6 +69,7 @@
 												<th style="text-align: center">Display Title</th>
 												<th style="text-align: center">Action URL</th>
 												<th style="text-align: center">Identity String</th>
+												<th style="text-align: center">Visible</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -75,6 +78,7 @@
 												<td style="text-align: center" data-bind="text : title"></td>
 												<td style="text-align: center" data-bind="text : url"></td>
 												<td style="text-align: center" data-bind="text : elementId"></td>
+												<td style="text-align: center" data-bind="text : visible"></td>
 												<td style="text-align: center">
 													<a title="update menu" data-bind="click : $root.openManageMenuDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
 													<a title="delete menu" data-bind="click : $root.deleteMenu" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
@@ -114,9 +118,6 @@
 							if (data && data.object && data.object.elements) {
 								self.menuList(data.object.elements);
 							}
-							
-							handleStanderdResponse(data);
-							
 						}
 					});
 				};
@@ -135,7 +136,7 @@
 							handleStanderdResponse(data);
 							
 							if(data.object && data.object.id) {
-								self.selectedMenu(data.object);
+								self.searchMenu();
 							}
 						}
 					});	

@@ -106,12 +106,12 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String jsVoCode = JsObjectCreator.generateSourceFile(jpaEntityDefinition);
 		function.setJsVoCode(jsVoCode);
 		function.setJsVoFilePath(JsObjectCreator.getSourceFileName(jpaEntityDefinition));
-		
+
 		String jsSearchVoCode = JsSearchObjectCreator.generateSourceFile(jpaEntityDefinition);
 		String jsSearchVoFilePath = JsSearchObjectCreator.getSourceFileName(jpaEntityDefinition);
 		function.setJsSearchVoCode(jsSearchVoCode);
 		function.setJsSearchVoFilePath(jsSearchVoFilePath);
-		
+
 		String javaSearchVoCode = JavaSearchVoCreator.generateSourceFile(jpaEntityDefinition);
 		String javaSearchVoFilePath = JavaSearchVoCreator.getSourceFileName(jpaEntityDefinition);
 		function.setJavaSearchVoCode(javaSearchVoCode);
@@ -142,7 +142,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		String jspCode = JspCreator.generateSourceFile(jspVo);
 		function.setJspCode(jspCode);
 		function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
-		
+
 		String restCode = RestWebServiceCreator.generateSourceFile(jpaEntityDefinition);
 		String restFilePath = RestWebServiceCreator.getSourceFileName(jpaEntityDefinition);
 		function.setRestCode(restCode);
@@ -188,6 +188,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		if (menuId == null) {
 
 			menu = new Menu(title, link, elementId);
+			menu.setVisible(true);
 
 			Menu savedMenu = menuRepository.saveAndFlush(menu);
 

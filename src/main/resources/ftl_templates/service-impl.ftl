@@ -37,7 +37,7 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 	public Page<${javaClassName}> load${javaClassName}s(String currentIndex, ${javaClassName}SearchVo ${firstLetterLowerCaseJavaClassName}SearchVo) {
 		Specifications<${javaClassName}> ${firstLetterLowerCaseJavaClassName}Specification = null;
 <#list attributeDefinitions as attr>
-	<#if attr.searchable??>
+	<#if attr.searchable?? && attr.searchable>
 		<#if attr.type == 'String'>
 		if (StringUtils.isNotBlank(${firstLetterLowerCaseJavaClassName}SearchVo.get${attr.firstLetterUpperName}())) {
 			<#else>
@@ -68,7 +68,7 @@ public class ${javaClassName}ServiceImpl implements ${javaClassName}Service {
 	}
 
 <#list attributeDefinitions as attr>
-	<#if attr.searchable??>
+	<#if attr.searchable?? && attr.searchable >
 	private Specification<${javaClassName}> ${firstLetterLowerCaseJavaClassName}${attr.firstLetterUpperName}Specification(final ${attr.type} ${attr.name}) {
 
 		return new Specification<${javaClassName}>(){
