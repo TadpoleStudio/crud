@@ -27,43 +27,55 @@
 					<div class="row">
 						<div class="six columns">
 							<label>Name</label>
-									<input type="text" data-bind="value : name" />
+							<input type="text" data-bind="value : name" />
 						</div>
 						<div class="six columns">
 							<label>Age</label>
-									<input type="text" data-bind="value : age" />
+							<input type="text" data-bind="value : age" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
 							<label>Salary</label>
-									<input type="text" data-bind="value : salary" />
+							<input type="text" data-bind="value : salary" />
 						</div>
 						<div class="six columns">
 							<label>A1</label>
-									<input type="text" data-bind="value : a1" />
+							<select data-bind="options: $root.TeacherRetiredYesNo,
+                      					       optionsText: 'optionText',
+                       					       value: a1,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : a1,
+                       						   optionsCaption: 'Please select'">
+							</select>		
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
 							<label>A2</label>
-									<input type="text" data-bind="value : a2" />
+							<select data-bind="options: $root.TeacherRetiredYesNo,
+                      					       optionsText: 'optionText',
+                       					       value: a2,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : a2,
+                       						   optionsCaption: 'Please select'">
+							</select>		
 						</div>
 						<div class="six columns">
 							<label>A3</label>
-									<input type="text" data-bind="value : a3" />
+							<input type="text" data-bind="value : a3" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
 							<label>A4</label>
-									<input type="text" data-bind="value : a4" />
+							<input type="text" data-bind="value : a4" />
 						</div>
 						<div class="six columns">
 							<label>Retired</label>
-								<label class="input-checkbox">
-									<input type="checkbox" data-bind="checked : retired" /> Retired Now
-								</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : retired" /> Retired Now
+							</label>
 						</div>
 					</div>
 				</div>
@@ -170,6 +182,13 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.teacherSearch = ko.observable(new TeacherSearch());
+				self.TeacherRetiredYesNo = ko.observableArray([]);
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : 'TeacherRetiredYesNo' },
+						 success : function(data) {
+								self.TeacherRetiredYesNo(data);
+						}
+					});
 				self.searchTeacher = function() {
 					
 					$.ajax({

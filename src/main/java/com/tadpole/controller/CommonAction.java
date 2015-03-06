@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.Lists;
 import com.tadpole.entity.City;
 import com.tadpole.entity.Dictionary;
 import com.tadpole.entity.Menu;
@@ -23,6 +24,7 @@ import com.tadpole.repository.QuickDataSourceRepository;
 import com.tadpole.repository.UserRepository;
 import com.tadpole.service.CommonService;
 import com.tadpole.util.SystemUtils;
+import com.tadpole.vo.Option;
 import com.tadpole.vo.ResponseVo;
 
 @Component("commonAction")
@@ -48,7 +50,7 @@ public class CommonAction extends AbstractAction {
 
 	@Autowired
 	private CityRepository cityRepository;
-	
+
 	@Autowired
 	private QuickDataSourceRepository quickDataSourceRepository;
 
@@ -58,6 +60,8 @@ public class CommonAction extends AbstractAction {
 	private List<City> cities;
 	private List<Menu> menus;
 	private User user;
+
+	private List<Option> options = Lists.newArrayList();
 
 	public String loadMe() {
 
@@ -135,6 +139,18 @@ public class CommonAction extends AbstractAction {
 		return SUCCESS;
 	}
 
+	public String loadDatasource() {
+
+		String dataSourceName = getParameter("dataSourceName");
+		if (StringUtils.isBlank(dataSourceName)) {
+			return SUCCESS;
+		}
+
+		options = commonService.findDatasourceByName(dataSourceName);
+		
+		return SUCCESS;
+	}
+
 	public String findAllMenus() {
 
 		menus = menuRepository.findByVisible(true);
@@ -190,6 +206,18 @@ public class CommonAction extends AbstractAction {
 	public void setDictionaries(List<Dictionary> dictionaries) {
 
 		this.dictionaries = dictionaries;
+	}
+
+	
+	public List<Option> getOptions() {
+	
+		return options;
+	}
+
+	
+	public void setOptions(List<Option> options) {
+	
+		this.options = options;
 	}
 
 }

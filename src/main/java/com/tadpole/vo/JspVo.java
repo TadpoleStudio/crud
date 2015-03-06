@@ -1,8 +1,10 @@
 package com.tadpole.vo;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.tadpole.entity.TadAttribute;
 
 public class JspVo {
@@ -15,8 +17,8 @@ public class JspVo {
 	private List<List<JpaAttributeDefinition>> attrGroupList;
 	private List<TadAttribute> tadAttributes;
 	private List<TadAttribute> searchableTadAttributes;
-	private List<Option> optionList = Lists.newArrayList();
-	
+
+	private Set<String> datasourceNames = Sets.newHashSet();
 	
 	public List<TadAttribute> getSearchableTadAttributes() {
 	
@@ -100,15 +102,17 @@ public class JspVo {
 	
 		this.tadAttributes = tadAttributes;
 	}
+
 	
-	public List<Option> getOptionList() {
+	public Set<String> getDatasourceNames() {
 	
-		return optionList;
+		return datasourceNames;
 	}
+
 	
-	public void setOptionList(List<Option> optionList) {
+	public void setDatasourceNames(Set<String> datasourceNames) {
 	
-		this.optionList = optionList;
+		this.datasourceNames = datasourceNames;
 	}
 	
 }

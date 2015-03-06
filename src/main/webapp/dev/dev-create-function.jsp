@@ -80,6 +80,10 @@
 								<input type="checkbox" data-bind="checked : searchable" />
 							Searchable</label>
 						</div>
+						<div class="six columns">
+							<label>Data source name</label>
+							<input type="text" data-bind="value : dataSourceName" />
+						</div>
 					</div>
 					<div class="row"></div>
 				</div>

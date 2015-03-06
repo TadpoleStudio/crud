@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -14,6 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 import com.tadpole.creator.ControllerCreator;
 import com.tadpole.creator.EntityBeanCreator;
@@ -36,6 +38,7 @@ import com.tadpole.service.TadFunctionService;
 import com.tadpole.vo.JpaAttributeDefinition;
 import com.tadpole.vo.JpaEntityDefinition;
 import com.tadpole.vo.JspVo;
+import com.tadpole.vo.Option;
 
 @Service("TadFunctionService")
 public class TadFunctionServiceImpl implements TadFunctionService {
@@ -161,6 +164,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 	private JspVo generateJspVo(JpaEntityDefinition jpaEntityDefinition, TadFunction function, List<TadAttribute> tadAttributes) {
 
 		JspVo jspVo = new JspVo();
+		
 		jspVo.setFirstLetterLowerCaseJavaClassName(jpaEntityDefinition.getFirstLetterLowerCaseJavaClassName());
 		jspVo.setAttributeDefinitions(jpaEntityDefinition.getAttributeDefinitions());
 		jspVo.setJavaClassName(jpaEntityDefinition.getJavaClassName());
@@ -173,6 +177,17 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 				searchableTadAttributes.add(tadAttribute);
 			}
 		}
+
+		Set<String> datasourceNames = Sets.newHashSet();
+		for (TadAttribute tadAttribute : tadAttributes) {
+
+			if (StringUtils.isNotBlank(tadAttribute.getDataSourceName())) {
+				datasourceNames.add(tadAttribute.getDataSourceName());
+			}
+		}
+
+		jspVo.setDatasourceNames(datasourceNames);
+
 		jspVo.setSearchableTadAttributes(searchableTadAttributes);
 		return jspVo;
 	}

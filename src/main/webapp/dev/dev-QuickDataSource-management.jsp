@@ -27,27 +27,33 @@
 					<div class="row">
 						<div class="six columns">
 							<label>Name</label>
-									<input type="text" data-bind="value : name" />
+							<input type="text" data-bind="value : name" />
 						</div>
 						<div class="six columns">
 							<label>Type</label>
-									<input type="text" data-bind="value : type" />
+							<select data-bind="options: $root.QuickDataType,
+                      					       optionsText: 'optionText',
+                       					       value: type,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : type,
+                       						   optionsCaption: 'Please select'">
+							</select>		
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
 							<label>Fixed Values</label>
-									<input type="text" data-bind="value : keyValues" />
+							<input type="text" data-bind="value : keyValues" />
 						</div>
 						<div class="six columns">
 							<label>SQL</label>
-									<input type="text" data-bind="value : querySql" />
+							<input type="text" data-bind="value : querySql" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
 							<label>Description</label>
-									<input type="text" data-bind="value : description" />
+							<input type="text" data-bind="value : description" />
 						</div>
 					</div>
 				</div>
@@ -140,6 +146,13 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.quickDataSourceSearch = ko.observable(new QuickDataSourceSearch());
+				self.QuickDataType = ko.observableArray([]);
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : 'QuickDataType' },
+						 success : function(data) {
+								self.QuickDataType(data);
+						}
+					});
 				self.searchQuickDataSource = function() {
 					
 					$.ajax({

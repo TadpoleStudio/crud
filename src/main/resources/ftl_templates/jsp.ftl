@@ -30,11 +30,19 @@
 						<div class="six columns">
 							<label>${cell.label}</label>
 								<#if cell.type == 'Boolean'>
-								<label class="input-checkbox">
-									<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
-								</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
+							</label>
+								<#elseif cell.dataSourceName?? && cell.dataSourceName != ''>
+							<select data-bind="options: $root.${cell.dataSourceName},
+                      					       optionsText: 'optionText',
+                       					       value: ${cell.name},
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : ${cell.name},
+                       						   optionsCaption: 'Please select'">
+							</select>		
 								<#else>
-									<input type="text" data-bind="value : ${cell.name}" />
+							<input type="text" data-bind="value : ${cell.name}" />
 								</#if>			 
 						</div>
 					</#list>
@@ -136,6 +144,17 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.${firstLetterLowerCaseJavaClassName}Search = ko.observable(new ${javaClassName}Search());
+			<#list datasourceNames as datasource>
+				self.${datasource} = ko.observableArray([]);
+			</#list>
+			<#list datasourceNames as datasource>
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : '${datasource}' },
+						 success : function(data) {
+								self.${datasource}(data);
+						}
+					});
+			</#list>	
 				self.search${javaClassName} = function() {
 					
 					$.ajax({

@@ -36,6 +36,11 @@
 				<param name="namespace">/</param>
 			</result>
 		</action>
+		<action name="loadDatasource" class="commonAction" method="loadDatasource">
+			<result name="success" type="json">
+				<param name="root">options</param>
+			</result>
+		</action>
 		<action name="findAllMenus" class="commonAction" method="findAllMenus">
 			<result name="success" type="json">
 				<param name="root">menus</param>
