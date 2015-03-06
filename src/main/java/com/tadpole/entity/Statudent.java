@@ -30,7 +30,7 @@ public class Statudent implements Serializable {
 	
 	protected Integer age;
 	
-	protected String sex;
+	protected String teacherName;
 	
 
 	public Integer getId() {
@@ -63,9 +63,9 @@ public class Statudent implements Serializable {
 		return age;
 	}
 	
-	public String getSex() {
+	public String getTeacherName() {
 
-		return sex;
+		return teacherName;
 	}
 	
 	public void setName(String name) {
@@ -88,9 +88,9 @@ public class Statudent implements Serializable {
 		this.age = age;
 	}
 	
-	public void setSex(String sex) {
+	public void setTeacherName(String teacherName) {
 
-		this.sex = sex;
+		this.teacherName = teacherName;
 	}
 	
 }

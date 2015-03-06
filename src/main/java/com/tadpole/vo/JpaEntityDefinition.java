@@ -7,6 +7,18 @@ public class JpaEntityDefinition {
 	private String tableName;
 	private String javaClassName;
 	private String firstLetterLowerCaseJavaClassName;
+	private String repositoryAdditionalCode;
+	
+	public String getRepositoryAdditionalCode() {
+	
+		return repositoryAdditionalCode;
+	}
+
+	
+	public void setRepositoryAdditionalCode(String repositoryAdditionalCode) {
+	
+		this.repositoryAdditionalCode = repositoryAdditionalCode;
+	}
 
 	private List<JpaAttributeDefinition> attributeDefinitions;
 

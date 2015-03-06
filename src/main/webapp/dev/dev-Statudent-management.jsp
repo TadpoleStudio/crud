@@ -26,28 +26,34 @@
 				<div id="statudentDialog" title="Statudent Management" style="display: none" data-bind="with : selectedStatudent">
 					<div class="row">
 						<div class="six columns">
-							<label>Name</label> 
+							<label>Name</label>
 							<input type="text" data-bind="value : name" />
 						</div>
 						<div class="six columns">
-							<label>Number</label> 
+							<label>Number</label>
 							<input type="text" data-bind="value : number" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Class Number</label> 
+							<label>Class Number</label>
 							<input type="text" data-bind="value : classNumber" />
 						</div>
 						<div class="six columns">
-							<label>Age</label> 
+							<label>Age</label>
 							<input type="text" data-bind="value : age" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Sex</label> 
-							<input type="text" data-bind="value : sex" />
+							<label>Teacher</label>
+							<select data-bind="options: $root.TeacherNames,
+                      					       optionsText: 'optionText',
+                       					       value: teacherName,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : teacherName,
+                       						   optionsCaption: 'Please select'">
+							</select>		
 						</div>
 					</div>
 				</div>
@@ -60,20 +66,16 @@
 						<div class="content" data-bind="with : statudentSearch">
 								<div class="row">
 									<div class="three columns">
-										<label>Number</label> 
-										<input type="text" data-bind="value : number" />
+										<label>Number</label>
+											<input type="text" data-bind="value : number" />
 									</div>
 									<div class="three columns">
-										<label>Class Number</label> 
-										<input type="text" data-bind="value : classNumber" />
+										<label>Class Number</label>
+											<input type="text" data-bind="value : classNumber" />
 									</div>
 									<div class="three columns">
-										<label>Age</label> 
-										<input type="text" data-bind="value : age" />
-									</div>
-									<div class="three columns">
-										<label>Sex</label> 
-										<input type="text" data-bind="value : sex" />
+										<label>Age</label>
+											<input type="text" data-bind="value : age" />
 									</div>
 							</div>
 							
@@ -107,7 +109,7 @@
 												<th style="text-align: center">Number</th>
 												<th style="text-align: center">Class Number</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">Sex</th>
+												<th style="text-align: center">Teacher</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -117,7 +119,7 @@
 												<td style="text-align: center" data-bind="text : number"></td>
 												<td style="text-align: center" data-bind="text : classNumber"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : sex"></td>
+												<td style="text-align: center" data-bind="text : teacherName"></td>
 												<td style="text-align: center">
 													<a title="update statudent" data-bind="click : $root.openManageStatudentDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
 													<a title="delete statudent" data-bind="click : $root.deleteStatudent" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
@@ -152,6 +154,13 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.statudentSearch = ko.observable(new StatudentSearch());
+				self.TeacherNames = ko.observableArray([]);
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : 'TeacherNames' },
+						 success : function(data) {
+								self.TeacherNames(data);
+						}
+					});
 				self.searchStatudent = function() {
 					
 					$.ajax({
@@ -187,7 +196,7 @@
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);
-        				self.searchstatudent();
+        				self.searchStatudent();
         				return false;
 				};
 				

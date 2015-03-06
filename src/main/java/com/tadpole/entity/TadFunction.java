@@ -62,6 +62,10 @@ public class TadFunction implements Serializable {
 
 	@Lob
 	protected String repositoryCode;
+	
+	@Lob
+	protected String repositoryAdditionalCode;
+	
 	protected String repositoryFilePath;
 
 	@Lob
@@ -88,6 +92,18 @@ public class TadFunction implements Serializable {
 	protected String restCode;
 
 	protected String restFilePath;
+
+	
+	public String getRepositoryAdditionalCode() {
+	
+		return repositoryAdditionalCode;
+	}
+
+	
+	public void setRepositoryAdditionalCode(String repositoryAdditionalCode) {
+	
+		this.repositoryAdditionalCode = repositoryAdditionalCode;
+	}
 
 	public String getJavaSearchVoCode() {
 

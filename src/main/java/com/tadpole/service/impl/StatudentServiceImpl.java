@@ -36,10 +36,6 @@ public class StatudentServiceImpl implements StatudentService {
 	
 	public Page<Statudent> loadStatudents(String currentIndex, StatudentSearchVo statudentSearchVo) {
 		Specifications<Statudent> statudentSpecification = null;
-		if (StringUtils.isNotBlank(statudentSearchVo.getName())) {
-			
-       	 	statudentSpecification = Specifications.where(statudentNameSpecification(statudentSearchVo.getName()));
-		}
 		if (StringUtils.isNotBlank(statudentSearchVo.getNumber())) {
 
          	if (statudentSpecification == null) {
@@ -64,14 +60,6 @@ public class StatudentServiceImpl implements StatudentService {
                 statudentSpecification.and(statudentAgeSpecification(statudentSearchVo.getAge()));
         	}
  		}
-		if (StringUtils.isNotBlank(statudentSearchVo.getSex())) {
-
-         	if (statudentSpecification == null) {
-                statudentSpecification = Specifications.where(statudentSexSpecification(statudentSearchVo.getSex()));
-         	} else {
-                statudentSpecification.and(statudentSexSpecification(statudentSearchVo.getSex()));
-        	}
- 		}
 
 		if (statudentSpecification == null) {
        		return statudentRepository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
@@ -81,16 +69,6 @@ public class StatudentServiceImpl implements StatudentService {
 		
 	}
 
-	private Specification<Statudent> statudentNameSpecification(final String name) {
-
-		return new Specification<Statudent>(){
-
-			public Predicate toPredicate(Root<Statudent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-
-				return cb.equal(root.get("name"), name);
-			}
-		};
-	}
 	private Specification<Statudent> statudentNumberSpecification(final String number) {
 
 		return new Specification<Statudent>(){
@@ -118,16 +96,6 @@ public class StatudentServiceImpl implements StatudentService {
 			public Predicate toPredicate(Root<Statudent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
 				return cb.equal(root.get("age"), age);
-			}
-		};
-	}
-	private Specification<Statudent> statudentSexSpecification(final String sex) {
-
-		return new Specification<Statudent>(){
-
-			public Predicate toPredicate(Root<Statudent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-
-				return cb.equal(root.get("sex"), sex);
 			}
 		};
 	}

@@ -186,6 +186,10 @@
 									<pre data-bind="text : jsVoCode" class="brush: js;"></pre>
 								</div>
 								<div class="row">
+									<label>Repository additional code</label>
+									<textarea data-bind="value:repositoryAdditionalCode"></textarea>
+								</div>
+								<div class="row">
 									<label>Repository code &nbsp; <span data-bind="text : repositoryFilePath, visible : repositoryFilePath "></span></label>
 									<pre data-bind="text : repositoryCode" class="brush: java;"></pre>
 								</div>

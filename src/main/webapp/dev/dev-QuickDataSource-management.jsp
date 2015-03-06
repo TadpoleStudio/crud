@@ -53,7 +53,13 @@
 					<div class="row">
 						<div class="six columns">
 							<label>Description</label>
-							<input type="text" data-bind="value : description" />
+							<select data-bind="options: $root.DataSources,
+                      					       optionsText: 'optionText',
+                       					       value: description,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : description,
+                       						   optionsCaption: 'Please select'">
+							</select>		
 						</div>
 					</div>
 				</div>
@@ -147,10 +153,17 @@
 				self.currentIndex = ko.observable(1);
 				self.quickDataSourceSearch = ko.observable(new QuickDataSourceSearch());
 				self.QuickDataType = ko.observableArray([]);
+				self.DataSources = ko.observableArray([]);
 				$.ajax({ url : '/crud/loadDatasource.action',
 						 data : { dataSourceName : 'QuickDataType' },
 						 success : function(data) {
 								self.QuickDataType(data);
+						}
+					});
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : 'DataSources' },
+						 success : function(data) {
+								self.DataSources(data);
 						}
 					});
 				self.searchQuickDataSource = function() {

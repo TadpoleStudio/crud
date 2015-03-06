@@ -13,6 +13,7 @@ function TadFunction()  {
 	self.jsVoCode = '';
 	self.actionCode = '';
 	self.repositoryCode = '';
+	self.repositoryAdditionalCode = '';
 	self.serviceInterfaceCode = '';
 	self.serviceImplementationCode = '';
 	self.strutsConfigurationgCode = '';

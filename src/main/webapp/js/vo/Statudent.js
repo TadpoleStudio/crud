@@ -6,5 +6,5 @@ function Statudent()  {
 	self.number = '';
 	self.classNumber = '';
 	self.age = '';
-	self.sex = '';
+	self.teacherName = '';
 }

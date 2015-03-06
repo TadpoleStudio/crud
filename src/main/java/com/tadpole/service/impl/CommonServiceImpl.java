@@ -1,8 +1,14 @@
 package com.tadpole.service.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Splitter;
@@ -28,6 +34,9 @@ public class CommonServiceImpl implements CommonService {
 
 	@Autowired
 	private QuickDataSourceRepository quickDataSourceRepository;
+
+	@Resource(name = "dataSource")
+	org.springframework.jdbc.datasource.DriverManagerDataSource dataSource;
 
 	public User getCurrentLoggedInUser() {
 
@@ -68,6 +77,30 @@ public class CommonServiceImpl implements CommonService {
 				resultOptions.add(option);
 			}
 
+		} else if (quickDataSource.getType().equals("SQL")) {
+			java.sql.Connection connection = DataSourceUtils.getConnection(dataSource);
+
+			try {
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(quickDataSource.getQuerySql());
+				while (resultSet.next()) {
+					String key = resultSet.getString(1);
+					String value = resultSet.getString(2);
+
+					Option option = new Option();
+					option.setOptionText(key);
+					option.setOptionValue(value);
+
+					resultOptions.add(option);
+				}
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+
+			} finally {
+				DataSourceUtils.releaseConnection(connection, dataSource);
+			}
 		}
 		return resultOptions;
 	}

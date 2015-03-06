@@ -7,6 +7,8 @@ import com.tadpole.entity.QuickDataSource;
 
 public interface QuickDataSourceRepository extends JpaRepository<QuickDataSource, Integer>, JpaSpecificationExecutor<QuickDataSource> {
 
+	/********************************** additional code start line *******************************************************************/
+	
 	QuickDataSource findByName(String dataSourceName);
-
+	
 }
