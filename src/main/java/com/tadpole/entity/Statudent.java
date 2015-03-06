@@ -34,7 +34,7 @@ public class Statudent implements Serializable {
 	
 	protected String teacherName;
 	
-	protected String birthday;
+	protected Date birthday;
 	
 
 	public Integer getId() {
@@ -72,7 +72,8 @@ public class Statudent implements Serializable {
 		return teacherName;
 	}
 	
-	public String getBirthday() {
+	@JSON(format="yyyy-MM-dd")
+	public Date getBirthday() {
 
 		return birthday;
 	}
@@ -102,7 +103,7 @@ public class Statudent implements Serializable {
 		this.teacherName = teacherName;
 	}
 	
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 
 		this.birthday = birthday;
 	}

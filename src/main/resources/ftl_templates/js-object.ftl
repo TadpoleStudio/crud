@@ -3,6 +3,6 @@ function ${javaClassName}()  {
 	
 	self.id = '';
 <#list attributeDefinitions as attr>
-	self.${attr.name} = '';
+	self.${attr.name} = null;
 </#list>
 }

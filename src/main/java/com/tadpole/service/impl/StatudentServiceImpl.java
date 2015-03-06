@@ -62,7 +62,7 @@ public class StatudentServiceImpl implements StatudentService {
                 statudentSpecification.and(statudentAgeSpecification(statudentSearchVo.getAge()));
         	}
  		}
-		if (StringUtils.isNotBlank(statudentSearchVo.getBirthday())) {
+		if (statudentSearchVo.getBirthday() != null) {
 
          	if (statudentSpecification == null) {
                 statudentSpecification = Specifications.where(statudentBirthdaySpecification(statudentSearchVo.getBirthday()));
@@ -109,7 +109,7 @@ public class StatudentServiceImpl implements StatudentService {
 			}
 		};
 	}
-	private Specification<Statudent> statudentBirthdaySpecification(final String birthday) {
+	private Specification<Statudent> statudentBirthdaySpecification(final Date birthday) {
 
 		return new Specification<Statudent>(){
 

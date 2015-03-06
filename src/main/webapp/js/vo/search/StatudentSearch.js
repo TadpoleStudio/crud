@@ -6,5 +6,5 @@ function StatudentSearch()  {
 	self.classNumber = '';
 	self.age = '';
 	self.teacherName = '';
-	self.birthday = '';
+	self.birthday = null;
 }

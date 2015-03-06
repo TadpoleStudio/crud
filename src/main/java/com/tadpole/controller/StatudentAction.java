@@ -2,16 +2,18 @@ package com.tadpole.controller;
 
 import javax.annotation.Resource;
 
+import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.tadpole.vo.search.StatudentSearchVo;
-
 import com.tadpole.entity.Statudent;
 import com.tadpole.service.StatudentService;
 import com.tadpole.vo.ResponseVo;
 import com.tadpole.vo.PagedElement;
+
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
@@ -86,6 +88,9 @@ public class StatudentAction extends AbstractAction {
 			}
 			
 			String statudentSearchVoJson = getParameter("statudentSearchVoJson");
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			StatudentSearchVo statudentSearchVo = (StatudentSearchVo)JSONObject.toBean(JSONObject.fromObject(statudentSearchVoJson), StatudentSearchVo.class);
 			
 			Page<Statudent> statudents = statudentService.loadStatudents(currentIndex, statudentSearchVo);

@@ -57,7 +57,7 @@
 						</div>
 						<div class="six columns">
 							<label>Birthday</label>
-							<input type="text" data-bind="value : birthday" />
+							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
 						</div>
 					</div>
 				</div>
@@ -83,7 +83,7 @@
 									</div>
 									<div class="three columns">
 										<label>Birthday</label>
-											<input type="text" data-bind="value : birthday" />
+											<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
 									</div>
 							</div>
 							

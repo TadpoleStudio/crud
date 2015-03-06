@@ -12,7 +12,7 @@ public class StatudentSearchVo implements Serializable {
 	protected String classNumber;
 	protected Integer age;
 	protected String teacherName;
-	protected String birthday;
+	protected Date birthday;
 
 	public String getName() {
 
@@ -39,7 +39,7 @@ public class StatudentSearchVo implements Serializable {
 		return teacherName;
 	}
 	
-	public String getBirthday() {
+	public Date getBirthday() {
 
 		return birthday;
 	}
@@ -69,7 +69,7 @@ public class StatudentSearchVo implements Serializable {
 		this.teacherName = teacherName;
 	}
 	
-	public void setBirthday(String birthday) {
+	public void setBirthday(Date birthday) {
 
 		this.birthday = birthday;
 	}

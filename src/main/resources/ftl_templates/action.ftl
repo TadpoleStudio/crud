@@ -35,7 +35,9 @@ public class ${javaClassName}Action extends AbstractAction {
 
 				return SUCCESS;
 			}
-
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			${javaClassName} ${firstLetterLowerCaseJavaClassName} = (${javaClassName})JSONObject.toBean(JSONObject.fromObject(${firstLetterLowerCaseJavaClassName}Json), ${javaClassName}.class);
 
 			${javaClassName} saved = ${firstLetterLowerCaseJavaClassName}Service.saveOrUpdate${javaClassName}(${firstLetterLowerCaseJavaClassName});
