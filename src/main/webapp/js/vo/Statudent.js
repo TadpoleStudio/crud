@@ -7,4 +7,5 @@ function Statudent()  {
 	self.classNumber = '';
 	self.age = '';
 	self.teacherName = '';
+	self.birthday = '';
 }

@@ -1,6 +1,7 @@
 package com.tadpole.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.persistence.Column;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @author Jerry Jiang
@@ -31,6 +33,8 @@ public class Statudent implements Serializable {
 	protected Integer age;
 	
 	protected String teacherName;
+	
+	protected String birthday;
 	
 
 	public Integer getId() {
@@ -68,6 +72,11 @@ public class Statudent implements Serializable {
 		return teacherName;
 	}
 	
+	public String getBirthday() {
+
+		return birthday;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
@@ -91,6 +100,11 @@ public class Statudent implements Serializable {
 	public void setTeacherName(String teacherName) {
 
 		this.teacherName = teacherName;
+	}
+	
+	public void setBirthday(String birthday) {
+
+		this.birthday = birthday;
 	}
 	
 }

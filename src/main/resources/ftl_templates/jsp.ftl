@@ -33,6 +33,8 @@
 							<label class="input-checkbox">
 								<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
 							</label>
+								<#elseif cell.type == 'Date'>
+							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : ${cell.name}" />
 								<#elseif cell.dataSourceName?? && cell.dataSourceName != ''>
 							<select data-bind="options: $root.${cell.dataSourceName},
                       					       optionsText: 'optionText',
@@ -65,6 +67,16 @@
 											<label class="input-checkbox">
 												<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
 											</label>
+										<#elseif cell.type == 'Date'>
+											<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : ${cell.name}" />
+										<#elseif cell.searchTextDataSourceName?? && cell.searchTextDataSourceName != ''>
+												<select data-bind="options: $root.${cell.searchTextDataSourceName},
+                      					       		optionsText: 'optionText',
+                       					       		value: ${cell.name},
+                       					      		optionsValue : 'optionValue',
+                       						   		selectedOption : ${cell.name},
+                       						   		optionsCaption: 'Please select'">
+												</select>		
 										<#else>
 											<input type="text" data-bind="value : ${cell.name}" />
 										</#if> 

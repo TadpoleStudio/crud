@@ -38,6 +38,8 @@ public class TadAttribute implements Serializable {
 	
 	protected String dataSourceName;
 	
+	protected String searchTextDataSourceName;
+	
 
 	public Integer getId() {
 
@@ -47,6 +49,18 @@ public class TadAttribute implements Serializable {
 	public void setId(Integer id) {
 
 		this.id = id;
+	}
+
+	
+	public String getSearchTextDataSourceName() {
+	
+		return searchTextDataSourceName;
+	}
+
+	
+	public void setSearchTextDataSourceName(String searchTextDataSourceName) {
+	
+		this.searchTextDataSourceName = searchTextDataSourceName;
 	}
 
 	public String getFunctionId() {

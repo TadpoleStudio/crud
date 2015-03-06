@@ -73,7 +73,13 @@
 								<div class="row">
 									<div class="three columns">
 										<label>Name</label>
-											<input type="text" data-bind="value : name" />
+												<select data-bind="options: $root.DataSources,
+                      					       		optionsText: 'optionText',
+                       					       		value: name,
+                       					      		optionsValue : 'optionValue',
+                       						   		selectedOption : name,
+                       						   		optionsCaption: 'Please select'">
+												</select>		
 									</div>
 							</div>
 							

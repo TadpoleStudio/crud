@@ -1,6 +1,7 @@
 package com.tadpole.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.persistence.Column;
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @author Jerry Jiang
@@ -41,6 +43,9 @@ public class ${javaClassName} implements Serializable {
 	}
 
 <#list attributeDefinitions as attr>
+	<#if attr.type == 'Date'>
+	@JSON(format="yyyy-MM-dd")
+	</#if>
 	public ${attr.type} get${attr.firstLetterUpperName}() {
 
 		return ${attr.name};

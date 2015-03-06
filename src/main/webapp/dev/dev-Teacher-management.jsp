@@ -41,13 +41,7 @@
 						</div>
 						<div class="six columns">
 							<label>A1</label>
-							<select data-bind="options: $root.TeacherRetiredYesNo,
-                      					       optionsText: 'optionText',
-                       					       value: a1,
-                       					       optionsValue : 'optionValue',
-                       						   selectedOption : a1,
-                       						   optionsCaption: 'Please select'">
-							</select>		
+							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : a1" />
 						</div>
 					</div>
 					<div class="row">

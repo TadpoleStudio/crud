@@ -10,4 +10,5 @@ function TadAttribute()  {
 	self.searchable = false;
 	self.optionText = '';
 	self.dataSourceName = '';
+	self.searchTextDataSourceName = '';
 }

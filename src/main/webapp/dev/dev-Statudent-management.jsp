@@ -55,6 +55,10 @@
                        						   optionsCaption: 'Please select'">
 							</select>		
 						</div>
+						<div class="six columns">
+							<label>Birthday</label>
+							<input type="text" data-bind="value : birthday" />
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -76,6 +80,10 @@
 									<div class="three columns">
 										<label>Age</label>
 											<input type="text" data-bind="value : age" />
+									</div>
+									<div class="three columns">
+										<label>Birthday</label>
+											<input type="text" data-bind="value : birthday" />
 									</div>
 							</div>
 							
@@ -110,6 +118,7 @@
 												<th style="text-align: center">Class Number</th>
 												<th style="text-align: center">Age</th>
 												<th style="text-align: center">Teacher</th>
+												<th style="text-align: center">Birthday</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -120,6 +129,7 @@
 												<td style="text-align: center" data-bind="text : classNumber"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
 												<td style="text-align: center" data-bind="text : teacherName"></td>
+												<td style="text-align: center" data-bind="text : birthday"></td>
 												<td style="text-align: center">
 													<a title="update statudent" data-bind="click : $root.openManageStatudentDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
 													<a title="delete statudent" data-bind="click : $root.deleteStatudent" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>

@@ -1,13 +1,15 @@
 package com.tadpole.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import javax.persistence.Column;
+
+import org.apache.struts2.json.annotations.JSON;
 
 /**
  * @author Jerry Jiang
@@ -28,7 +30,7 @@ public class Teacher implements Serializable {
 	
 	protected String salary;
 	
-	protected String a1;
+	protected Date a1;
 	
 	protected String a2;
 	
@@ -64,7 +66,8 @@ public class Teacher implements Serializable {
 		return salary;
 	}
 	
-	public String getA1() {
+	@JSON(format="yyyy-MM-dd")
+	public Date getA1() {
 
 		return a1;
 	}
@@ -104,7 +107,7 @@ public class Teacher implements Serializable {
 		this.salary = salary;
 	}
 	
-	public void setA1(String a1) {
+	public void setA1(Date a1) {
 
 		this.a1 = a1;
 	}

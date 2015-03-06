@@ -1,5 +1,7 @@
 package com.tadpole.service.impl;
 
+import java.util.Date;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -60,6 +62,14 @@ public class StatudentServiceImpl implements StatudentService {
                 statudentSpecification.and(statudentAgeSpecification(statudentSearchVo.getAge()));
         	}
  		}
+		if (StringUtils.isNotBlank(statudentSearchVo.getBirthday())) {
+
+         	if (statudentSpecification == null) {
+                statudentSpecification = Specifications.where(statudentBirthdaySpecification(statudentSearchVo.getBirthday()));
+         	} else {
+                statudentSpecification.and(statudentBirthdaySpecification(statudentSearchVo.getBirthday()));
+        	}
+ 		}
 
 		if (statudentSpecification == null) {
        		return statudentRepository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
@@ -96,6 +106,16 @@ public class StatudentServiceImpl implements StatudentService {
 			public Predicate toPredicate(Root<Statudent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
 				return cb.equal(root.get("age"), age);
+			}
+		};
+	}
+	private Specification<Statudent> statudentBirthdaySpecification(final String birthday) {
+
+		return new Specification<Statudent>(){
+
+			public Predicate toPredicate(Root<Statudent> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+
+				return cb.equal(root.get("birthday"), birthday);
 			}
 		};
 	}

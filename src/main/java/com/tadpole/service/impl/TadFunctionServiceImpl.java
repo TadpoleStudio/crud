@@ -179,6 +179,12 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 			if (StringUtils.isNotBlank(tadAttribute.getDataSourceName())) {
 				datasourceNames.add(tadAttribute.getDataSourceName());
 			}
+			
+			if (StringUtils.isNotBlank(tadAttribute.getSearchTextDataSourceName())) {
+				datasourceNames.add(tadAttribute.getSearchTextDataSourceName());
+			}
+			
+			
 		}
 
 		jspVo.setDatasourceNames(datasourceNames);

@@ -85,7 +85,14 @@
 							<input type="text" data-bind="value : dataSourceName" />
 						</div>
 					</div>
-					<div class="row"></div>
+					<div class="row">
+						<div class="six columns">
+						</div>
+						<div class="six columns">
+							<label>Search Text Dropdown Data Source</label>
+							<input type="text" data-bind="value : searchTextDataSourceName" />
+						</div>
+					</div>
 				</div>
 				<div class="app-wrapper ui-corner-top" title="管理">
 					<div class="blue module ui-corner-top clearfix">
