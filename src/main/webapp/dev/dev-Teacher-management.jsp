@@ -36,40 +36,28 @@
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>Salary</label>
-							<input type="text" data-bind="value : salary" />
+							<label>a1</label>
+							<input type="text" data-bind="value : a1" />
 						</div>
 						<div class="six columns">
-							<label>A1</label>
-							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : a1" />
+							<label>a2</label>
+							<input type="text" data-bind="value : a2" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>A2</label>
-							<select data-bind="options: $root.TeacherRetiredYesNo,
-                      					       optionsText: 'optionText',
-                       					       value: a2,
-                       					       optionsValue : 'optionValue',
-                       						   selectedOption : a2,
-                       						   optionsCaption: 'Please select'">
-							</select>		
-						</div>
-						<div class="six columns">
-							<label>A3</label>
+							<label>a3</label>
 							<input type="text" data-bind="value : a3" />
 						</div>
+						<div class="six columns">
+							<label>a4</label>
+							<input type="text" data-bind="value : a4" />
+						</div>
 					</div>
 					<div class="row">
 						<div class="six columns">
-							<label>A4</label>
-							<input type="text" data-bind="value : a4" />
-						</div>
-						<div class="six columns">
-							<label>Retired</label>
-							<label class="input-checkbox">
-								<input type="checkbox" data-bind="checked : retired" /> Retired Now
-							</label>
+							<label>salary</label>
+							<input type="text" data-bind="value : salary" />
 						</div>
 					</div>
 				</div>
@@ -90,7 +78,7 @@
 											<input type="text" data-bind="value : age" />
 									</div>
 									<div class="three columns">
-										<label>Salary</label>
+										<label>salary</label>
 											<input type="text" data-bind="value : salary" />
 									</div>
 							</div>
@@ -123,12 +111,11 @@
 											<tr>
 												<th style="text-align: center">Name</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">Salary</th>
-												<th style="text-align: center">A1</th>
-												<th style="text-align: center">A2</th>
-												<th style="text-align: center">A3</th>
-												<th style="text-align: center">A4</th>
-												<th style="text-align: center">Retired</th>
+												<th style="text-align: center">a1</th>
+												<th style="text-align: center">a2</th>
+												<th style="text-align: center">a3</th>
+												<th style="text-align: center">a4</th>
+												<th style="text-align: center">salary</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -136,12 +123,11 @@
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : salary"></td>
 												<td style="text-align: center" data-bind="text : a1"></td>
 												<td style="text-align: center" data-bind="text : a2"></td>
 												<td style="text-align: center" data-bind="text : a3"></td>
 												<td style="text-align: center" data-bind="text : a4"></td>
-												<td style="text-align: center" data-bind="text : retired"></td>
+												<td style="text-align: center" data-bind="text : salary"></td>
 												<td style="text-align: center">
 													<a title="update teacher" data-bind="click : $root.openManageTeacherDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
 													<a title="delete teacher" data-bind="click : $root.deleteTeacher" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>
@@ -176,13 +162,6 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.teacherSearch = ko.observable(new TeacherSearch());
-				self.TeacherRetiredYesNo = ko.observableArray([]);
-				$.ajax({ url : '/crud/loadDatasource.action',
-						 data : { dataSourceName : 'TeacherRetiredYesNo' },
-						 success : function(data) {
-								self.TeacherRetiredYesNo(data);
-						}
-					});
 				self.searchTeacher = function() {
 					
 					$.ajax({

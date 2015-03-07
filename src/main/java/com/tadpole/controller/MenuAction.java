@@ -5,14 +5,16 @@ import javax.annotation.Resource;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
+
+import com.tadpole.vo.search.MenuSearchVo;
 
 import com.tadpole.entity.Menu;
 import com.tadpole.service.MenuService;
-import com.tadpole.vo.PagedElement;
 import com.tadpole.vo.ResponseVo;
+import com.tadpole.vo.PagedElement;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 
 @Component("MenuAction")
 @Scope("prototype")
@@ -24,7 +26,7 @@ public class MenuAction extends AbstractAction {
 	private MenuService menuService;
 
 	public String saveOrUpdateMenu() {
-
+	
 		try {
 			String menuJson = getParameter("menuJson");
 
@@ -33,7 +35,9 @@ public class MenuAction extends AbstractAction {
 
 				return SUCCESS;
 			}
-
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			Menu menu = (Menu)JSONObject.toBean(JSONObject.fromObject(menuJson), Menu.class);
 
 			Menu saved = menuService.saveOrUpdateMenu(menu);
@@ -51,10 +55,42 @@ public class MenuAction extends AbstractAction {
 		return SUCCESS;
 	}
 
+	public String deleteMenu() {
+	
+		try {
+			String menuId = getParameter("menuId");
+
+			if (StringUtils.isEmpty(menuId)) {
+				setResponse(ResponseVo.newFailMessage("Bad request : no data is provided to delete."));
+
+				return SUCCESS;
+			}
+
+			menuService.deleteMenu(menuId);
+			
+			ResponseVo response = ResponseVo.newSuccessMessage("The menu is successfully deleted.");
+			
+			setResponse(response);
+			
+		} catch (Exception e) {
+			
+			setResponse(ResponseVo.newFailMessage(e.getMessage()));
+		}
+
+		return SUCCESS;
+	}
 	public String loadMenus() {
 
 		try {
-			Page<Menu> menus = menuService.loadMenus();
+			String currentIndex = getParameter("currentIndex");
+			if (StringUtils.isEmpty(currentIndex)) {
+        		currentIndex = "1";
+			}
+			
+			String menuSearchVoJson = getParameter("menuSearchVoJson");
+			MenuSearchVo menuSearchVo = (MenuSearchVo)JSONObject.toBean(JSONObject.fromObject(menuSearchVoJson), MenuSearchVo.class);
+			
+			Page<Menu> menus = menuService.loadMenus(currentIndex, menuSearchVo);
 
 			PagedElement<Menu> pageElement = new PagedElement<Menu>(menus);
 

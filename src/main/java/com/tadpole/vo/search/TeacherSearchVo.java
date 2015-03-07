@@ -1,6 +1,7 @@
 package com.tadpole.vo.search;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class TeacherSearchVo implements Serializable {
 
@@ -8,8 +9,7 @@ public class TeacherSearchVo implements Serializable {
 
 	protected String name;
 	protected Integer age;
-	protected String salary;
-	protected Boolean retired;
+	protected Integer salary;
 
 	public String getName() {
 
@@ -21,14 +21,9 @@ public class TeacherSearchVo implements Serializable {
 		return age;
 	}
 	
-	public String getSalary() {
+	public Integer getSalary() {
 
 		return salary;
-	}
-	
-	public Boolean getRetired() {
-
-		return retired;
 	}
 	
 	public void setName(String name) {
@@ -41,14 +36,9 @@ public class TeacherSearchVo implements Serializable {
 		this.age = age;
 	}
 	
-	public void setSalary(String salary) {
+	public void setSalary(Integer salary) {
 
 		this.salary = salary;
-	}
-	
-	public void setRetired(Boolean retired) {
-
-		this.retired = retired;
 	}
 	
 }

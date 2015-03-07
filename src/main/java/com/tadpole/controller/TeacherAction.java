@@ -2,18 +2,16 @@ package com.tadpole.controller;
 
 import javax.annotation.Resource;
 
-import net.sf.ezmorph.object.DateMorpher;
 import net.sf.json.JSONObject;
-import net.sf.json.util.JSONUtils;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.tadpole.vo.search.TeacherSearchVo;
+
 import com.tadpole.entity.Teacher;
 import com.tadpole.service.TeacherService;
 import com.tadpole.vo.ResponseVo;
 import com.tadpole.vo.PagedElement;
-
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.domain.Page;
@@ -28,8 +26,6 @@ public class TeacherAction extends AbstractAction {
 	private TeacherService teacherService;
 
 	public String saveOrUpdateTeacher() {
-		
-		JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
 	
 		try {
 			String teacherJson = getParameter("teacherJson");
@@ -39,7 +35,9 @@ public class TeacherAction extends AbstractAction {
 
 				return SUCCESS;
 			}
-
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			Teacher teacher = (Teacher)JSONObject.toBean(JSONObject.fromObject(teacherJson), Teacher.class);
 
 			Teacher saved = teacherService.saveOrUpdateTeacher(teacher);

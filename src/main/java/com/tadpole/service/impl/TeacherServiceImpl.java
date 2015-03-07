@@ -1,5 +1,7 @@
 package com.tadpole.service.impl;
 
+import java.util.Date;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -48,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
                 teacherSpecification.and(teacherAgeSpecification(teacherSearchVo.getAge()));
         	}
  		}
-		if (StringUtils.isNotBlank(teacherSearchVo.getSalary())) {
+		if (teacherSearchVo.getSalary() != null) {
 
          	if (teacherSpecification == null) {
                 teacherSpecification = Specifications.where(teacherSalarySpecification(teacherSearchVo.getSalary()));
@@ -85,7 +87,7 @@ public class TeacherServiceImpl implements TeacherService {
 			}
 		};
 	}
-	private Specification<Teacher> teacherSalarySpecification(final String salary) {
+	private Specification<Teacher> teacherSalarySpecification(final Integer salary) {
 
 		return new Specification<Teacher>(){
 

@@ -2,12 +2,11 @@ function Teacher()  {
 	var self = this;
 	
 	self.id = '';
-	self.name = '';
-	self.age = '';
-	self.salary = '';
-	self.a1 = '';
-	self.a2 = '';
-	self.a3 = '';
-	self.a4 = '';
-	self.retired = '';
+	self.name = null;
+	self.age = null;
+	self.a1 = null;
+	self.a2 = null;
+	self.a3 = null;
+	self.a4 = null;
+	self.salary = null;
 }
