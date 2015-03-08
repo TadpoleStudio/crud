@@ -58,6 +58,14 @@ public class TeacherServiceImpl implements TeacherService {
                 teacherSpecification.and(teacherSalarySpecification(teacherSearchVo.getSalary()));
         	}
  		}
+		if (teacherSearchVo.getBirthday() != null) {
+
+         	if (teacherSpecification == null) {
+                teacherSpecification = Specifications.where(teacherBirthdaySpecification(teacherSearchVo.getBirthday()));
+         	} else {
+                teacherSpecification.and(teacherBirthdaySpecification(teacherSearchVo.getBirthday()));
+        	}
+ 		}
 
 		if (teacherSpecification == null) {
        		return teacherRepository.findAll(new PageRequest(Integer.valueOf(currentIndex) - 1, 10));
@@ -94,6 +102,16 @@ public class TeacherServiceImpl implements TeacherService {
 			public Predicate toPredicate(Root<Teacher> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
 				return cb.equal(root.get("salary"), salary);
+			}
+		};
+	}
+	private Specification<Teacher> teacherBirthdaySpecification(final Date birthday) {
+
+		return new Specification<Teacher>(){
+
+			public Predicate toPredicate(Root<Teacher> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+
+				return cb.equal(root.get("birthday"), birthday);
 			}
 		};
 	}

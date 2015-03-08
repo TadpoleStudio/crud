@@ -1,7 +1,8 @@
 function TeacherSearch()  {
 	var self = this;
 	
-	self.name = '';
-	self.age = '';
-	self.salary = '';
+	self.name = null;
+	self.age = null;
+	self.salary = null;
+	self.birthday = null;
 }

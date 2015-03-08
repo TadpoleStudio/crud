@@ -9,4 +9,5 @@ function Teacher()  {
 	self.a3 = null;
 	self.a4 = null;
 	self.salary = null;
+	self.birthday = null;
 }

@@ -38,6 +38,8 @@ public class Teacher implements Serializable {
 	
 	protected Integer salary;
 	
+	protected Date birthday;
+	
 
 	public Integer getId() {
 
@@ -84,6 +86,12 @@ public class Teacher implements Serializable {
 		return salary;
 	}
 	
+	@JSON(format="yyyy-MM-dd")
+	public Date getBirthday() {
+
+		return birthday;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
@@ -117,6 +125,11 @@ public class Teacher implements Serializable {
 	public void setSalary(Integer salary) {
 
 		this.salary = salary;
+	}
+	
+	public void setBirthday(Date birthday) {
+
+		this.birthday = birthday;
 	}
 	
 }

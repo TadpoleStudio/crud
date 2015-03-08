@@ -10,6 +10,7 @@ public class TeacherSearchVo implements Serializable {
 	protected String name;
 	protected Integer age;
 	protected Integer salary;
+	protected Date birthday;
 
 	public String getName() {
 
@@ -26,6 +27,11 @@ public class TeacherSearchVo implements Serializable {
 		return salary;
 	}
 	
+	public Date getBirthday() {
+
+		return birthday;
+	}
+	
 	public void setName(String name) {
 
 		this.name = name;
@@ -39,6 +45,11 @@ public class TeacherSearchVo implements Serializable {
 	public void setSalary(Integer salary) {
 
 		this.salary = salary;
+	}
+	
+	public void setBirthday(Date birthday) {
+
+		this.birthday = birthday;
 	}
 	
 }

@@ -59,6 +59,10 @@
 							<label>salary</label>
 							<input type="text" data-bind="value : salary" />
 						</div>
+						<div class="six columns">
+							<label>Birthday</label>
+							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -80,6 +84,10 @@
 									<div class="three columns">
 										<label>salary</label>
 											<input type="text" data-bind="value : salary" />
+									</div>
+									<div class="three columns">
+										<label>Birthday</label>
+											<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
 									</div>
 							</div>
 							
@@ -116,6 +124,7 @@
 												<th style="text-align: center">a3</th>
 												<th style="text-align: center">a4</th>
 												<th style="text-align: center">salary</th>
+												<th style="text-align: center">Birthday</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -128,6 +137,7 @@
 												<td style="text-align: center" data-bind="text : a3"></td>
 												<td style="text-align: center" data-bind="text : a4"></td>
 												<td style="text-align: center" data-bind="text : salary"></td>
+												<td style="text-align: center" data-bind="text : birthday"></td>
 												<td style="text-align: center">
 													<a title="update teacher" data-bind="click : $root.openManageTeacherDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
 													<a title="delete teacher" data-bind="click : $root.deleteTeacher" style="margin-left: 10px;" href="#"><i class="icon-trash small icon-red"></i></a>

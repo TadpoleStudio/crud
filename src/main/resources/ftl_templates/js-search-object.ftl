@@ -3,7 +3,7 @@ function ${javaClassName}Search()  {
 	
 <#list attributeDefinitions as attr>
 	<#if attr.searchable??>
-	self.${attr.name} = '';
+	self.${attr.name} = null;
 	</#if>
 </#list>
 }

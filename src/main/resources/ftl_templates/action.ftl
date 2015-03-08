@@ -3,6 +3,8 @@ package com.tadpole.controller;
 import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
+import net.sf.ezmorph.object.DateMorpher;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -79,6 +81,7 @@ public class ${javaClassName}Action extends AbstractAction {
 
 		return SUCCESS;
 	}
+	
 	public String load${javaClassName}s() {
 
 		try {
@@ -88,6 +91,9 @@ public class ${javaClassName}Action extends AbstractAction {
 			}
 			
 			String ${firstLetterLowerCaseJavaClassName}SearchVoJson = getParameter("${firstLetterLowerCaseJavaClassName}SearchVoJson");
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			${javaClassName}SearchVo ${firstLetterLowerCaseJavaClassName}SearchVo = (${javaClassName}SearchVo)JSONObject.toBean(JSONObject.fromObject(${firstLetterLowerCaseJavaClassName}SearchVoJson), ${javaClassName}SearchVo.class);
 			
 			Page<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Service.load${javaClassName}s(currentIndex, ${firstLetterLowerCaseJavaClassName}SearchVo);
