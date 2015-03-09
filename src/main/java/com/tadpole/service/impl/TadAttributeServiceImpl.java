@@ -177,7 +177,7 @@ public class TadAttributeServiceImpl implements TadAttributeService {
 
 	private void removeSourceFiles(TadFunction t) {
 
-		List<String> filePaths = ImmutableList.of(t.getActionFilePath(), t.getJpaEntityFilePath(), t.getJspFilePath(), t.getJsVoFilePath(), t.getRepositoryFilePath(), t.getServiceImplementationFilePath(), t.getServiceInterfaceFilePath(), t.getStrutsConfigurationgFilePath());
+		List<String> filePaths = ImmutableList.of(t.getRestFilePath(), t.getJavaSearchVoFilePath(), t.getJsSearchVoFilePath(), t.getActionFilePath(), t.getJpaEntityFilePath(), t.getJspFilePath(), t.getJsVoFilePath(), t.getRepositoryFilePath(), t.getServiceImplementationFilePath(), t.getServiceInterfaceFilePath(), t.getStrutsConfigurationgFilePath());
 
 		for (String filePath : filePaths) {
 

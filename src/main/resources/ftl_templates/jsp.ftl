@@ -28,7 +28,11 @@
 					<div class="row">
 					<#list row as cell>
 						<div class="three columns">
+						<#if cell.required?? && cell.required>
+							<label class='required'>${cell.label}</label>
+						<#else>
 							<label>${cell.label}</label>
+						</#if>
 								<#if cell.type == 'Boolean'>
 							<label class="input-checkbox">
 								<input type="checkbox" data-bind="checked : ${cell.name}" /> ${cell.optionText}
