@@ -1,6 +1,7 @@
 package com.tadpole.vo.search;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class QuickDataSourceSearchVo implements Serializable {
 

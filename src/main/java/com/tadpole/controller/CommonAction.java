@@ -58,7 +58,7 @@ public class CommonAction extends AbstractAction {
 
 	private List<Province> provinces;
 	private List<City> cities;
-	private List<Menu> menus;
+	private List<Menu> menuList;
 	private User user;
 
 	private List<Option> options = Lists.newArrayList();
@@ -147,20 +147,25 @@ public class CommonAction extends AbstractAction {
 		}
 
 		options = commonService.findDatasourceByName(dataSourceName);
-		
+
 		return SUCCESS;
 	}
 
 	public String findAllMenus() {
 
-		menus = menuRepository.findByVisible(true);
+		menuList = menuRepository.findByVisible(true);
 
 		return SUCCESS;
 	}
 
-	public List<Menu> getMenus() {
+	public List<Menu> getMenuList() {
 
-		return menus;
+		return menuList;
+	}
+
+	public void setMenuList(List<Menu> menuList) {
+
+		this.menuList = menuList;
 	}
 
 	public User getUser() {
@@ -171,11 +176,6 @@ public class CommonAction extends AbstractAction {
 	public void setUser(User user) {
 
 		this.user = user;
-	}
-
-	public void setMenus(List<Menu> menus) {
-
-		this.menus = menus;
 	}
 
 	public List<Province> getProvinces() {
@@ -208,15 +208,13 @@ public class CommonAction extends AbstractAction {
 		this.dictionaries = dictionaries;
 	}
 
-	
 	public List<Option> getOptions() {
-	
+
 		return options;
 	}
 
-	
 	public void setOptions(List<Option> options) {
-	
+
 		this.options = options;
 	}
 

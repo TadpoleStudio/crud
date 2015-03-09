@@ -3,6 +3,8 @@ package com.tadpole.controller;
 import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
+import net.sf.json.util.JSONUtils;
+import net.sf.ezmorph.object.DateMorpher;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -35,7 +37,9 @@ public class QuickDataSourceAction extends AbstractAction {
 
 				return SUCCESS;
 			}
-
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			QuickDataSource quickDataSource = (QuickDataSource)JSONObject.toBean(JSONObject.fromObject(quickDataSourceJson), QuickDataSource.class);
 
 			QuickDataSource saved = quickDataSourceService.saveOrUpdateQuickDataSource(quickDataSource);
@@ -77,6 +81,7 @@ public class QuickDataSourceAction extends AbstractAction {
 
 		return SUCCESS;
 	}
+	
 	public String loadQuickDataSources() {
 
 		try {
@@ -86,6 +91,9 @@ public class QuickDataSourceAction extends AbstractAction {
 			}
 			
 			String quickDataSourceSearchVoJson = getParameter("quickDataSourceSearchVoJson");
+			
+			JSONUtils.getMorpherRegistry().registerMorpher(new DateMorpher(new String[]{"yyyy-MM-dd"}));
+			
 			QuickDataSourceSearchVo quickDataSourceSearchVo = (QuickDataSourceSearchVo)JSONObject.toBean(JSONObject.fromObject(quickDataSourceSearchVoJson), QuickDataSourceSearchVo.class);
 			
 			Page<QuickDataSource> quickDataSources = quickDataSourceService.loadQuickDataSources(currentIndex, quickDataSourceSearchVo);

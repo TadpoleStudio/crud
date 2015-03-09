@@ -32,6 +32,8 @@ public class TadAttribute implements Serializable {
 	
 	protected Boolean required;
 	
+	protected Boolean isUnique;
+	
 	protected Boolean searchable;
 	
 	protected String optionText;
@@ -39,6 +41,8 @@ public class TadAttribute implements Serializable {
 	protected String dataSourceName;
 	
 	protected String searchTextDataSourceName;
+	
+	protected Boolean shownInTable;
 	
 
 	public Integer getId() {
@@ -50,8 +54,19 @@ public class TadAttribute implements Serializable {
 
 		this.id = id;
 	}
+	
+	
+	public Boolean getIsUnique() {
+	
+		return isUnique;
+	}
 
 	
+	public void setIsUnique(Boolean isUnique) {
+	
+		this.isUnique = isUnique;
+	}
+
 	public String getSearchTextDataSourceName() {
 	
 		return searchTextDataSourceName;
@@ -144,6 +159,18 @@ public class TadAttribute implements Serializable {
 	public void setDataSourceName(String dataSourceName) {
 	
 		this.dataSourceName = dataSourceName;
+	}
+
+	
+	public Boolean getShownInTable() {
+	
+		return shownInTable;
+	}
+
+	
+	public void setShownInTable(Boolean shownInTable) {
+	
+		this.shownInTable = shownInTable;
 	}
 	
 }

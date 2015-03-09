@@ -2,6 +2,7 @@ package com.tadpole.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -9,12 +10,16 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 import com.tadpole.constants.SystemConstants;
 import com.tadpole.constants.SystemPropertiesReader;
 import com.tadpole.entity.User;
@@ -198,6 +203,30 @@ public class SystemUtils {
 		return null;
 	}
 
+	public static void requireCheck(List<String> requiredFields, Object bean) {
+		
+		List<String> emptyValueFields = Lists.newArrayList();
+		for (String field : requiredFields) {
+			
+			try {
+				String fieldValue = BeanUtils.getProperty(bean, field);
+				
+				if (StringUtils.isEmpty(fieldValue)) {
+					
+					emptyValueFields.add(field);
+					
+				}
+			} catch (IllegalAccessException e) {
+			} catch (InvocationTargetException e) {
+			} catch (NoSuchMethodException e) {
+			}
+		}
+		
+		if (!emptyValueFields.isEmpty()) {
+			throw new RuntimeException(Joiner.on(",").join(emptyValueFields) + " should be required.");
+		}
+	}
+	
 	public static void main(String[] args) {
 
 		String tt = "[\"2100.00\",104,0,0]";

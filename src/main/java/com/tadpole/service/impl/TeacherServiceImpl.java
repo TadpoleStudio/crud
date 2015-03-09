@@ -50,7 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
                 teacherSpecification.and(teacherAgeSpecification(teacherSearchVo.getAge()));
         	}
  		}
-		if (teacherSearchVo.getSalary() != null) {
+		if (StringUtils.isNotBlank(teacherSearchVo.getSalary())) {
 
          	if (teacherSpecification == null) {
                 teacherSpecification = Specifications.where(teacherSalarySpecification(teacherSearchVo.getSalary()));
@@ -95,7 +95,7 @@ public class TeacherServiceImpl implements TeacherService {
 			}
 		};
 	}
-	private Specification<Teacher> teacherSalarySpecification(final Integer salary) {
+	private Specification<Teacher> teacherSalarySpecification(final String salary) {
 
 		return new Specification<Teacher>(){
 

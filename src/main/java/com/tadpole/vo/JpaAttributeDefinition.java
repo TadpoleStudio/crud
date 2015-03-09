@@ -1,5 +1,6 @@
 package com.tadpole.vo;
 
+
 public class JpaAttributeDefinition {
 
 	private String name;
@@ -7,6 +8,7 @@ public class JpaAttributeDefinition {
 	private String length;
 	private Boolean searchable;
 	private String firstLetterUpperName;
+	private String columnAttributes;
 
 	public JpaAttributeDefinition(String name, String type, Boolean searchable) {
 
@@ -30,7 +32,17 @@ public class JpaAttributeDefinition {
 	}
 
 	
+	public String getColumnAttributes() {
 	
+		return columnAttributes;
+	}
+
+	
+	public void setColumnAttributes(String columnAttributes) {
+	
+		this.columnAttributes = columnAttributes;
+	}
+
 	public Boolean getSearchable() {
 	
 		return searchable;

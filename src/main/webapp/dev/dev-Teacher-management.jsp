@@ -25,42 +25,52 @@
 				</div>
 				<div id="teacherDialog" title="Teacher Management" style="display: none" data-bind="with : selectedTeacher">
 					<div class="row">
-						<div class="six columns">
+						<div class="three columns">
 							<label>Name</label>
 							<input type="text" data-bind="value : name" />
 						</div>
-						<div class="six columns">
+						<div class="three columns">
 							<label>Age</label>
 							<input type="text" data-bind="value : age" />
 						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>a1</label>
-							<input type="text" data-bind="value : a1" />
-						</div>
-						<div class="six columns">
-							<label>a2</label>
-							<input type="text" data-bind="value : a2" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>a3</label>
-							<input type="text" data-bind="value : a3" />
-						</div>
-						<div class="six columns">
-							<label>a4</label>
-							<input type="text" data-bind="value : a4" />
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<label>salary</label>
+						<div class="three columns">
+							<label>Salary</label>
 							<input type="text" data-bind="value : salary" />
 						</div>
-						<div class="six columns">
-							<label>Birthday</label>
+						<div class="three columns">
+							<label>A1</label>
+							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : a1" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="three columns">
+							<label>A2</label>
+							<select data-bind="options: $root.TeacherRetiredYesNo,
+                      					       optionsText: 'optionText',
+                       					       value: a2,
+                       					       optionsValue : 'optionValue',
+                       						   selectedOption : a2,
+                       						   optionsCaption: 'Please select'">
+							</select>		
+						</div>
+						<div class="three columns">
+							<label>A3</label>
+							<input type="text" data-bind="value : a3" />
+						</div>
+						<div class="three columns">
+							<label>A4</label>
+							<input type="text" data-bind="value : a4" />
+						</div>
+						<div class="three columns">
+							<label>Retired</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : retired" /> Retired Now
+							</label>
+						</div>
+					</div>
+					<div class="row">
+						<div class="three columns">
+							<label>birthday</label>
 							<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
 						</div>
 					</div>
@@ -82,17 +92,18 @@
 											<input type="text" data-bind="value : age" />
 									</div>
 									<div class="three columns">
-										<label>salary</label>
+										<label>Salary</label>
 											<input type="text" data-bind="value : salary" />
 									</div>
 									<div class="three columns">
-										<label>Birthday</label>
+										<label>birthday</label>
 											<input type="text" data-bind="datepicker : {dateFormat : 'yy-mm-dd'}, value : birthday" />
 									</div>
 							</div>
 							
 							<div class="row">
-								<a title="Search Teacher" data-bind="click : $root.searchTeacher" href="#" class="small blue button">Seach Teacher</a>
+								<a title="Search Teacher" data-bind="click : $root.searchTeacherWithConditions" href="#" class="small blue button">Seach Teacher</a>
+								<a title="Search Teacher" data-bind="click : $root.resetSearchConditions" href="#" class="small blue button">Reset</a>
 							</div>
 						</div>
 					</div>	
@@ -114,17 +125,14 @@
 									</div>
 								</div>
 								<div class="row">
-									<table class="dataTable">
+									<table class="infoTable">
 										<thead>
 											<tr>
 												<th style="text-align: center">Name</th>
 												<th style="text-align: center">Age</th>
-												<th style="text-align: center">a1</th>
-												<th style="text-align: center">a2</th>
-												<th style="text-align: center">a3</th>
-												<th style="text-align: center">a4</th>
-												<th style="text-align: center">salary</th>
-												<th style="text-align: center">Birthday</th>
+												<th style="text-align: center">Salary</th>
+												<th style="text-align: center">Retired</th>
+												<th style="text-align: center">birthday</th>
 												<th></th>
 											</tr>
 										</thead>
@@ -132,11 +140,8 @@
 											<tr>
 												<td style="text-align: center" data-bind="text : name"></td>
 												<td style="text-align: center" data-bind="text : age"></td>
-												<td style="text-align: center" data-bind="text : a1"></td>
-												<td style="text-align: center" data-bind="text : a2"></td>
-												<td style="text-align: center" data-bind="text : a3"></td>
-												<td style="text-align: center" data-bind="text : a4"></td>
 												<td style="text-align: center" data-bind="text : salary"></td>
+												<td style="text-align: center" data-bind="text : retired"></td>
 												<td style="text-align: center" data-bind="text : birthday"></td>
 												<td style="text-align: center">
 													<a title="update teacher" data-bind="click : $root.openManageTeacherDialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
@@ -172,7 +177,25 @@
 				self.totalPageCount = ko.observable(0);
 				self.currentIndex = ko.observable(1);
 				self.teacherSearch = ko.observable(new TeacherSearch());
+				self.TeacherRetiredYesNo = ko.observableArray([]);
+				$.ajax({ url : '/crud/loadDatasource.action',
+						 data : { dataSourceName : 'TeacherRetiredYesNo' },
+						 success : function(data) {
+								self.TeacherRetiredYesNo(data);
+						}
+					});
+				
+				self.resetSearchConditions = function() {
+					self.teacherSearch(new TeacherSearch());
+				};
+				
 				self.searchTeacher = function() {
+				
+					for(var key in self.teacherSearch()) {
+						if (eval("self.teacherSearch()." + key) == '') {
+							eval("self.teacherSearch()." + key + " = null");
+						}
+					}
 					
 					$.ajax({
 						url : 'loadTeachers.action',
@@ -182,9 +205,11 @@
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
+							
 								self.teacherList(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
+								
 								$('#teacherPageNavigation').pagination(
                 				self.totalCount(),
         							{
@@ -198,12 +223,27 @@
                 					load_first_page : false
         							}
 								);
+							} else {
+								
+								if (!isOK(data)) {
+									
+									fail("Error: " + data.message);
+									
+									self.teacherList([]);
+									self.totalCount(0);
+									self.totalPageCount(0);
+								}
 							}
 						}
 					});
 				};
 				
 				self.searchTeacher();
+				
+				self.searchTeacherWithConditions = function() {
+					self.currentIndex(1);
+					self.searchTeacher();
+				};
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);

@@ -2,9 +2,9 @@ function QuickDataSource()  {
 	var self = this;
 	
 	self.id = '';
-	self.name = '';
-	self.type = '';
-	self.keyValues = '';
-	self.querySql = '';
-	self.description = '';
+	self.name = null;
+	self.type = null;
+	self.keyValues = null;
+	self.querySql = null;
+	self.description = null;
 }

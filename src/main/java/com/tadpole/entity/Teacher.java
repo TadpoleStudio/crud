@@ -15,7 +15,7 @@ import org.apache.struts2.json.annotations.JSON;
  * @author Jerry Jiang
  */
 @Entity
-@Table(name = " tad_teacher")
+@Table(name = "tad_teacher")
 public class Teacher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,15 +28,17 @@ public class Teacher implements Serializable {
 	
 	protected Integer age;
 	
-	protected Integer a1;
+	protected String salary;
 	
-	protected Integer a2;
+	protected Date a1;
 	
-	protected Integer a3;
+	protected String a2;
 	
-	protected Integer a4;
+	protected String a3;
 	
-	protected Integer salary;
+	protected String a4;
+	
+	protected Boolean retired;
 	
 	protected Date birthday;
 	
@@ -61,29 +63,35 @@ public class Teacher implements Serializable {
 		return age;
 	}
 	
-	public Integer getA1() {
+	public String getSalary() {
+
+		return salary;
+	}
+	
+	@JSON(format="yyyy-MM-dd")
+	public Date getA1() {
 
 		return a1;
 	}
 	
-	public Integer getA2() {
+	public String getA2() {
 
 		return a2;
 	}
 	
-	public Integer getA3() {
+	public String getA3() {
 
 		return a3;
 	}
 	
-	public Integer getA4() {
+	public String getA4() {
 
 		return a4;
 	}
 	
-	public Integer getSalary() {
+	public Boolean getRetired() {
 
-		return salary;
+		return retired;
 	}
 	
 	@JSON(format="yyyy-MM-dd")
@@ -102,29 +110,34 @@ public class Teacher implements Serializable {
 		this.age = age;
 	}
 	
-	public void setA1(Integer a1) {
+	public void setSalary(String salary) {
+
+		this.salary = salary;
+	}
+	
+	public void setA1(Date a1) {
 
 		this.a1 = a1;
 	}
 	
-	public void setA2(Integer a2) {
+	public void setA2(String a2) {
 
 		this.a2 = a2;
 	}
 	
-	public void setA3(Integer a3) {
+	public void setA3(String a3) {
 
 		this.a3 = a3;
 	}
 	
-	public void setA4(Integer a4) {
+	public void setA4(String a4) {
 
 		this.a4 = a4;
 	}
 	
-	public void setSalary(Integer salary) {
+	public void setRetired(Boolean retired) {
 
-		this.salary = salary;
+		this.retired = retired;
 	}
 	
 	public void setBirthday(Date birthday) {

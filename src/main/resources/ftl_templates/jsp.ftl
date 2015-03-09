@@ -24,10 +24,10 @@
 					<s:fielderror />
 				</div>
 				<div id="${firstLetterLowerCaseJavaClassName}Dialog" title="${javaClassName} Management" style="display: none" data-bind="with : selected${javaClassName}">
-				<#list tadAttributes?chunk(2) as row>
+				<#list tadAttributes?chunk(4) as row>
 					<div class="row">
 					<#list row as cell>
-						<div class="six columns">
+						<div class="three columns">
 							<label>${cell.label}</label>
 								<#if cell.type == 'Boolean'>
 							<label class="input-checkbox">
@@ -86,7 +86,8 @@
 							</#list>
 							
 							<div class="row">
-								<a title="Search ${javaClassName}" data-bind="click : $root.search${javaClassName}" href="#" class="small blue button">Seach ${javaClassName}</a>
+								<a title="Search ${javaClassName}" data-bind="click : $root.search${javaClassName}WithConditions" href="#" class="small blue button">Seach ${javaClassName}</a>
+								<a title="Search ${javaClassName}" data-bind="click : $root.resetSearchConditions" href="#" class="small blue button">Reset</a>
 							</div>
 						</div>
 					</div>	
@@ -108,11 +109,16 @@
 									</div>
 								</div>
 								<div class="row">
-									<table class="dataTable">
+									<table class="infoTable">
 										<thead>
 											<tr>
 												<#list tadAttributes as attr>
+												<#if attr.shownInTable?? && attr.shownInTable>
 												<th style="text-align: center">${attr.label}</th>
+												<#elseif attr.shownInTable?? && attr.shownInTable == false>
+												<#else>
+												<th style="text-align: center">${attr.label}</th>
+												</#if>
 												</#list>
 												<th></th>
 											</tr>
@@ -120,7 +126,12 @@
 										<tbody data-bind="foreach : ${firstLetterLowerCaseJavaClassName}List">
 											<tr>
 												<#list tadAttributes as attr>
+												<#if attr.shownInTable?? && attr.shownInTable>
 												<td style="text-align: center" data-bind="text : ${attr.name}"></td>
+												<#elseif attr.shownInTable?? && attr.shownInTable == false>
+												<#else>
+												<td style="text-align: center" data-bind="text : ${attr.name}"></td>
+												</#if>
 												</#list>
 												<td style="text-align: center">
 													<a title="update ${firstLetterLowerCaseJavaClassName}" data-bind="click : $root.openManage${javaClassName}Dialog" style="margin-left: 10px;" href="#"><i class="icon-pencil small icon-blue"></i></a>
@@ -166,8 +177,19 @@
 								self.${datasource}(data);
 						}
 					});
-			</#list>	
+			</#list>
+				
+				self.resetSearchConditions = function() {
+					self.${firstLetterLowerCaseJavaClassName}Search(new ${javaClassName}Search());
+				};
+				
 				self.search${javaClassName} = function() {
+				
+					for(var key in self.${firstLetterLowerCaseJavaClassName}Search()) {
+						if (eval("self.${firstLetterLowerCaseJavaClassName}Search()." + key) == '') {
+							eval("self.${firstLetterLowerCaseJavaClassName}Search()." + key + " = null");
+						}
+					}
 					
 					$.ajax({
 						url : 'load${javaClassName}s.action',
@@ -177,9 +199,11 @@
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
+							
 								self.${firstLetterLowerCaseJavaClassName}List(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
+								
 								$('#${firstLetterLowerCaseJavaClassName}PageNavigation').pagination(
                 				self.totalCount(),
         							{
@@ -193,12 +217,27 @@
                 					load_first_page : false
         							}
 								);
+							} else {
+								
+								if (!isOK(data)) {
+									
+									fail("Error: " + data.message);
+									
+									self.${firstLetterLowerCaseJavaClassName}List([]);
+									self.totalCount(0);
+									self.totalPageCount(0);
+								}
 							}
 						}
 					});
 				};
 				
 				self.search${javaClassName}();
+				
+				self.search${javaClassName}WithConditions = function() {
+					self.currentIndex(1);
+					self.search${javaClassName}();
+				};
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);

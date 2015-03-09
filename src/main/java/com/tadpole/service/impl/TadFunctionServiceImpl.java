@@ -2,6 +2,7 @@ package com.tadpole.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -10,7 +11,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.tadpole.creator.ControllerCreator;
 import com.tadpole.creator.EntityBeanCreator;
@@ -93,6 +96,20 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 		for (TadAttribute tadAttribute : tadAttributes) {
 			JpaAttributeDefinition jpaAttributeDefinition = new JpaAttributeDefinition(tadAttribute.getName(), tadAttribute.getType(), tadAttribute.getSearchable());
+			List<String> columnAttributes = Lists.newArrayList();
+			if (tadAttribute.getIsUnique()) {
+				
+				columnAttributes.add("unique = true");
+			}
+			if (tadAttribute.getRequired()) {
+				
+				columnAttributes.add("nullable = false");
+			}
+			
+			if (!columnAttributes.isEmpty()) {
+				jpaAttributeDefinition.setColumnAttributes(Joiner.on(",").join(columnAttributes));
+			}
+			
 			jpaAttributeDefinitions.add(jpaAttributeDefinition);
 		}
 		jpaEntityDefinition.setAttributeDefinitions(jpaAttributeDefinitions);

@@ -9,7 +9,8 @@ public class TeacherSearchVo implements Serializable {
 
 	protected String name;
 	protected Integer age;
-	protected Integer salary;
+	protected String salary;
+	protected Boolean retired;
 	protected Date birthday;
 
 	public String getName() {
@@ -22,9 +23,14 @@ public class TeacherSearchVo implements Serializable {
 		return age;
 	}
 	
-	public Integer getSalary() {
+	public String getSalary() {
 
 		return salary;
+	}
+	
+	public Boolean getRetired() {
+
+		return retired;
 	}
 	
 	public Date getBirthday() {
@@ -42,9 +48,14 @@ public class TeacherSearchVo implements Serializable {
 		this.age = age;
 	}
 	
-	public void setSalary(Integer salary) {
+	public void setSalary(String salary) {
 
 		this.salary = salary;
+	}
+	
+	public void setRetired(Boolean retired) {
+
+		this.retired = retired;
 	}
 	
 	public void setBirthday(Date birthday) {

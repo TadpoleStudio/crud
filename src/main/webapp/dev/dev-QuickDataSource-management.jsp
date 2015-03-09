@@ -25,11 +25,11 @@
 				</div>
 				<div id="quickDataSourceDialog" title="QuickDataSource Management" style="display: none" data-bind="with : selectedQuickDataSource">
 					<div class="row">
-						<div class="six columns">
+						<div class="three columns">
 							<label>Name</label>
 							<input type="text" data-bind="value : name" />
 						</div>
-						<div class="six columns">
+						<div class="three columns">
 							<label>Type</label>
 							<select data-bind="options: $root.QuickDataType,
                       					       optionsText: 'optionText',
@@ -39,19 +39,17 @@
                        						   optionsCaption: 'Please select'">
 							</select>		
 						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
+						<div class="three columns">
 							<label>Fixed Values</label>
 							<input type="text" data-bind="value : keyValues" />
 						</div>
-						<div class="six columns">
+						<div class="three columns">
 							<label>SQL</label>
 							<input type="text" data-bind="value : querySql" />
 						</div>
 					</div>
 					<div class="row">
-						<div class="six columns">
+						<div class="three columns">
 							<label>Description</label>
 							<select data-bind="options: $root.DataSources,
                       					       optionsText: 'optionText',
@@ -84,7 +82,8 @@
 							</div>
 							
 							<div class="row">
-								<a title="Search QuickDataSource" data-bind="click : $root.searchQuickDataSource" href="#" class="small blue button">Seach QuickDataSource</a>
+								<a title="Search QuickDataSource" data-bind="click : $root.searchQuickDataSourceWithConditions" href="#" class="small blue button">Seach QuickDataSource</a>
+								<a title="Search QuickDataSource" data-bind="click : $root.resetSearchConditions" href="#" class="small blue button">Reset</a>
 							</div>
 						</div>
 					</div>	
@@ -106,7 +105,7 @@
 									</div>
 								</div>
 								<div class="row">
-									<table class="dataTable">
+									<table class="infoTable">
 										<thead>
 											<tr>
 												<th style="text-align: center">Name</th>
@@ -172,7 +171,18 @@
 								self.DataSources(data);
 						}
 					});
+				
+				self.resetSearchConditions = function() {
+					self.quickDataSourceSearch(new QuickDataSourceSearch());
+				};
+				
 				self.searchQuickDataSource = function() {
+				
+					for(var key in self.quickDataSourceSearch()) {
+						if (eval("self.quickDataSourceSearch()." + key) == '') {
+							eval("self.quickDataSourceSearch()." + key + " = null");
+						}
+					}
 					
 					$.ajax({
 						url : 'loadQuickDataSources.action',
@@ -182,9 +192,11 @@
 						success : function(data) {
 							
 							if (data && data.object && data.object.elements) {
+							
 								self.quickDataSourceList(data.object.elements);
 								self.totalCount(data.object.total);
 								self.totalPageCount(data.object.totalPages);
+								
 								$('#quickDataSourcePageNavigation').pagination(
                 				self.totalCount(),
         							{
@@ -198,12 +210,27 @@
                 					load_first_page : false
         							}
 								);
+							} else {
+								
+								if (!isOK(data)) {
+									
+									fail("Error: " + data.message);
+									
+									self.quickDataSourceList([]);
+									self.totalCount(0);
+									self.totalPageCount(0);
+								}
 							}
 						}
 					});
 				};
 				
 				self.searchQuickDataSource();
+				
+				self.searchQuickDataSourceWithConditions = function() {
+					self.currentIndex(1);
+					self.searchQuickDataSource();
+				};
 				
 				self.pageSelectCallback = function(page_index, jq){
         				self.currentIndex(page_index + 1);

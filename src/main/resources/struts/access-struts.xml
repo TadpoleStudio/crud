@@ -43,7 +43,7 @@
 		</action>
 		<action name="findAllMenus" class="commonAction" method="findAllMenus">
 			<result name="success" type="json">
-				<param name="root">menus</param>
+				<param name="root">menuList</param>
 			</result>
 		</action>
 		<action name="loadMe" class="commonAction" method="loadMe">

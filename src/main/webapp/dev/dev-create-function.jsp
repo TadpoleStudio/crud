@@ -87,12 +87,31 @@
 					</div>
 					<div class="row">
 						<div class="six columns">
+							<label>Shown in table list</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : shownInTable" />
+							Shown</label>
 						</div>
 						<div class="six columns">
 							<label>Search Text Dropdown Data Source</label>
 							<input type="text" data-bind="value : searchTextDataSourceName" />
 						</div>
 					</div>
+					<form>
+						<fieldset>
+							<legend>Validations</legend>
+							<div class="row">
+								<div class="six columns">
+									<label>Required</label> <label class="input-checkbox"> <input type="checkbox" data-bind="checked : required" /> Required Field
+									</label>
+								</div>
+								<div class="six columns">
+									<label>Unique</label> <label class="input-checkbox"> <input type="checkbox" data-bind="checked : isUnique" /> Unique Field</label>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+
 				</div>
 				<div class="app-wrapper ui-corner-top" title="管理">
 					<div class="blue module ui-corner-top clearfix">
@@ -363,8 +382,8 @@
 					
 					$('#tadFunctionDialog').dialog({
 						modal : true,
-						width : 700,
-						height : 450,
+						width : 1046,
+						height : 888,
 						open : function(e) {
 							changeButtonStyleForPopup(e);
 						},

@@ -1,9 +1,9 @@
 function QuickDataSourceSearch()  {
 	var self = this;
 	
-	self.name = '';
-	self.type = '';
-	self.keyValues = '';
-	self.querySql = '';
-	self.description = '';
+	self.name = null;
+	self.type = null;
+	self.keyValues = null;
+	self.querySql = null;
+	self.description = null;
 }
