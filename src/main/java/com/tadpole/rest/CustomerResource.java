@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tadpole.entity.Customer;
 import com.tadpole.repository.CustomerRepository;
@@ -58,15 +59,16 @@ public class CustomerResource {
 
 	}
 	
-	@POST
-	@Path("/save")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@GET
+	@Path("/save/{customer}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response saveOrUpdateCustomer(Customer customer) {
+	public Response saveOrUpdateCustomer(@PathParam("customer") String customerString) {
 		
-		Customer saved = customerService.saveOrUpdateCustomer(customer);
+		System.out.println(customerString);
 		
-		return Response.status(200).entity(saved)
+		//Customer saved = customerService.saveOrUpdateCustomer(customer);
+		
+		return Response.status(200).entity("OK")
 			.header("Access-Control-Allow-Origin", "*")
 			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
 			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
