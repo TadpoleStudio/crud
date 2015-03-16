@@ -153,6 +153,7 @@ public class TadFunctionAction extends AbstractAction {
 	public String generateCode() {
 
 		String functionId = getParameter("functionId");
+		String codeType = getParameter("codeType");
 
 		if (StringUtils.isEmpty(functionId)) {
 			setResponse(ResponseVo.newFailMessage("Bad request : no data "));
@@ -161,7 +162,7 @@ public class TadFunctionAction extends AbstractAction {
 		}
 
 		try {
-			TadFunction saved = tadFunctionService.generateCode(functionId);
+			TadFunction saved = tadFunctionService.generateCode(functionId, codeType);
 
 			ResponseVo success = ResponseVo.newSuccessMessage("The code is generated successfully.");
 			success.setObject(saved);

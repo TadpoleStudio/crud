@@ -1,5 +1,7 @@
 package com.tadpole.rest;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -31,24 +33,43 @@ public class ${javaClassName}Resource {
 	@GET
 	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ${javaClassName} get${javaClassName}ById(@PathParam("id") Integer id) {
+	public Response get${javaClassName}ById(@PathParam("id") Integer id) {
 
 		${javaClassName} ${firstLetterLowerCaseJavaClassName} = ${firstLetterLowerCaseJavaClassName}Repository.findOne(id);
 
-		return ${firstLetterLowerCaseJavaClassName};
+		return Response.status(200).entity(${firstLetterLowerCaseJavaClassName})
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
 
 	}
 	
+	@GET
+	@Path("/all")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response get${javaClassName}s() {
+
+		List<${javaClassName}> ${firstLetterLowerCaseJavaClassName}s = ${firstLetterLowerCaseJavaClassName}Repository.findAll();
+
+		return Response.status(200).entity(${firstLetterLowerCaseJavaClassName}s)
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
+
+	}
 	
 	@POST
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public ${javaClassName} saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName}) {
+	public Response saveOrUpdate${javaClassName}(${javaClassName} ${firstLetterLowerCaseJavaClassName}) {
 		
 		${javaClassName} saved = ${firstLetterLowerCaseJavaClassName}Service.saveOrUpdate${javaClassName}(${firstLetterLowerCaseJavaClassName});
 		
-		return saved;
+		return Response.status(200).entity(saved)
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
 	}
 	
 	@POST

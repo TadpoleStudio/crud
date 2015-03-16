@@ -26,7 +26,7 @@ public class CustomerResource {
 
 	@Autowired
 	private CustomerRepository customerRepository;
-
+	
 	@Resource(name = "CustomerService")
 	private CustomerService customerService;
 
@@ -37,7 +37,10 @@ public class CustomerResource {
 
 		Customer customer = customerRepository.findOne(id);
 
-		return Response.status(200).entity(customer).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT").header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
+		return Response.status(200).entity(customer)
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
 
 	}
 	
@@ -48,34 +51,39 @@ public class CustomerResource {
 
 		List<Customer> customers = customerRepository.findAll();
 
-		return Response.status(200).entity(customers).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT").header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
+		return Response.status(200).entity(customers)
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
 
 	}
-
+	
 	@POST
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Customer saveOrUpdateCustomer(Customer customer) {
-
+	public Response saveOrUpdateCustomer(Customer customer) {
+		
 		Customer saved = customerService.saveOrUpdateCustomer(customer);
-
-		return saved;
+		
+		return Response.status(200).entity(saved)
+			.header("Access-Control-Allow-Origin", "*")
+			.header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+			.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Codingpedia").build();
 	}
-
+	
 	@POST
 	@Path("/delete/{id}")
-	public Response deleteCustomer(@PathParam("id")
-	String id) {
-
+	public Response deleteCustomer(@PathParam("id") String id) {
+		
 		try {
 			customerService.deleteCustomer(id);
-
+			
 		} catch (Exception e) {
-
+			
 			return Response.status(Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
 		}
-
+		
 		return Response.ok().build();
 	}
 

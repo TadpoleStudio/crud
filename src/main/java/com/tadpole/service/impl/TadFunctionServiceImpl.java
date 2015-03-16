@@ -77,7 +77,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		return tadFunctionRepository.saveAndFlush(tadFunction);
 	}
 
-	public TadFunction generateCode(String functionId) {
+	public TadFunction generateCode(String functionId, String codeType) {
 
 		if (StringUtils.isBlank(functionId)) {
 			throw new RuntimeException("Function id is not provided.");
@@ -114,54 +114,58 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		}
 		jpaEntityDefinition.setAttributeDefinitions(jpaAttributeDefinitions);
 
-		String jpaEntityCode = EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
-		function.setJpaEntityCode(jpaEntityCode);
-		function.setJpaEntityFilePath(EntityBeanCreator.getSourceFileName(jpaEntityDefinition));
+		if (codeType.equals("rest")) {
+			
+			generateRestCode(function, jpaEntityDefinition);
+			
+		} else {
+			
+			String jpaEntityCode = EntityBeanCreator.generateSourceFile(jpaEntityDefinition);
+			function.setJpaEntityCode(jpaEntityCode);
+			function.setJpaEntityFilePath(EntityBeanCreator.getSourceFileName(jpaEntityDefinition));
 
-		String jsVoCode = JsObjectCreator.generateSourceFile(jpaEntityDefinition);
-		function.setJsVoCode(jsVoCode);
-		function.setJsVoFilePath(JsObjectCreator.getSourceFileName(jpaEntityDefinition));
+			String jsVoCode = JsObjectCreator.generateSourceFile(jpaEntityDefinition);
+			function.setJsVoCode(jsVoCode);
+			function.setJsVoFilePath(JsObjectCreator.getSourceFileName(jpaEntityDefinition));
 
-		String jsSearchVoCode = JsSearchObjectCreator.generateSourceFile(jpaEntityDefinition);
-		String jsSearchVoFilePath = JsSearchObjectCreator.getSourceFileName(jpaEntityDefinition);
-		function.setJsSearchVoCode(jsSearchVoCode);
-		function.setJsSearchVoFilePath(jsSearchVoFilePath);
+			String jsSearchVoCode = JsSearchObjectCreator.generateSourceFile(jpaEntityDefinition);
+			String jsSearchVoFilePath = JsSearchObjectCreator.getSourceFileName(jpaEntityDefinition);
+			function.setJsSearchVoCode(jsSearchVoCode);
+			function.setJsSearchVoFilePath(jsSearchVoFilePath);
 
-		String javaSearchVoCode = JavaSearchVoCreator.generateSourceFile(jpaEntityDefinition);
-		String javaSearchVoFilePath = JavaSearchVoCreator.getSourceFileName(jpaEntityDefinition);
-		function.setJavaSearchVoCode(javaSearchVoCode);
-		function.setJavaSearchVoFilePath(javaSearchVoFilePath);
+			String javaSearchVoCode = JavaSearchVoCreator.generateSourceFile(jpaEntityDefinition);
+			String javaSearchVoFilePath = JavaSearchVoCreator.getSourceFileName(jpaEntityDefinition);
+			function.setJavaSearchVoCode(javaSearchVoCode);
+			function.setJavaSearchVoFilePath(javaSearchVoFilePath);
 
-		String repositoryCode = RepositoryCreator.generateSourceFile(jpaEntityDefinition);
-		function.setRepositoryCode(repositoryCode);
-		function.setRepositoryFilePath(RepositoryCreator.getSourceFileName(jpaEntityDefinition));
+			String repositoryCode = RepositoryCreator.generateSourceFile(jpaEntityDefinition);
+			function.setRepositoryCode(repositoryCode);
+			function.setRepositoryFilePath(RepositoryCreator.getSourceFileName(jpaEntityDefinition));
 
-		String serviceInterfaceCode = ServiceInterfaceCreator.generateSourceFile(jpaEntityDefinition);
-		function.setServiceInterfaceCode(serviceInterfaceCode);
-		function.setServiceInterfaceFilePath(ServiceInterfaceCreator.getSourceFileName(jpaEntityDefinition));
+			String serviceInterfaceCode = ServiceInterfaceCreator.generateSourceFile(jpaEntityDefinition);
+			function.setServiceInterfaceCode(serviceInterfaceCode);
+			function.setServiceInterfaceFilePath(ServiceInterfaceCreator.getSourceFileName(jpaEntityDefinition));
 
-		String serviceImplementationCode = ServiceImplemetationCreator.generateSourceFile(jpaEntityDefinition);
-		function.setServiceImplementationCode(serviceImplementationCode);
-		function.setServiceImplementationFilePath(ServiceImplemetationCreator.getSourceFileName(jpaEntityDefinition));
+			String serviceImplementationCode = ServiceImplemetationCreator.generateSourceFile(jpaEntityDefinition);
+			function.setServiceImplementationCode(serviceImplementationCode);
+			function.setServiceImplementationFilePath(ServiceImplemetationCreator.getSourceFileName(jpaEntityDefinition));
 
-		String actionCode = ControllerCreator.generateSourceFile(jpaEntityDefinition);
-		function.setActionCode(actionCode);
-		function.setActionFilePath(ControllerCreator.getSourceFileName(jpaEntityDefinition));
+			String actionCode = ControllerCreator.generateSourceFile(jpaEntityDefinition);
+			function.setActionCode(actionCode);
+			function.setActionFilePath(ControllerCreator.getSourceFileName(jpaEntityDefinition));
 
-		String strutsConfiguration = StrutsConfigurationCreator.generateSourceFile(function);
-		function.setStrutsConfigurationgCode(strutsConfiguration);
-		function.setStrutsConfigurationgFilePath(StrutsConfigurationCreator.getSourceFileName(function));
+			String strutsConfiguration = StrutsConfigurationCreator.generateSourceFile(function);
+			function.setStrutsConfigurationgCode(strutsConfiguration);
+			function.setStrutsConfigurationgFilePath(StrutsConfigurationCreator.getSourceFileName(function));
 
-		JspVo jspVo = generateJspVo(jpaEntityDefinition, function, tadAttributes);
+			JspVo jspVo = generateJspVo(jpaEntityDefinition, function, tadAttributes);
 
-		String jspCode = JspCreator.generateSourceFile(jspVo);
-		function.setJspCode(jspCode);
-		function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
-
-		String restCode = RestWebServiceCreator.generateSourceFile(jpaEntityDefinition);
-		String restFilePath = RestWebServiceCreator.getSourceFileName(jpaEntityDefinition);
-		function.setRestCode(restCode);
-		function.setRestFilePath(restFilePath);
+			String jspCode = JspCreator.generateSourceFile(jspVo);
+			function.setJspCode(jspCode);
+			function.setJspFilePath(JspCreator.getSourceFileName(jspVo));
+			
+			generateRestCode(function, jpaEntityDefinition);
+		}
 
 		TadFunction result = tadFunctionRepository.saveAndFlush(function);
 
@@ -171,6 +175,15 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 		}
 
 		return result;
+	}
+	
+	private void generateRestCode(TadFunction function, JpaEntityDefinition jpaEntityDefinition) {
+		
+		String restCode = RestWebServiceCreator.generateSourceFile(jpaEntityDefinition);
+		String restFilePath = RestWebServiceCreator.getSourceFileName(jpaEntityDefinition);
+		function.setRestCode(restCode);
+		function.setRestFilePath(restFilePath);
+		
 	}
 
 	private JspVo generateJspVo(JpaEntityDefinition jpaEntityDefinition, TadFunction function, List<TadAttribute> tadAttributes) {

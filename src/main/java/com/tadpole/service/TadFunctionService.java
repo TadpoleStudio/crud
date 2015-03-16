@@ -10,7 +10,7 @@ public interface TadFunctionService {
 
 	TadFunction saveOrUpdateTadFunction(TadFunction tadFunction);
 
-	TadFunction generateCode(String functionId);
+	TadFunction generateCode(String functionId, String codeType);
 
 	List<String> loadAllTableNames();
 

@@ -195,8 +195,9 @@
 
 						<h5>Third step : Generate basic CRUD code</h5>
 						<br>
-						<div>
-									<a title="Generate Code" data-bind="click : $root.generateCode" href="#" class="small blue button">Generate Code</a>
+								<div>
+									<a title="Generate Code" data-bind="click : $root.generateCode.bind($data, 'all')" href="#" class="small blue button">Generate Code</a>
+									<a title="Generate Code" data-bind="click : $root.generateCode.bind($data, 'rest')" href="#" class="small blue button">Generate Restful Code</a>
 								</div>
 						<br>
 						<form data-bind="with : tadFunction">
@@ -422,7 +423,7 @@
 					}
 				};
 				
-				self.generateCode = function(item, event) {
+				self.generateCode = function(codeType, item, event) {
 					
 					var functionId = self.tadFunction().id;
 					if(functionId) {
@@ -434,6 +435,7 @@
 							method : 'POST',
 							data : {
 								functionId : functionId,
+								codeType : codeType
 							},
 							success : function(data) {
 								handleStanderdResponse(data);

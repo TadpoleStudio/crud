@@ -9,8 +9,7 @@
 //import javax.ws.rs.ext.Provider;
 //
 //@Provider
-//public class CORSResponseFilter
-//implements ContainerResponseFilter {
+//public class CORSResponseFilter implements ContainerResponseFilter {
 //
 //	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
 //			throws IOException {
