@@ -23,8 +23,9 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
+import com.sun.jersey.core.header.ContentDisposition;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
 import com.tadpole.entity.Customer;
 import com.tadpole.repository.CustomerRepository;
 import com.tadpole.service.CustomerService;
@@ -32,6 +33,8 @@ import com.tadpole.service.CustomerService;
 @Component
 @Path("/customer")
 public class CustomerResource {
+
+	private static final String SERVER_UPLOAD_LOCATION_FOLDER = "D:\\data\\Jerry\\crud\\src\\main\\webapp\\public\\";
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -105,21 +108,29 @@ public class CustomerResource {
 		return Response.ok().build();
 	}
 	
-//	@POST
-//	@Path("/fileUpload")
-//	public Response fileUpload(@FormDataParam("file") InputStream uploadedInputStream, @FormDataParam("file") FormDataContentDisposition fileDetail) {
-//		
-//		String uploadedFileLocation = "D:\\data\\Jerry\\crud\\src\\main\\webapp\\public\\" + fileDetail.getFileName();
-//		 
-//		// save it
-//		writeToFile(uploadedInputStream, uploadedFileLocation);
-// 
-//		String output = "File uploaded to : " + uploadedFileLocation;
-//		
-//		return Response.status(200).entity(output).build();
-//	}
-	
-	// save uploaded file to new location
+	@POST
+	@Path("/fileUpload")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response fileUpload(FormDataMultiPart form) {
+
+		FormDataBodyPart filePart = form.getField("file");
+
+		ContentDisposition headerOfFilePart = filePart.getContentDisposition();
+
+		InputStream fileInputStream = filePart.getValueAs(InputStream.class);
+
+		String filePath = SERVER_UPLOAD_LOCATION_FOLDER + headerOfFilePart.getFileName();
+
+		// save the file to the server
+		writeToFile(fileInputStream, filePath);
+
+		String output = "File saved to server location using FormDataMultiPart : " + filePath;
+
+		return Response.status(200).entity(output).build();
+	}
+
+
 	private void writeToFile(InputStream uploadedInputStream, String uploadedFileLocation) {
 
 		try {
@@ -139,5 +150,4 @@ public class CustomerResource {
 		}
 
 	}
-
 }
