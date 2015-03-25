@@ -9,6 +9,7 @@ public class JpaAttributeDefinition {
 	private Boolean searchable;
 	private String firstLetterUpperName;
 	private String columnAttributes;
+	private Boolean textLong;
 
 	public JpaAttributeDefinition(String name, String type, Boolean searchable) {
 
@@ -92,6 +93,18 @@ public class JpaAttributeDefinition {
 	public void setLength(String length) {
 
 		this.length = length;
+	}
+
+	
+	public Boolean getTextLong() {
+	
+		return textLong;
+	}
+
+	
+	public void setTextLong(Boolean textLong) {
+	
+		this.textLong = textLong;
 	}
 
 }

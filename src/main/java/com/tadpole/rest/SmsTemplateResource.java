@@ -52,6 +52,17 @@ public class SmsTemplateResource {
 
 	}
 	
+	@GET
+	@Path("/allNames")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<SmsTemplate> getSmsTemplateNames() {
+
+		List<SmsTemplate> smsTemplates = smsTemplateRepository.findAll();
+
+		return smsTemplates;
+
+	}
+	
 	@POST
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_JSON)

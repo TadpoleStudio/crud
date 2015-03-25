@@ -25,6 +25,9 @@ public class ${javaClassName} implements Serializable {
 	protected Integer id;
 	
 <#list attributeDefinitions as attr>
+	<#if attr.textLong?? && attr.textLong>
+	@javax.persistence.Lob
+	</#if>
 	<#if attr.columnAttributes??>
 	@Column(${attr.columnAttributes})
 	</#if>

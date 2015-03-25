@@ -96,6 +96,7 @@ public class TadFunctionServiceImpl implements TadFunctionService {
 
 		for (TadAttribute tadAttribute : tadAttributes) {
 			JpaAttributeDefinition jpaAttributeDefinition = new JpaAttributeDefinition(tadAttribute.getName(), tadAttribute.getType(), tadAttribute.getSearchable());
+			jpaAttributeDefinition.setTextLong(tadAttribute.getTextLong());
 			List<String> columnAttributes = Lists.newArrayList();
 			if (tadAttribute.getIsUnique()) {
 				

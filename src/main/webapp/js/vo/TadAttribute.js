@@ -13,4 +13,5 @@ function TadAttribute()  {
 	self.dataSourceName = '';
 	self.searchTextDataSourceName = '';
 	self.shownInTable = true;
+	self.textLong = false;
 }

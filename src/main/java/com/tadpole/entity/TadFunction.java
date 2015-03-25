@@ -35,7 +35,7 @@ public class TadFunction implements Serializable {
 
 	protected Integer menuId;
 
-	@Lob
+	@javax.persistence.Lob
 	protected String jpaEntityCode;
 
 	protected String jpaEntityFilePath;

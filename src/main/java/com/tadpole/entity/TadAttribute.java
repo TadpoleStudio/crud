@@ -44,6 +44,8 @@ public class TadAttribute implements Serializable {
 	
 	protected Boolean shownInTable;
 	
+	protected Boolean textLong;
+	
 
 	public Integer getId() {
 
@@ -172,5 +174,20 @@ public class TadAttribute implements Serializable {
 	
 		this.shownInTable = shownInTable;
 	}
+
+	
+	public Boolean getTextLong() {
+	
+		return textLong;
+	}
+
+	
+	public void setTextLong(Boolean textLong) {
+	
+		this.textLong = textLong;
+	}
+
+	
+	
 	
 }

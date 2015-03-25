@@ -27,6 +27,7 @@ public class SmsTemplate implements Serializable {
 	@Column(unique = true,nullable = false)
 	protected String name;
 	
+	@javax.persistence.Lob
 	@Column(nullable = false)
 	protected String content;
 	

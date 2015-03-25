@@ -51,7 +51,7 @@
 						<div class="six columns">
 							<label>Name</label> <input type="text" data-bind="value : name" />
 						</div>
-						<div class="six columns">
+						<div class="three columns">
 							<label>Type</label> 
 							<select data-bind="options: $root.dataTypes,
                       					   optionsText: 'optionText',
@@ -61,6 +61,12 @@
                        											   optionsCaption: 'Please select'"
 								class="required">
 							</select>
+						</div>
+						<div class="three columns">
+							<label>Long Text?</label>
+							<label class="input-checkbox">
+								<input type="checkbox" data-bind="checked : textLong" />
+							Text is Long</label>
 						</div>
 					</div>
 					<div class="row">
