@@ -83,7 +83,9 @@ public class TestInitializationScripts {
 	public void testInitialMenus() {
 
 		Menu menu2 = new Menu("User Management", "/crud/admin/loadUser.action", "userManager");
+		menu2.setVisible(true);
 		Menu menu3 = new Menu("System Development", "/crud/dev/develop.action", "develop");
+		menu3.setVisible(true);
 
 		menuRepository.save(ImmutableList.of(menu2, menu3));
 
